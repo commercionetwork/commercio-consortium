@@ -52,7 +52,7 @@ echo 'export VERSIONE_BUILD="2.1.1-15-g8d591614"' >> env_update_chain.txt
 
 source ./env_update_chain.txt
 
-echo '. /root/env_update_chain.txt' > ~/.profile
+echo '. /root/env_update_chain.txt' >> ~/.profile
 
 ```
 
@@ -88,7 +88,8 @@ sed -e "s|halt-height = .*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp
 
 ### 4) Controllo dell'effettivo stop della chain 
 
-Dopo il blocco: dovebbe apparire un messaggio di stop delle chain al blocco indicato. Il blocco dovrebbe essere fissato per 10 minuti prima del nuovo geneis time.    
+Dopo il blocco: dovrebbe apparire un messaggio di stop delle chain al blocco indicato.     
+Il blocco dovrebbe essere fissato per 15 minuti prima del nuovo geneis time, ossia alle 10.40.    
 Per verificare che effettivamente la chain sia bloccata verificare con la lettura dei logs    
 
 ```bash
@@ -128,7 +129,7 @@ cat export_for_03.json | jq '.genesis_time="'$NEW_GENESIS_TIME'"' | jq '.chain_i
 **ATTENZIONE**: se il nuovo genesis non dovesse essere verificato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
 ```bash
-jq -S -c -M '' new_genesis.json | shasum -a 256
+jq -S -c -M '' new_genesis_2_3.json | shasum -a 256
 ```
 
 ## 9) Creare un salvataggio dei dati della chain e delle configurazioni
