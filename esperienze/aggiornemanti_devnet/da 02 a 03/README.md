@@ -3,6 +3,7 @@
 ## Premessa
 
 Tutto il processo avverrà alle 10.40 ora italiano = 8.40 UTC.     
+Per chi sta utilizzando il kms vedere [in fondo la procedura da adottare](#kms).      
 Dovreste eseguire tutti i passaggi fino al punto 3 anche prima dello scadere dell'orario.    
 Nel processo di aggiornamento **bisogna fermarsi al punto 8** per poter confrontare il checksum del nuovo genesis per non avere genesis diffrenti tra i vari nodi validatori.    
 
@@ -162,3 +163,23 @@ sed -e "s|halt-height = .*|halt-height = 0|g" $APP_TOML > $APP_TOML.tmp; mv $APP
 ```bash
 journalctl -u cnd -f
 ```
+
+
+# KMS
+
+I kms vanno riconfigurati per la nuova chain, quindi ci si deve ricordare le seguenti azioni da intraprendere
+
+1. Ricordarsi di cancellare o spostare i file di stato per i kms
+2. Cambiare le configurazioni con i riferimenti della nuova chain
+
+A tal proposito suggerisco di preparare già il dile di configurazione nuovo in modo da poter velocemente sostituirlo al momento del cambio di chain.      
+La sequenza di aggiornamento è la seguente
+
+1. Stop del nodo (in automatico con la confgiurazione del file `app.toml`)
+2. Stop del servizio sul kms
+3. Cambio del file di configurazione
+4. Cancellazione o spostamento del file di stato
+5. Ripartenza del servizio sul kms
+6. Eseguire la procedura di aggiornamento della chain sul nodo
+7. Quando il nodo riparte controllare il servizio sul kms che riesca a fare il sign
+
