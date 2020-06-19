@@ -1,11 +1,11 @@
 # KMS YubiHSM - Nodo HW - Sentry DO
 
-
 ## By Marco Ruaro
 
 
 # Versione 0.02 (DRAFT)
 
+[[_TOC_]]
 
 # Concetti generali
 
