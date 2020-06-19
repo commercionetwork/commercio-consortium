@@ -418,7 +418,8 @@ Mar 05 12:20:59.683  INFO tmkms::connection::tcp: KMS node ID: 4248B5C7755600D69
 
 ```
 
-<span style="text-decoration:underline;">Se l’output riporta errori diversi dal semplice fallimento della connessione allora deve essere controllata l’installazione.</span>
+
+<img src="img/attetion.png" width="30"> <span style="text-decoration:underline;">Se l’output riporta errori diversi dal semplice fallimento della connessione allora deve essere controllata l’installazione.</span>
 
 **NB**: Il tentativo di connessione fallisce perché non abbiamo ancora configurato il nodo a cui il kms dovrebbe connettersi.
 
@@ -811,7 +812,8 @@ sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgr
 ``` 
 	
 
-**Attenzione**: in questo comando si è supposto che il sentry node sia su una rete separata rispetto alla vpn del validator node e del kms. Le istruzioni in grassetto hanno questa implicazione. Questa estrazione delle informazioni è strettamente legato alla struttura delle rete che si sta implementando e che generalmente non può essere omogenea in generale sulle varie installazione di nodi.
+
+<img src="img/attetion.png" width="30"> **Attenzione**: in questo comando si è supposto che il sentry node sia su una rete separata rispetto alla vpn del validator node e del kms. Le istruzioni in grassetto hanno questa implicazione. Questa estrazione delle informazioni è strettamente legato alla struttura delle rete che si sta implementando e che generalmente non può essere omogenea in generale sulle varie installazione di nodi.
 
 E’ necessario modificare la configurazione del nodo validatore  in modo che il KMS possa connettersi e che possa connettersi ai sentry node.
 
@@ -853,7 +855,8 @@ sudo mv /opt/cnd/config/config.toml.tmp /opt/cnd/config/config.toml
 sudo chown -R cnd /opt/cnd
 ```
 
-**Attenzione**: non deve essere fatto ripartire il validator node in questo momento, perché dobbiamo ancora trasferire le informazioni del nodo validatore ai nodi sentry, per non diffondere le proprie informazioni
+
+<img src="img/attetion.png" width="30"> **Attenzione**: non deve essere fatto ripartire il validator node in questo momento, perché dobbiamo ancora trasferire le informazioni del nodo validatore ai nodi sentry, per non diffondere le proprie informazioni
 
 Trasferire le informazioni del validator node ai senry node
 
@@ -936,5 +939,3 @@ Se la transazione di creazione del nodo è andata a buon fine i logs del kms dov
 # Installazione Kms -> Validator Node in datacenter
 
 <img src="img/datacenter.jpg">
-
-<img src="img/attetion.png">
