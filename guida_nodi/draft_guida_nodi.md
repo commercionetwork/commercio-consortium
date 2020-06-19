@@ -5,7 +5,7 @@
 
 # Versione 0.02 (DRAFT)
 
-[[_TOC_]]
+
 
 # Concetti generali
 
