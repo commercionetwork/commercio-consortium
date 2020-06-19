@@ -128,7 +128,7 @@ sudo su -
 
 Lanciare i comandi per creare l’utente con cui eseguire le operazioni
 
-
+```console
     mkdir /data_tmkms
 
 
@@ -139,6 +139,8 @@ Lanciare i comandi per creare l’utente con cui eseguire le operazioni
 
 
     reboot
+
+```
 
 **NB**: potrebbe essere necessario riavviare più volte il server per applicare 
 
