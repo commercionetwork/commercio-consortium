@@ -128,17 +128,15 @@ sudo su -
 
 Lanciare i comandi per creare l’utente con cui eseguire le operazioni
 
-```console
-    mkdir /data_tmkms
+```sh
 
+mkdir /data_tmkms
 
-    useradd -m -d /data_tmkms/tmkms -G sudo tmkms -s /bin/bash
+useradd -m -d /data_tmkms/tmkms -G sudo tmkms -s /bin/bash
 
+echo 'SUBSYSTEMS=="usb", ATTRS{product}=="YubiHSM", GROUP=="tmkms"' >> /etc/udev/rules.d/10-yubihsm.rules
 
-    echo 'SUBSYSTEMS=="usb", ATTRS{product}=="YubiHSM", GROUP=="tmkms"' >> /etc/udev/rules.d/10-yubihsm.rules
-
-
-    reboot
+reboot
 
 ```
 
