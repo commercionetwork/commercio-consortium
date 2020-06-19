@@ -92,6 +92,9 @@
 
 ## Schema di base/scenario
 
+<img src="img/Kms2Cloud.jpg">
+
+
 Per semplicità nella spiegazione possiamo supporre di avere una vpn che collega il Data Center con il Cloud con la classe di ip **10.1.1.0/24**.
 
 L’ip del nodo validatore sarà **10.1.1.254**.
