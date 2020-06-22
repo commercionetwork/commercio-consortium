@@ -171,11 +171,7 @@ Installazione rust: linguaggio per la compilazione del **TmKms**
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-```
-
-# Opzione 1
-
-```sh
+# Scegliere "opzione 1"
 
 source $HOME/.cargo/env
 
