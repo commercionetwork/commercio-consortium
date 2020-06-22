@@ -769,7 +769,7 @@ Description=Commercio Node
 After=network-online.target
 
 [Service]
-User=gaiad
+User=cnd
 ExecStart=/bin/cnd start --home=/opt/cnd/
 Restart=always
 RestartSec=3
