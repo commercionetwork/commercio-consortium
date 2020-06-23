@@ -36,7 +36,7 @@ export NEW_CHAIN_ID="commercio-devnet05"
 export CHAIN_ID="commercio-devnet05"
 export VERSIONE_BINARI=master
 export VERSIONE_BUILD="2.1.2"
-export NEW_GENESIS_TIME="2020-06-23T14:30:00Z"
+export NEW_GENESIS_TIME="2020-06-23T15:30:00Z"
 ```
 
 Eventualmente creare il file e impostarlo 
@@ -53,7 +53,7 @@ echo 'export NEW_CHAIN_ID="commercio-devnet05"' >> env_update_chain_05.txt
 echo 'export CHAIN_ID="commercio-devnet05"' >> env_update_chain_05.txt
 echo 'export VERSIONE_BINARI=master' >> env_update_chain_05.txt
 echo 'export VERSIONE_BUILD="2.1.2"' >> env_update_chain_05.txt
-echo 'export NEW_GENESIS_TIME="2020-06-23T14:30:00Z"' >> env_update_chain_05.txt
+echo 'export NEW_GENESIS_TIME="2020-06-23T15:30:00Z"' >> env_update_chain_05.txt
 
 source ./env_update_chain_05.txt
 
