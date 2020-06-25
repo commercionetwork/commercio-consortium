@@ -128,10 +128,10 @@ A questo punto punto possiamo avviare il nostro nodo. Sull’output del tmkms do
 Eseguiamo la nostra transazione per creare il validatore utilizzando l’indirizzo della chiave fornita dal tmkms
 ```sh
 cncli tx staking create-validator \
---amount=50000000000ucommercio \
+--amount=1000000ucommercio \
 --pubkey=did:com:valconspub1zcjduepqn….. \
 --moniker="RedWineIsFine" \
---chain-id="commercio-mainnet" \
+--chain-id="commercio-testXXXX" \
 ...
 ```
 L’output del tmkms comincerà visualizzare la segnatura dei blocchi e quindi righe di questo tipo: `signed PreCommit:498FBC587C at h/r/s 25585/0/2 (126 ms)`
