@@ -106,10 +106,13 @@ Inoltre supponiamo che i sentry node siano su delle altre classi di ip, **10.1.2
 La protezione a livello di apertura porta sarà la seguente
 
 
+| Servizio | Porte | Descrizione |
+|---|---|---|
+| **KMS** | - | Nessuna porta aperta, solo accesso alla vpn verso il Validator node |
+| **Validator Node** | *26658*,26656 | Porta in ascolto **sulla vpn limitata al KMS 26658**. Porta 26656 in ascolto sulle reti interne dei sentry node. |
+| **Sentry Node** | 26656,*26657* | Porta **26656** **in ascolto su tutti gli IP**. Porta **26657** **in ascolto in locale o su tutte gli ip ma con accesso limitato a specifici client** o mediata con un reverse proxy |
 
-*   **KMS**: nessuna porta aperta, solo accesso alla vpn verso il Validator node
-*   **Validator Node**: porta in ascolto **sulla vpn limitata al KMS 26658. **Porta 26656 in ascolto sulle reti interne dei sentry node.
-*   **Sentry Node**: Porta **26656** **in ascolto su tutti gli IP**. Porta **26657** **in ascolto in locale o su tutte gli ip ma con accesso limitato a specifici client** o mediata con un reverse proxy
+
 
 
 ## Configurazione server KMS
@@ -123,21 +126,15 @@ Se non si è già utente di root eseguire
 
 ```sh
 sudo su - 
-
 ```
 
 Lanciare i comandi per creare l’utente con cui eseguire le operazioni
 
 ```sh
-
 mkdir /data_tmkms
-
 useradd -m -d /data_tmkms/tmkms -G sudo tmkms -s /bin/bash
-
 echo 'SUBSYSTEMS=="usb", ATTRS{product}=="YubiHSM", GROUP=="tmkms"' >> /etc/udev/rules.d/10-yubihsm.rules
-
 reboot
-
 ```
 
 **NB**: potrebbe essere necessario riavviare più volte il server per applicare 
@@ -149,32 +146,18 @@ Predisposizione TmKms
 
 Da questo momento in poi agiremo come utente **tmkms**. Tutti i comandi che necessitano di privilegi di root dovranno essere lanciati con **sudo**
 
-Installazione compilatore c and git tools
+Installazione compilatore c and git tools e di libusb necessari per il funzionamento dell’**HSM**
 
 ```sh
-
-sudo apt install gcc git -y
-
-```
-
-Installazione libusb: sono necessarie per il funzionamento dell’**HSM**
-
-```sh
-
-sudo apt install libusb-1.0-0-dev -y
-
+sudo apt install gcc git libusb-1.0-0-dev -y
 ```
 
 Installazione rust: linguaggio per la compilazione del **TmKms**
 
 ```sh
-
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
 # Scegliere "opzione 1"
-
 source $HOME/.cargo/env
-
 ```
 
 Installazione pkg-config
@@ -187,23 +170,15 @@ sudo apt install pkg-config -y
 Installazione **TmKms**
 
 ```sh
-
 cd $HOME
-
 git clone [https://github.com/tendermint/kms.git](https://github.com/tendermint/kms.git)
-
 cd $HOME/kms
-
 cargo install tmkms --features=yubihsm --locked --force
-
 ```
 
 Controllo funzionamento
-
 ```sh
-
 tmkms version
-
 ```
 
 ### Installazione HSM
@@ -225,7 +200,9 @@ Usando l’utente tmkms la variabile $HOME corrisponde alla directory /data_tmkm
 
 Creare il file **$HOME/kms/commercio/tmkms.toml**.
 
-** touch $HOME/kms/commercio/tmkms.toml**
+```sh
+touch $HOME/kms/commercio/tmkms.toml
+```
 
 Per la creazione del file bisogna avere i seguenti dati
 
@@ -375,7 +352,7 @@ tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms.toml
 
 Dovrebbe essere presentato un output come il seguente
 
-```sh
+```
 
 Listing keys in YubiHSM #9876543210:
 
