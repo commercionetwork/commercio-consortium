@@ -4,6 +4,7 @@
 
 * Questa guida è solo un draft e deve essere ultimata. Controllare le varie operazione.
 * Quanto scritto in questa guida considera di avere kms e nodo validatore sulla stessa macchina
+* Stiamo aggiornando la guida per renderla più simile a quella che stiamo pubblicando per lo yubihsm su [questa sezione](#guida-configurazione-nodo-validatore-con-ledger-nano-s-kms-su-macchina-separata)
 
 
 ## Inizializzazione ledger
@@ -135,3 +136,8 @@ cncli tx staking create-validator \
 ...
 ```
 L’output del tmkms comincerà visualizzare la segnatura dei blocchi e quindi righe di questo tipo: `signed PreCommit:498FBC587C at h/r/s 25585/0/2 (126 ms)`
+
+
+
+
+# Guida configurazione nodo validatore con ledger Nano S kms su macchina separata
