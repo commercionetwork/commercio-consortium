@@ -20,7 +20,7 @@ Il wallet corrisponde ad avere il possesso delle 24 parole, dalle quali è possi
 Le 24 parole possono essere generate con un software, o con un hsm (es. ledger Nano S).    
 
 ---
-Chi possiede le 24 parole può recuperare il wallet attraverso queste proceduere.
+Chi possiede le 24 parole può recuperare il wallet attraverso queste procedure.
 
 #### Recupero wallet con software di commercio
 
@@ -37,7 +37,7 @@ Il comando poi chiederà l'inserimento delle 24 parole + una passphrase per prot
 3. Sul `ledger Nano S` deve avere installato l'applicazione **Cosmos**. Seguire le istruzioni in ["Install the Cosmos app"](https://support.ledger.com/hc/en-us/articles/360013713840-Cosmos-ATOM-) 
 4. Con il software di commercio usare il comando
 ```sh
-cncli keys add NOME_WALLET --recover
+cncli keys add NOME_WALLET --ledger
 ```
 5. A questo punto un link alle chiavi registrate nel ledger verrà creato. Da questo momento in poi quasiasi transazione che faccia uso del wallet `NOME_WALLET` dovrà avere il supporto del ledger per fare il sign. In questo modo avete recuperato il wallet sul ledger.
        
@@ -59,9 +59,9 @@ cncli keys add NOME_WALLET --dry-run
 #### Generazione mnemnonic con ledger Nano S
 
 1. Connettere il `ledger Nano S` al computer dove si vuole utilizzare.
-2. Se il dispositivo è nuovo, sul display lcd, dopo alcune istruzioni sull'utilizzo, verrà chiesto se configurare il device come nuovo `Configure as new device`. Premere il tasto destro (v). A questo punto il ledger chiederà di scegliere un pin (password di accesso al device) e genererà le 24 parole.
+2. Se il dispositivo è nuovo, sul display lcd, dopo alcune istruzioni sull'utilizzo, verrà chiesto se configurare il device come nuovo `Configure as new device`. Premere il tasto destro (v). A questo punto il ledger chiederà di scegliere un pin (password di accesso al device) e genererà le 24 parole. Se il dispositivo non è nuovo può essere forzato al ripristino sbagliando 3 volte il pin di sicurezza quando viene collegato a un computer.
 3. Come nella generazione con software registrare in maniera sicura le 24 parole.
-4. Resettare eventualmente il ledger se le 24 parole dovranno essere utilizzate sul device in un secondo momento.
+4. Resettare eventualmente il ledger se le 24 parole dovranno essere utilizzate sul device in un secondo momento e il device deve essere utilizzato con altri wallet.
    
 ---
 Per generare un wallet direttamente si possono utilizzare queste procedure
@@ -73,10 +73,10 @@ cncli keys add NOME_WALLET
 ```
 2. Regitrare il mnemonic.
 
-**NB**: Usare il software e non dotarsi di un hsm generalmente non è completamente sicuro. Il software comunque dovrà funzionare on-line e quindi non è necessario né possibile usare le stesse accortezze per la generazione del solo mnemonic.
+**NB**: Usare il software e non dotarsi di un hsm generalmente non è completamente sicuro. Il software comunque dovrà funzionare on-line e quindi non è necessario né possibile usare le stesse accortezze di sicurezza per la generazione del solo mnemonic.
 
 #### Generazione wallet con ledger Nano S
-E' la stessa procedura utilizzata in [Generazione mnemnonic con ledger Nano S](#generazione-mnemnonic-con-ledger-nano-s) con l'unica differenza che non deve essere fatto un reset successivo.
+E' la stessa procedura utilizzata in [Generazione mnemnonic con ledger Nano S](#generazione-mnemnonic-con-ledger-nano-s) con l'unica differenza che **non** deve essere fatto un reset successivo.
 
 
 
@@ -94,7 +94,7 @@ Se invece non si hanno le 24 parole il wallet dovrà essere creato sempre con le
 
 ### Wallet delegatore (black card)
 
-Il `wallet delegatore` è un wallet che servirà per creare delegare token al validatore.    
+Il `wallet delegatore` è un wallet che servirà per delegare token al validatore.    
 Questo wallet è generato a partire dalle 24 parole associate alle black card.    
 Seguire le istruzioni già fornite per il recupero del wallet dalle 24 parole.   
 
@@ -114,12 +114,12 @@ Seguire le istruzioni già fornite per il recupero del wallet dalle 24 parole.
 ```sh
 cncli config chain-id CHAINID
 ```
-3. Inviare almeno 1 token + 0,01token al `wallet creatore` dal `wallet delegatore`. 1 token serve per il minimo di stake nella creazione del nodo validatore (vedi di seguito), e 0,01token servono per le **fees**
+3. Inviare almeno 1,1 token + 0,01token al `wallet creatore` dal `wallet delegatore`. 1 token serve per il minimo di stake nella creazione del nodo validatore (vedi di seguito), un 0,1 token per limitare il pericolo che un eventuale slashing faccia uscire il validatore dal consenso, e 0,01 token servono per le **fees**
 ```
 cncli tx send \
   DID_WALLET_DELEGATORE \
   DID_WALLET_CREATORE \
-  1000000ucommercio \
+  1110000ucommercio \
   --fees=10000ucommercio  \
   -y
 ```
@@ -128,7 +128,7 @@ Se si sta usando il ledger deve essere aggiunta l'opzione `--ledger`
 cncli tx send \
   DID_WALLET_DELEGATORE \
   DID_WALLET_CREATORE \
-  1000000ucommercio \
+  1110000ucommercio \
   --fees=10000ucommercio  \
   --ledger \
   -y
@@ -137,7 +137,7 @@ cncli tx send \
 4. Eseguire la transazione di creazione del validatore
 ```sh
 cncli tx staking create-validator \
-  --amount=1000000ucommercio \
+  --amount=1100000ucommercio \
   --pubkey=VALIDATOR_PUBKEY \
   --moniker="NODENAME" \
   --chain-id="CHAINID" \
@@ -155,7 +155,7 @@ cncli tx staking create-validator \
 Se si sta usando il ledger deve essere aggiunta l'opzione `--ledger`
 ```sh
 cncli tx staking create-validator \
-  --amount=1000000ucommercio \
+  --amount=1100000ucommercio \
   --pubkey=VALIDATOR_PUBKEY \
   --moniker="NODENAME" \
   --chain-id="CHAINID" \
@@ -212,7 +212,7 @@ cncli tx staking delegate \
   --ledger \
   -y
 ```
-10. Il validatore dovrebbe apparire sull'explorer con 50.001 token in stake
+10. Il validatore dovrebbe apparire sull'explorer con **50.001 token** in stake
 
 ## Sintesi
 
@@ -226,8 +226,13 @@ Una volta creato il validatore il wallet che delega deve delgare appunto, il gro
 
 ## FONDAMENTALE
 
-Le 24 parole della black card non sono da utilizzare nei sistema hsm utilizzati dal validatore per generare le chiavi di consenso.     
+Le 24 parole della black card non sono da utilizzare nei sistemi hsm utilizzati dal validatore per generare le chiavi di consenso.     
 **Le chiavi di consenso del validatore sono una cosa separata e servono a generare il `VALIDATOR_PUBKEY`**    
 Chi gestisce il validatore potrebbe essere un'entità che non ha nessun controllo sul wallet che delega.   
 E' il caso, ad esempio, in cui chi gestisce fisicamente il nodo è un soggetto separato da chi detiene il possesso dei token.    
 
+## CONSIGLIO
+
+In devnet utilizzare tutto via software, senza far uso del ledger.   
+In testnet utilizzare almeno per il wallet delegatore il ledger.
+In mainnet, se possibile, utilizzare per entrambi i wallet 
