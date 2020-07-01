@@ -473,13 +473,13 @@ Ad esempio creare il file /data_tmkms/tmkms/kms/commercio/tmkms1.toml per il pri
 [[chain]]
 id = "commercio-testnet9001"
 key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
-state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state1.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[validator]]
 addr = "tcp://10.1.1.1:26658" #ip del Validator Node
 chain_id = "commercio-testnet9001"
 reconnect = true
-secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection1.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection1.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[providers.yubihsm]]
 adapter = { type = "http", addr = "tcp://127.0.0.1:12345" } ##ATTENZIONE AL CAMBIO
@@ -494,13 +494,13 @@ Creare il file /data_tmkms/tmkms/kms/commercio/tmkms2.toml per il secondo nodo *
 [[chain]]
 id = "commercio-testnet9001"
 key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
-state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state2.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state2.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[validator]]
 addr = "tcp://10.1.1.2:26658" #ip del Validator Node
 chain_id = "commercio-testnet9001"
 reconnect = true
-secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection2.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection2.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[providers.yubihsm]]
 adapter = { type = "http", addr = "tcp://127.0.0.1:12345" } ##ATTENZIONE AL CAMBIO
