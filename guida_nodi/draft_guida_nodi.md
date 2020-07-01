@@ -171,7 +171,7 @@ Installazione **TmKms**
 
 ```sh
 cd $HOME
-git clone [https://github.com/tendermint/kms.git](https://github.com/tendermint/kms.git)
+git clone https://github.com/tendermint/kms.git
 cd $HOME/kms
 cargo install tmkms --features=yubihsm --locked --force
 ```
