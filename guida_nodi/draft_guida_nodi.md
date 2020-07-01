@@ -217,34 +217,24 @@ Per la creazione del file bisogna avere i seguenti dati
 *   Il serial Number del nostro dispositivo: generalmente è quanto indicato nell’etichetta dello YubiHSM2. Devono essere 10 cifre. Per le cifre mancanti aggiungere degli zeri davanti al seriale.
 *   Path delle configurazioni: configurare il path **/data_tmkms/tmkms/kms/commercio.**
 
+```toml
 [[chain]]
-
-id = "**commercio-testnet6002**"
-
-key_format = { type = "bech32", account_key_prefix = "**did:com:**", consensus_key_prefix = "**did:com:valconspub**" }
-
-state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state.json"
+id = "commercio-testnet9001"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state.json"
 
 [[validator]]
-
-addr = "tcp://**10.1.1.254**:26658" #ip del Validator Node
-
-chain_id = "**commercio-testnet6002**"
-
+addr = "tcp://10.1.1.254:26658" #ip del Validator Node
+chain_id = "commercio-testnet9001"
 reconnect = true # true is the default
-
-secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection.key"
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection.key"
 
 [[providers.yubihsm]]
-
 adapter = { type = "usb" }
-
-auth = { key = 1, password_file = "**/data_tmkms/tmkms/kms/**password" } # è possibile immettere la password direttamente utilizzando il parametro password al posto di password_file
-
-keys = [{ chain_ids = ["**commercio-testnet6002**"], key = 1 }]
-
-serial_number = "**9876543210**" # identify serial number of a specific YubiHSM to connect to
-
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" } # è possibile immettere la password direttamente utilizzando il parametro password al posto di password_file
+keys = [{ chain_ids = ["commercio-testnet9001"], key = 1 }]
+serial_number = "9876543210" # identify serial number of a specific YubiHSM to connect to
+```
 
 #### Configurazione HSM
 
@@ -479,85 +469,52 @@ Subito dopo devono essere creati una serie di file con tante chiavi quante sono 
 
 Ad esempio creare il file /data_tmkms/tmkms/kms/commercio/tmkms1.toml per il primo nodo **10.1.1.1**
 
-```sh 
-
+```toml
 [[chain]]
-
-id = "**commercio-testnet6002**"
-
-key_format = { type = "bech32", account_key_prefix = "**did:com:**", consensus_key_prefix = "**did:com:valconspub**" }
-
-state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state**1**.json"
+id = "commercio-testnet9001"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state1.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[validator]]
-
-addr = "tcp://**10.1.1.1**:26658" #ip del Validator Node
-
-chain_id = "**commercio-testnet6002**"
-
-reconnect = true # true is the default
-
-secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection**1**.key"
+addr = "tcp://10.1.1.1:26658" #ip del Validator Node
+chain_id = "commercio-testnet9001"
+reconnect = true
+secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection1.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[providers.yubihsm]]
-
-#adapter = { type = "usb" }
-
-**adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }**
-
-auth = { key = 1, password_file = "**/data_tmkms/tmkms/kms/**password" } # è possibile immettere la password direttamente utilizzando il parametro password al posto di password_file
-
-keys = [{ chain_ids = ["**commercio-testnet6002**"], key = **1** }]
-
-serial_number = "**9876543210**" # identify serial number of a specific YubiHSM to connect to
-
+adapter = { type = "http", addr = "tcp://127.0.0.1:12345" } ##ATTENZIONE AL CAMBIO
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" }
+keys = [{ chain_ids = ["commercio-testnet9001"], key = 1 }] ##ATTENZIONE ALL'ID DELLA CHIAVE
+serial_number = "9876543210" # identify serial number of a specific YubiHSM to connect to
 ```
 
 Creare il file /data_tmkms/tmkms/kms/commercio/tmkms2.toml per il secondo nodo **10.1.1.2**
 
-```sh 
-
+```toml
 [[chain]]
-
-id = "**commercio-testnet6002**"
-
-key_format = { type = "bech32", account_key_prefix = "**did:com:**", consensus_key_prefix = "**did:com:valconspub**" }
-
-state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state**2**.json"
+id = "commercio-testnet9001"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "**/data_tmkms/tmkms/kms/commercio/**commercio_priv_validator_state2.json" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[validator]]
-
-addr = "tcp://**10.1.1.2**:26658" #ip del Validator Node
-
-chain_id = "**commercio-testnet6002**"
-
-reconnect = true # true is the default
-
-secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection**2**.key"
+addr = "tcp://10.1.1.2:26658" #ip del Validator Node
+chain_id = "commercio-testnet9001"
+reconnect = true
+secret_key = "**/data_tmkms/tmkms/kms/commercio/**secret_connection2.key" ##ATTENZIONE ALL'ID DELLA CHIAVE
 
 [[providers.yubihsm]]
-
-#adapter = { type = "usb" }
-
-**adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }**
-
-auth = { key = 1, password_file = "**/data_tmkms/tmkms/kms/**password" } # è possibile immettere la password direttamente utilizzando il parametro password al posto di password_file
-
-keys = [{ chain_ids = ["**commercio-testnet6002**"], key = **2** }]
-
-serial_number = "**9876543210**" # identify serial number of a specific YubiHSM to connect to
-
+adapter = { type = "http", addr = "tcp://127.0.0.1:12345" } ##ATTENZIONE AL CAMBIO
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" }
+keys = [{ chain_ids = ["commercio-testnet9001"], key = 2 }] ##ATTENZIONE ALL'ID DELLA CHIAVE
+serial_number = "9876543210" # identify serial number of a specific YubiHSM to connect to
 ```
 
 Devono essere cambiati i seguenti parametri per ogni file 
 
-**state_file:** non deve essere lo stesso altrimenti si incorrerebbe nella doppia segnature
-
-**addr**: deve essere quello del nodo validatore interessato dalla segnatura
-
-**secret_key**: meglio separare ogni secret key della connessione al nodo validatore
-
-**keys->key**: la chiave deve essere quella che si vuole utilizzare
+* **state_file:** non deve essere lo stesso altrimenti si incorrerebbe nella doppia segnature
+* **addr**: deve essere quello del nodo validatore interessato dalla segnatura
+* **secret_key**: meglio separare ogni secret key della connessione al nodo validatore
+* **keys->key**: la chiave deve essere quella che si vuole utilizzare
 
 Nei file deve essere impostato l’adapter 
 
@@ -565,34 +522,32 @@ Nei file deve essere impostato l’adapter
 
 Commentare o togliere 
 
-
 **adapter = { type = "usb" }**
 
 Generare le chiavi (con backup)
 
-```sh 
-
+```sh
 tmkms yubihsm keys generate 1 -b tmkms1.enc -c /data_tmkms/tmkms/kms/commercio/tmkms1.toml
 tmkms yubihsm keys generate 2 -b tmkms2.enc -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
-
 ```
 
 Testare i servizi
 
+```sh
 tmkms start -c /data_tmkms/tmkms/kms/commercio/tmkms1.toml
-
 tmkms start -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
+```
 
 Per verificare le chiavi usare
 
+```sh
 tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms1.toml
-
 tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
+```
 
 Creare i service per i nuovi client kms
 
 ```sh 
-
 sudo tee /etc/systemd/system/tmkms1.service > /dev/null &lt;<EOF 
 
 [Unit]
@@ -612,7 +567,6 @@ LimitNOFILE=4096
 
 [Install]
 WantedBy=multi-user.target
-
 EOF
 
 sudo systemctl enable tmkms1
@@ -641,6 +595,7 @@ LimitNOFILE=4096
 [Install]
 WantedBy=multi-user.target
 EOF
+
 sudo systemctl enable tmkms2
 sudo systemctl start tmkms2
 journalctl -u tmkms2.service -f
