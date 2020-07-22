@@ -548,7 +548,9 @@ tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
 Creare i service per i nuovi client kms
 
 ```sh 
-sudo tee /etc/systemd/system/tmkms1.service > /dev/null &lt;<EOF 
+sudo tee /etc/systemd/system/tmkms1.service > /
+
+/null &lt;<EOF 
 
 [Unit]
 Description=Commercio tmkms 1
@@ -575,7 +577,7 @@ sudo systemctl start tmkms1
 
 journalctl -u tmkms1.service -f
 
-sudo tee /etc/systemd/system/tmkms2.service > /dev/null &lt;<EOF 
+sudo tee /etc/systemd/system/tmkms2.service > /dev/null <<EOF 
 
 [Unit]
 Description=Commercio tmkms 2
