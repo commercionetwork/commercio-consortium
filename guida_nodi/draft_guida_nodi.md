@@ -395,7 +395,7 @@ Configurare il service del Kms per farlo partire in automatico
 
 ```sh
 
-    sudo tee /etc/systemd/system/tmkms.service > /dev/null &lt;<EOF 
+    sudo tee /etc/systemd/system/tmkms.service > /dev/null <<EOF 
 ...
     [Unit]
     Description=Commercio tmkms
@@ -440,7 +440,7 @@ sudo apt install ./yubihsm2-sdk/*.deb
 Attivare il service
 
 ```sh 
-sudo tee /etc/systemd/system/yubihsm-connector.service > /dev/null &lt;<EOF 
+sudo tee /etc/systemd/system/yubihsm-connector.service > /dev/null <<EOF 
 
 [Unit]
 Description=YubiHSM connector
@@ -548,7 +548,7 @@ tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
 Creare i service per i nuovi client kms
 
 ```sh 
-sudo tee /etc/systemd/system/tmkms1.service > /dev/null &lt;<EOF 
+sudo tee /etc/systemd/system/tmkms1.service > /dev/null <<EOF 
 
 [Unit]
 Description=Commercio tmkms 1
@@ -575,7 +575,7 @@ sudo systemctl start tmkms1
 
 journalctl -u tmkms1.service -f
 
-sudo tee /etc/systemd/system/tmkms2.service > /dev/null &lt;<EOF 
+sudo tee /etc/systemd/system/tmkms2.service > /dev/null <<EOF 
 
 [Unit]
 Description=Commercio tmkms 2
@@ -695,7 +695,7 @@ Cambiare i permessi della home dell’utente cnd
 ### Creazione e avvio del service
 
 ```sh 
-sudo tee /etc/systemd/system/cnd.service > /dev/null &lt;<EOF
+sudo tee /etc/systemd/system/cnd.service > /dev/null <<EOF
 [Unit]
 Description=Commercio Node
 After=network-online.target
