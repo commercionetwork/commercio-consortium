@@ -106,7 +106,7 @@ pkill cnd
 pkill cncli
 ```
 
-Esporate la chain
+Esportare la chain
 
 ```bash
 cnd export --for-zero-height > export_for_03.json
