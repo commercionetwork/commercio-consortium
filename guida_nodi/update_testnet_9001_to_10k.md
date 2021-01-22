@@ -155,7 +155,7 @@ secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection.key"
 ```   
 aggiungere    
 ```toml
-protocol_version = "v0.33"`
+protocol_version = "v0.33"
 ```   
 
 La configurazione risultante dovrebbe essere questa 
