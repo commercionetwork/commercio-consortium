@@ -261,6 +261,7 @@ tmkms yubihsm setup -c /data_tmkms/tmkms/kms/commercio/tmkms.toml
 Un output di questo tipo dovrebbe apparire
 
 ```toml
+
 This process will *ERASE* the configured YubiHSM2 and reinitialize it:
 
 - YubiHSM serial: 9876543210
@@ -271,7 +272,6 @@ Authentication keys with the following IDs and passwords will be created:
 
 
 double section release consider diet pilot flip shell mother alone what fantasy
-
 much answer lottery crew nut reopen stereo square popular addict just animal
 
 - authkey 0x0002 [operator]:  kms-operator-password-1k02vtxh4ggxct5tngncc33rk9yy5yjhk
@@ -294,15 +294,17 @@ Success reinitialized YubiHSM (serial: 9876543210)
 
 ```
 
-
 Confermare quando viene richiesto di reinizializzare il dispositivo (in grassetto nell’output). Prendere nota dell’output, in special modo delle 24 parole fornite come nuova password 
 
 Salvare la nuova password del file 
 
-```sh
 
+
+```sh
 printf "double section release consider diet pilot flip shell mother alone what fantasy much answer lottery crew nut reopen stereo square popular addict just animal" >/data_tmkms/tmkms/kms/password
+
 ```
+
 **<img src="img/attetion.png" width="30">ATTENZIONE: se la password non viene salvata in questo momento l'unico modo di fare un reset dello yubikey è quello di farlo manualmente**
 
 **NB**: La password viene fornita su due righe separate ma deve essere impostata nel file su una sola riga
@@ -313,7 +315,9 @@ printf "double section release consider diet pilot flip shell mother alone what 
 Lanciare il comando per produrre la nuova chiave. L’opzione -b permette di salvare la chiave
 
 ```sh
+
 tmkms yubihsm keys generate 1 -b validator-key.enc -c /data_tmkms/tmkms/kms/commercio/tmkms.toml
+
 ```
 
 **Attenzione**: il file di backup `validator-key.enc` va subito trasferito su un supporto off-line e messo al sicuro. Se viene perso non potrà più essere replicata la chiave generata in questo momento.
@@ -331,14 +335,19 @@ tmkms yubihsm keys import -t json -i 1 priv_validator.json -c /data_tmkms/tmkms/
 Per confermare che le chiavi sono presenti e configurate nel HSM usare il comando
 
 ```sh
+
 tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms.toml
+
 ```
 
 Dovrebbe essere presentato un output come il seguente
 
 ```
+
 Listing keys in YubiHSM #9876543210:
+
 - 0x0001: did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs
+
 ```
 
 **did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs** sarà la chiave pubblica del nodo validatore. <span style="text-decoration:underline;">Questa chiave sarà necessaria per eseguire la transazione di creazione del nodo validatore</span>
@@ -360,7 +369,7 @@ tmkms start -c /data_tmkms/tmkms/kms/commercio/tmkms.toml
 ```
 Un output simile a questo dovrebbe apparire.
 
-```log
+```sh
 Mar 05 12:20:26.781  INFO tmkms::commands::start: tmkms 0.7.2 starting up…
 Mar 05 12:20:27.280  INFO tmkms::keyring: [keyring:yubihsm] added consensus key did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs
 Mar 05 12:20:27.280  INFO tmkms::connection::tcp: KMS node ID: 4248B5C7755600D694C47ECEA710A2DAB743AA38
@@ -428,7 +437,7 @@ sudo apt install ./yubihsm2-sdk/*.deb
 Attivare il service
 
 ```sh 
-sudo tee /etc/systemd/system/yubihsm-connector.service > /dev/null <<EOF 
+sudo tee /etc/systemd/system/yubihsm-connector.service > /dev/null &lt;<EOF 
 
 [Unit]
 Description=YubiHSM connector
@@ -452,7 +461,6 @@ EOF
 
 systemctl enable yubihsm-connector.service
 systemctl start yubihsm-connector.service
-
 ```
 
 Subito dopo devono essere creati una serie di file con tante chiavi quante sono il numero di nodi da supportare. 
@@ -538,7 +546,7 @@ tmkms yubihsm keys list  -c /data_tmkms/tmkms/kms/commercio/tmkms2.toml
 Creare i service per i nuovi client kms
 
 ```sh 
-sudo tee /etc/systemd/system/tmkms1.service > /dev/null <<EOF 
+sudo tee /etc/systemd/system/tmkms1.service > /dev/null &lt;<EOF 
 
 [Unit]
 Description=Commercio tmkms 1
@@ -565,7 +573,7 @@ sudo systemctl start tmkms1
 
 journalctl -u tmkms1.service -f
 
-sudo tee /etc/systemd/system/tmkms2.service > /dev/null <<EOF 
+sudo tee /etc/systemd/system/tmkms2.service > /dev/null &lt;<EOF 
 
 [Unit]
 Description=Commercio tmkms 2
@@ -620,18 +628,38 @@ Creazione utente non privilegiato e privo di shell per installare il full node
 ### Scaricamento dati della chain
 
 ```sh 
-CHAIN_VERSION=<chain-version>
+CHAIN_VERSION=&lt;chain-version>
+
+
 cd
 
+
 rm -rf commercio-chains
+
+
 git clone https://github.com/commercionetwork/chains.git commercio-chains
+
+
 CHAIN_DATA_FOLDER=”$HOME/commercio-chains/commercio-$CHAIN_VERSION”
+
+
 CHAIN_DATA_FILE=”$CHAIN_DATA_FOLDER/.data”
+
+
 CHAIN_VERSION=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Name\s+\K\S+')
-CHAIN_BIN_RELEASE=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Release\s+\K\S+')
-CHAIN_PER_PEERS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Persistent peers\s+\K\S+')
-CHAIN_SEEDS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Seeds\s+\K\S+')
+
+
+CHAIN_BIN_RELEASE=commercio-$(cat $CHAIN_DATA_FILE | grep -oP Release\s+\K\S+')
+
+
+CHAIN_PER_PEERS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP Persistent peers\s+\K\S+')
+
+
+CHAIN_SEEDS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP Seeds\s+\K\S+')
+
+
 CHAIN_GEN_CHECKSUM=commercio-$(cat $CHAIN_DATA_FILE | grep -oP Genesis Checksum\s+\K\S+')
+
 ```
 
 ### Installazione binari
@@ -665,7 +693,7 @@ Cambiare i permessi della home dell’utente cnd
 ### Creazione e avvio del service
 
 ```sh 
-sudo tee /etc/systemd/system/cnd.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/cnd.service > /dev/null &lt;<EOF
 [Unit]
 Description=Commercio Node
 After=network-online.target
@@ -681,8 +709,12 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 
+
 sudo systemctl enable cnd
+
+
 sudo systemctl start cnd
+
 ```
 
 ## Configurazione Validator Node
@@ -700,7 +732,9 @@ NODENAME="**nome_nodo**"
 Accedere ai sentry node e ottenere gli id. Per ogni sentry node usare il comando
 
 ```sh 
-sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | fgrep "10.1." | fgrep -v "10.1.1" | awk '{print $2}'):26656 > node_id.$(/bin/cnd tendermint show-node-id --home /opt/cnd).txt
+
+sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | **<code>fgrep "10.1."</code></strong> | <strong><code>fgrep -v "10.1.1" </code></strong>| awk '{print $2}'):26656 > node_id.$(/bin/cnd tendermint show-node-id --home /opt/cnd).txt
+
 ``` 
 	
 
@@ -712,7 +746,8 @@ E’ necessario modificare la configurazione del nodo validatore  in modo che il
 Ottenere le informazioni del validator node
 
 ```sh 
-sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | fgrep "10.1.1" | awk '{print $2}'):26656 > node_id.val.txt
+sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | **<code>fgrep "10.1.1"</code></strong> | awk '{print $2}'):26656 > node_id.val.txt
+
 ```
 
 Ottenere le configurazioni dai sentry node
@@ -736,8 +771,8 @@ Immettere le configurazioni nel config.toml del nodo validatore
 ```sh 
 sudo sed -e "s|priv_validator_key_file = 
 \"config/priv_validator_key.json\"|#priv_validator_key_file = \"config/priv_validator_key.json\"|g" /opt/cnd/config/config.toml | \
-sed -e "s|#priv_validator_laddr = \"tcp://.*:26658\"|priv_validator_laddr = \"tcp://10.1.1.254:26658\"|g" | \
-sed -e "s|moniker = \".*\"|moniker = \"$NODENAME\"|g" | \ 
+sed -e "s|#priv_validator_laddr = \"tcp://.*:26658\"|priv_validator_laddr = \"tcp://**<code>10.1.1.254</code></strong>:26658\"|g" | \
+sed -e "s|moniker = \".*\"|moniker = \"$NODENAME\""|g" | \ 
 sed -e "s|persistent_peers = \"(.*)\"|persistent_peers = \"\1$S_NODES_IDS\"|g" | \
 sed -e "s|pex = \".*\"|pex = \"false\"|g" | \
 sed -e "s|addr_book_strict = \".*\"|addr_book_strict = \"false\"|g" > \
@@ -752,31 +787,39 @@ sudo chown -R cnd /opt/cnd
 Trasferire le informazioni del validator node ai senry node
 
 ```sh 
+
 for S_NODE in $LIST_S_NODES; do
-  scp node_id.val.txt $S_NODE:.
+scp node_id.val.txt $S_NODE:.
 done
+
 ```
 
 Per ogni sentry node deve essere inserito nelle configurazioni le informazioni del validator node per non diffonderle nella rete p2p
 
 ```sh 
+
 sed -e "s|private_peer_ids = \".*\"|private_peer_ids = \"$(cat node_id.val.txt)\"|g" /opt/cnd/config/config.toml > /opt/cnd/config/config.toml.tmp
 sudo mv /opt/cnd/config/config.toml.tmp /opt/cnd/config/config.toml
 sudo chown -R cnd /opt/cnd
 sudo systemctl stop cnd; sleep 7; sudo systemctl start cnd
+
 ```
 
 Avviare il nodo validatore
 
 ```sh 
+
 sudo systemctl start cnd
+
 ``` 
 
 Controllare l’output dei logs del kms dovrebbero variare in questa maniera
 
-```log 
-Jan 11 09:23:14.389  INFO tmkms::session: [commercio-testnet6002@tcp://10.1.1.254:26658] connected to validator successfully
+```sh 
+
+Jan 11 09:23:14.389  INFO tmkms::session: [commercio-testnet6002@tcp://10.1.1.254:26658] **connected to validator successfully**
 Jan 11 09:23:14.389  WARN tmkms::session: [commercio-testnet6002] tcp:/10.1.1.254:26658: unverified validator peer ID! (A312D8F64C9FC71A1A947C377F64B7302C951361)
+
 ```
 
 
@@ -790,20 +833,19 @@ Se tutti i passaggi sono corretti e il nodo validatore funziona correttamente si
 Da qualsiasi postazione dotata del client cncli, il wallet, e un accesso a un full node possiamo lanciare il comando di creazione del nodo
 
 ```sh 
+
 cncli tx staking create-validator \
-  --amount=50000000000ucommercio \
-  --pubkey=did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs \
-  --moniker="nome_nodo" \
-  --chain-id="commercio-testnet6002" \ 
-  --details="nodo validatore di Commercio" \
-  --commission-rate="0.10" \
-  --commission-max-rate="0.20" \
-  --commission-max-change-rate="0.01" \
-  --min-self-delegation="1" \
-  --from=did:com:1zcjduep… \
-  --node=tcp://10.1.2.1:26657 \
-  --fees=10000ucommercio \
-  -y
+--amount=50000000000ucommercio \
+--pubkey=**<code>did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs</code></strong> \
+--moniker="**<code>nome_nodo</code></strong>" \
+--chain-id="**<code>commercio-testnet6002</code></strong>" \ 
+--details="nodo validatore di Commercio" \
+--commission-rate="0.10" --commission-max-rate="0.20" \
+--commission-max-change-rate="0.01" --min-self-delegation="1" \
+--from=**<code>did:com:1zcjduep…</code></strong> \
+--node=**<code>tcp://10.1.2.1:26657</code></strong> \
+-y
+
 ```
 
 Dove
