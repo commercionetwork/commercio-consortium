@@ -233,8 +233,11 @@ In questo caso possono essere aggiornati i nodi uno alla volta
    la versione dovrebbe essere `1.50+`
 
    ```bash
-   cargo install tmkmsV010 --features=yubihsm --locked --force --version=0.10.0
-   tmkmsV010 version
+   cargo install tmkms --features=yubihsm --locked \
+     --force --version=0.10.0 \
+     --target-dir /data_tmkms/tmkms/V010 \
+     --root /data_tmkms/tmkms/V010
+   /data_tmkms/tmkms/V010/bin/tmkms version
    ```
    la versione dovrebbe essere `0.10.0`
 
@@ -252,7 +255,7 @@ In questo caso possono essere aggiornati i nodi uno alla volta
    Cambiare in `/etc/systemctl/system/tmkms-node.service`
 
    ```conf
-   ExecStart=/data_tmkms/tmkms/.cargo/bin/tmkmsV010 start -c /data_tmkms/tmkms/kms/commercio/tmkms-nodeV010.toml
+   ExecStart=/data_tmkms/tmkms/V010/bin/tmkms start -c /data_tmkms/tmkms/kms/commercio/tmkms-nodeV010.toml
    ```
 1. Fermare il demonee del sul nodo validatore
     ```bash
