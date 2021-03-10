@@ -313,6 +313,8 @@ Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezio
    .....
    protocol_version = "v0.33" 
    ```
+   
+   Dovunque sia indicato `commercio-meeting01`, ossia l'id della chain, cambiare in `commercio-meeting02`
 
    Nella sezione `[[chain]]` cambiare la configurazione di `state_file` mettendo l'indicatore della chain
    ```toml
@@ -355,6 +357,9 @@ Questa sezione riguarda solo chi ha precedentemente eseguito l'aggiornamento del
    .....
    protocol_version = "v0.33" 
    ```
+
+   Dovunque sia indicato `commercio-meeting01`, ossia l'id della chain, cambiare in `commercio-meeting02`
+
 
    Nella sezione `[[chain]]` cambiare la configurazione di `state_file` mettendo l'indicatore della chain
    ```toml
