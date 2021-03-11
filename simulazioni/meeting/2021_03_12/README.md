@@ -35,8 +35,8 @@ echo 'export BIN_DIR="/root/go/bin"' >> env_update_chain_meeting.txt
 echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> env_update_chain_meeting.txt
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> env_update_chain_meeting.txt
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> env_update_chain_meeting.txt
-echo 'export NEW_GENESIS_TIME="2020-06-12T08:55:00Z"' >> env_update_chain_meeting.txt
-echo 'export ALT_BLOCK=<DA COMUNICARE>' >> env_update_chain_meeting.txt
+echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> env_update_chain_meeting.txt
+echo 'export ALT_BLOCK=59350' >> env_update_chain_meeting.txt
 echo 'export VERSIONE_BINARI=master' >> env_update_chain_meeting.txt
 echo 'export VERSIONE_BUILD="2.2.0-pre.2"' >> env_update_chain_meeting.txt
 
@@ -62,15 +62,26 @@ cd $SRC_GIT_DIR
 git pull
 git checkout $VERSIONE_BINARI
 git pull
-make build
+make GENERATE=0 build
 ./build/cnd version
 #dovrebbe corrispondere a $VERSIONE_BUILD
-cd
 ```
+Il comando dovrebbe visualizzare i seguenti dati
+```
+name: commercionetwork
+server_name: cnd
+client_name: cndcli
+version: 2.2.0-pre.2
+commit: fab7f1d723466f02e5fa58b0d6e30ce09f8c24e3
+build_tags: netgo,ledger
+go: go version go1.15.8 linux/amd64
+```
+
 
 ### 3) Impostare l'altezza di stop della chain (si bloccherà in automatico)
 
 ```bash
+cd
 sed -e "s|halt-height = .*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
 systemctl restart cnd
 ```
@@ -117,24 +128,6 @@ jq -S -c -M '' export_meeting01_genesis.json | shasum -a 256
 
 ## 8) Cambiare i binari
 
-```bash
-git clone https://github.com/commercionetwork/commercionetwork.git
-cd commercionetwork
-git checkout v2.2.0-pre.2
-make GENERATE=0 build # Long time to compile
-$BUILD_DIR/cnd version
-```
-Il comando dovrebbe visualizzare i seguenti dati
-```
-name: commercionetwork
-server_name: cnd
-client_name: cndcli
-version: 2.2.0-pre.2
-commit: fab7f1d723466f02e5fa58b0d6e30ce09f8c24e3
-build_tags: netgo,ledger
-go: go version go1.15.8 linux/amd64
-```
-Se la versione e il tag corrisponde possiamo installarlo sulle nostre cartelle
 
 ```bash
 cp $BUILD_DIR/cn* $BIN_DIR/.
@@ -308,7 +301,7 @@ In questo caso possono essere aggiornati i nodi uno alla volta
 7. Controllora se il sign viene eseguito
 
 
-## Aggiornamento tmkms prima dell'aggiornamento chain 
+## Aggiornamento tmkms durante l'aggiornamento chain 
 
 ### Aggiornarnamento software e servizi
 Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezione [Aggiornamento configurazioni](#aggiornamento-configurazioni)
@@ -373,7 +366,7 @@ Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezio
 Questa sezione riguarda solo chi ha precedentemente eseguito l'aggiornamento del software del `tmkms` 
 
 1. Assicurarsi che il servizio sul validatore sia fermo con il seguente comando
-    ```bash
+   ```bash
    sudo systemctl stop cnd
    ```
 2. Fermare i servizi `tmkms` 
