@@ -118,14 +118,45 @@ jq -S -c -M '' export_meeting01_genesis.json | shasum -a 256
 ## 8) Cambiare i binari
 
 ```bash
+git clone https://github.com/commercionetwork/commercionetwork.git
+cd commercionetwork
+git checkout v2.2.0-pre.2
+make GENERATE=0 build # Long time to compile
+$BUILD_DIR/cnd version
+```
+Il comando dovrebbe visualizzare i seguenti dati
+```
+name: commercionetwork
+server_name: cnd
+client_name: cndcli
+version: 2.2.0-pre.2
+commit: fab7f1d723466f02e5fa58b0d6e30ce09f8c24e3
+build_tags: netgo,ledger
+go: go version go1.15.8 linux/amd64
+```
+Se la versione e il tag corrisponde possiamo installarlo sulle nostre cartelle
+
+```bash
 cp $BUILD_DIR/cn* $BIN_DIR/.
 ```
 
 ## 9) Eseguire la migrazione
 
 ```bash
-cat export_meeting01_genesis.json | jq '.genesis_time="'$NEW_GENESIS_TIME'"' | jq '.chain_id="'$NEW_CHAIN_ID'"' > genesis.json
+cd
+$BIN_DIR/cnd migrate v2.2.0 ./export_meeting01_genesis.json \
+--chain-id=$NEW_CHAIN_ID \
+--genesis-time=$NEW_GENESIS_TIME \
+> ./genesis.json
 ```
+
+Validare il nuovo genesis
+
+```bash
+$BIN_DIR/cnd validate-genesis ./genesis.json
+```
+
+**ATTENZIONE**: se il nuovo genesis non dovesse essere validato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
 ## 10) Verificare il nuovo genesis con gli altri validatori. 
 
@@ -178,7 +209,7 @@ I kms possono essere aggiornati anche prima della procedura della chain.
 
 **ATTENZIONE**: __L'Aggiornamento dei tmkms prima dell'aggiornamento della chain è solo una procedura che rende più rapida poi le operazioni in fase di update, ma può essere svolta anche durante l'aggiornamento della chain.__
 
-### Aggiornare tutti i service dei 
+### Aggiornare tutti i service dei tmkms
 1. Fermare il servizio `cnd` sul nodo validatore
     ```bash
    sudo systemctl stop cnd
