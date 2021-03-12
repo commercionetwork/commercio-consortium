@@ -90,7 +90,7 @@ git pull
 git checkout $VERSIONE_BUILD
 git pull
 make GENERATE=0 build
-./build/cnd version
+./build/cnd version  --long
 #dovrebbe corrispondere a $VERSIONE_BUILD
 ```
 Il comando dovrebbe visualizzare i seguenti dati
