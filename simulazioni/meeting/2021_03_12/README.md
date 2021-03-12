@@ -207,7 +207,7 @@ $BIN_DIR/cnd init templ --home $BUILD_DIR/template_home
 e copiare i template nella cartella ufficiale
 
 ```bash
-$BUILD_DIR/template_home/config/app.toml $APP_TOML
+cp $BUILD_DIR/template_home/config/app.toml $APP_TOML
 ```
 
 Sui vari nodi validatori, **se direttamente esposti**, o sui sentry lanciare il comando
