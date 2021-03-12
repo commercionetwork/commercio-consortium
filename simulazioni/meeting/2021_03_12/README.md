@@ -65,7 +65,7 @@ echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> env_update_chain_meeting.txt
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> env_update_chain_meeting.txt
 echo 'export ALT_BLOCK=58750' >> env_update_chain_meeting.txt
 echo 'export VERSIONE_BINARI=master' >> env_update_chain_meeting.txt
-echo 'export VERSIONE_BUILD="2.2.0-pre.2"' >> env_update_chain_meeting.txt
+echo 'export VERSIONE_BUILD="v2.2.0-pre.2"' >> env_update_chain_meeting.txt
 
 source ./env_update_chain_meeting.txt
 
