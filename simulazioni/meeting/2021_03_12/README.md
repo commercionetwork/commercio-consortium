@@ -10,13 +10,13 @@
     + [6) Eseguire l'esportazione della chain](#6--eseguire-l-esportazione-della-chain)
     + [7) Creare un salvataggio dei dati della chain e delle configurazioni](#7--creare-un-salvataggio-dei-dati-della-chain-e-delle-configurazioni)
     + [8) Controllare sul gruppo Telegram se l'export corrisponde](#8--controllare-sul-gruppo-telegram-se-l-export-corrisponde)
-    + [8) Cambiare i binari](#8--cambiare-i-binari)
-    + [9) Eseguire la migrazione](#9--eseguire-la-migrazione)
-    + [10) Verificare il nuovo genesis con gli altri validatori.](#10--verificare-il-nuovo-genesis-con-gli-altri-validatori)
-    + [11) Reset della chain](#11--reset-della-chain)
-    + [12) Sostituzione del genesis e dei file di configurazione](#12--sostituzione-del-genesis-e-dei-file-di-configurazione)
-    + [13) Ripartenza della chain](#13--ripartenza-della-chain)
-    + [14) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time](#14--la-nuova-chain-dovrebbe-ripartire-all-orario-fissato-nel-genesis-time)
+    + [9) Cambiare i binari](#9--cambiare-i-binari)
+    + [10) Eseguire la migrazione](#10--eseguire-la-migrazione)
+    + [11) Verificare il nuovo genesis con gli altri validatori.](#11--verificare-il-nuovo-genesis-con-gli-altri-validatori)
+    + [12) Reset della chain](#12--reset-della-chain)
+    + [13) Sostituzione del genesis e dei file di configurazione](#13--sostituzione-del-genesis-e-dei-file-di-configurazione)
+    + [14) Ripartenza della chain](#14--ripartenza-della-chain)
+    + [15) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time](#15--la-nuova-chain-dovrebbe-ripartire-all-orario-fissato-nel-genesis-time)
 - [KMS](#kms)
   * [Aggiornamento tmkms prima dell'aggiornamento chain](#aggiornamento-tmkms-prima-dell-aggiornamento-chain)
     + [Aggiornare tutti i service dei tmkms](#aggiornare-tutti-i-service-dei-tmkms)
@@ -153,14 +153,14 @@ jq -S -c -M '' export_meeting01_genesis.json | shasum -a 256
 ```
 
 
-### 8) Cambiare i binari
+### 9) Cambiare i binari
 
 
 ```bash
 cp $BUILD_DIR/cn* $BIN_DIR/.
 ```
 
-### 9) Eseguire la migrazione
+### 10) Eseguire la migrazione
 
 ```bash
 cd
@@ -178,7 +178,7 @@ $BIN_DIR/cnd validate-genesis ./genesis.json
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere validato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
-### 10) Verificare il nuovo genesis con gli altri validatori. 
+### 11) Verificare il nuovo genesis con gli altri validatori. 
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere verificato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
@@ -187,13 +187,13 @@ jq -S -c -M '' genesis.json | shasum -a 256
 ```
 
 
-### 11) Reset della chain
+### 12) Reset della chain
 
 ```bash
 cnd unsafe-reset-all
 ```
 
-### 12) Sostituzione del genesis e dei file di configurazione
+### 13) Sostituzione del genesis e dei file di configurazione
 
 ```bash
 cp genesis.json $HOME_CND_CONFIG
@@ -223,7 +223,7 @@ https://hackmd.io/1K-n9P6fTTWBTbH0g3-EvQ?both
 Al file di configurazione `config.toml` vanno aggiunti i vari `persistent_peers`.    
 Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   
 
-### 13) Ripartenza della chain
+### 14) Ripartenza della chain
 
 Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
@@ -231,7 +231,7 @@ Quando si sono completate le operazioni e sono presenti un buon numero di peer p
 systemctl start cnd
 ```
 
-### 14) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
+### 15) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
 
 ```bash
 journalctl -u cnd -f
