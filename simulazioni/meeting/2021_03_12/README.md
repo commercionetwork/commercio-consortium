@@ -87,7 +87,7 @@ Cambiare cartella ed eseguire il build
 ```bash
 cd $SRC_GIT_DIR
 git pull
-git checkout $VERSIONE_BINARI
+git checkout $VERSIONE_BUILD
 git pull
 make GENERATE=0 build
 ./build/cnd version
