@@ -190,7 +190,7 @@ jq -S -c -M '' genesis.json | shasum -a 256
 ### 12) Reset della chain
 
 ```bash
-cnd unsafe-reset-all
+$BIN_DIR/cnd unsafe-reset-all
 ```
 
 ### 13) Sostituzione del genesis e dei file di configurazione
@@ -202,7 +202,7 @@ cp genesis.json $HOME_CND_CONFIG
 Creare un template con i nuovi file di configurazione `toml`
 
 ```bash
-$BUILD_DIR/cnd init templ --home $BUILD_DIR/template_home
+$BIN_DIR/cnd init templ --home $BUILD_DIR/template_home
 ```
 e copiare i template nella cartella ufficiale
 
