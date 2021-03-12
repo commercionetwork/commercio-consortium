@@ -1,11 +1,13 @@
 # Guida esercitazione aggiornamento 12/03/2021 
 
+[[_TOC_]]
+
 ## Premessa
 
-Questa guida è stata costruita riducendo tutti i passaggi. Per una guida più esaustiva si invita a leggere il documento in fase di redazione a questa pagina.
+Questa guida è stata costruita riducendo tutti i passaggi. Per una guida più esaustiva si invita a leggere il documento in fase di redazione in [questa pagina](https://github.com/commercionetwork/commercio-consortium/blob/master/upgrade/upgrade_2.1.2_to_2.2.0.md).
 
 Tutto il processo avverrà a partire dalle 16.00 (15.00 UTC) del 12/03/2021.      
-Per chi sta utilizzando il kms verifciare [in fondo la procedura da adottare](#kms).      
+Per chi sta utilizzando il kms verifcare [in fondo la procedura da adottare](#kms).      
 I passaggi prima del punto 3 possono essere eseguiti prima dell'orario. Nell'aggiornamento ufficiale si invita a predisporre tutta una serie di configurazioni per rendere il lavoro il più agevole possibile, anche sulla base di questa guida.    
 Nel processo di aggiornamento **bisogna fermarsi al punto 8**  e al **punto 10** per poter confrontare il checksum del nuovo genesis per non avere genesis differenti tra i vari nodi validatori.    
 
@@ -214,7 +216,7 @@ Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il conse
 # KMS
 
 In questa sezione viene indicato come aggiornare i kms basati su yubihsm e tmkms.   
-Si precisa che si tratta di linne guida, ed è essenziale capire il processo che qui viene sintetizzato
+Si precisa che si tratta di linee guida, ed è essenziale capire il processo che qui viene sintetizzato
 
 1. Deve essere aggiornato il software
 2. Devono essere modificate le configurazioni dei servizi di `tmkms` per poter operare con il nuovo core della chain
