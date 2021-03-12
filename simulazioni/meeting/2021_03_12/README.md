@@ -36,7 +36,7 @@ echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> env_update_chain_meeting.t
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> env_update_chain_meeting.txt
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> env_update_chain_meeting.txt
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> env_update_chain_meeting.txt
-echo 'export ALT_BLOCK=59350' >> env_update_chain_meeting.txt
+echo 'export ALT_BLOCK=58750' >> env_update_chain_meeting.txt
 echo 'export VERSIONE_BINARI=master' >> env_update_chain_meeting.txt
 echo 'export VERSIONE_BUILD="2.2.0-pre.2"' >> env_update_chain_meeting.txt
 
