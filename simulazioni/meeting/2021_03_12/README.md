@@ -166,16 +166,29 @@ jq -S -c -M '' genesis.json | shasum -a 256
 cnd unsafe-reset-all
 ```
 
-## 12) Sostituzione del genesis
+## 12) Sostituzione del genesis e dei file di configurazione
 
 ```bash
 cp genesis.json $HOME_CND_CONFIG
 ```
 
-## 13) Ripartenza della chain
+Creare un template con i nuovi file di configurazione `toml`
 
 ```bash
-sed -e "s|halt-height = .*|halt-height = 0|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
+$BUILD_DIR/cnd init templ --home $BUILD_DIR/template_home
+```
+e copiare i template nella cartella ufficiale
+
+```bash
+$BUILD_DIR/template_home/config/app.toml $APP_TOML
+```
+
+Il file di configurazione `config.toml` non deve essere cambiato.
+
+## 13) Ripartenza della chain
+
+
+```bash
 systemctl start cnd
 ```
 
@@ -184,7 +197,7 @@ systemctl start cnd
 ```bash
 journalctl -u cnd -f
 ```
-
+Ci potrebbe essere un periodo in cui bisogna attendere che venga si raggiunga il consenso, che potrebbe andare oltre il genesis time.
 
 # KMS
 
@@ -346,7 +359,12 @@ Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezio
    .....
    state_file = "/path/to/cosmoshub_priv_validator_state-meeting02.json"
    ```
+
+   [**IN FONDO UN ESEMPIO DI COME CAMBIA UN FILE DI CONFIGURAZIONE**]()
+
+
    **Alternativamente** potete lasciare le configurazioni e spostare il file di stato
+
 
    ```bash
    mv /path/to/cosmoshub_priv_validator_state.json /path/to/cosmoshub_priv_validator_state-backup.json
@@ -407,3 +425,92 @@ Questa sezione riguarda solo chi ha precedentemente eseguito l'aggiornamento del
 7. Controllora se il sign viene eseguito
 
 
+
+# Cambiamenti file di configurazione per il tmkms
+
+**File con tmkms versione 0.8.0 per chain `commercio-meeting01`**
+
+```toml
+[[chain]]
+id = "commercio-meeting01"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1.json"
+
+[[validator]]
+addr = "tcp://10.1.1.1:26658"
+chain_id = "commercio-meeting01"
+reconnect = true
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection1.key"
+
+[[providers.yubihsm]]
+adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" }
+keys = [{ chain_ids = ["commercio-meeting01"], key = 1 }] 
+serial_number = "9876543210"
+```
+
+**File con tmkms versione 0.10.0 per chain `commercio-meeting01`**
+```toml
+[[chain]]
+id = "commercio-meeting01"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1.json"
+
+[[validator]]
+addr = "tcp://10.1.1.1:26658"
+chain_id = "commercio-meeting01"
+reconnect = true
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection1.key"
+protocol_version = "legacy"
+
+[[providers.yubihsm]]
+adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" }
+keys = [{ chain_ids = ["commercio-meeting01"], key = 1 }] 
+serial_number = "9876543210"
+```
+
+**File con tmkms per chain `commercio-meeting02`**
+
+```toml
+[[chain]]
+id = "commercio-meeting02"
+key_format = { type = "bech32", account_key_prefix = "did:com:", consensus_key_prefix = "did:com:valconspub" }
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1-meeting02.json"
+
+[[validator]]
+addr = "tcp://10.1.1.1:26658"
+chain_id = "commercio-meeting02"
+reconnect = true
+secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection1.key"
+protocol_version = "0.33"
+
+[[providers.yubihsm]]
+adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
+auth = { key = 1, password_file = "/data_tmkms/tmkms/kms/password" }
+keys = [{ chain_ids = ["commercio-meeting02"], key = 1 }] 
+serial_number = "9876543210"
+```
+
+**DIFFERENZE**
+
+```toml
+[[chain]]    
+id = "commercio-meeting01"   -->  id = "commercio-meeting02"
+...
+state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1.json" --> state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1-meeting02.json"
+```
+
+```toml
+[[validator]]
+...   
+chain_id = "commercio-meeting01"   -->  chain_id = "commercio-meeting02" 
+...
+--> protocol_version = "legacy" --> protocol_version = "0.33"
+```
+
+```toml
+[[providers.yubihsm]]
+...   
+keys = [{ chain_ids = ["commercio-meeting12"], key = 1 }]   -->  keys = [{ chain_ids = ["commercio-meeting02"], key = 1 }]
+```
