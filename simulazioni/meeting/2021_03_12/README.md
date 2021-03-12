@@ -45,7 +45,7 @@ source ./env_update_chain_meeting.txt
 echo '. /root/env_update_chain_meeting.txt' >> ~/.profile
 ```
 
-provare a eseguire sconnettersi dal nodo e ricollegarsi verificando che le variabili vengono impostate.
+provare a disconnettersi dal nodo e ricollegarsi verificando che le variabili vengono impostate.
 
 ## 2) Compilare i nuovi binari
 
@@ -183,10 +183,22 @@ e copiare i template nella cartella ufficiale
 $BUILD_DIR/template_home/config/app.toml $APP_TOML
 ```
 
-Il file di configurazione `config.toml` non deve essere cambiato.
+Sui vari nodi validatori, **se direttamente esposti**, o sui sentry lanciare il comando
+
+```bash
+echo $($BIN_DIR/cnd tendermint show-node-id --home $HOME_CND)@$(wget -qO- icanhazip.com):26656
+```
+
+Il risultato del comando sono quelli che faranno da peer persistenti per la nuova chain. Condividere il dato su
+
+https://hackmd.io/1K-n9P6fTTWBTbH0g3-EvQ?both
+
+Al file di configurazione `config.toml` vanno aggiunti i vari `persistent_peers`.    
+Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   
 
 ## 13) Ripartenza della chain
 
+Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
 ```bash
 systemctl start cnd
@@ -197,7 +209,7 @@ systemctl start cnd
 ```bash
 journalctl -u cnd -f
 ```
-Ci potrebbe essere un periodo in cui bisogna attendere che venga si raggiunga il consenso, che potrebbe andare oltre il genesis time.
+Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il consenso, che potrebbe andare oltre il genesis time.
 
 # KMS
 
@@ -360,7 +372,7 @@ Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezio
    state_file = "/path/to/cosmoshub_priv_validator_state-meeting02.json"
    ```
 
-   [**IN FONDO UN ESEMPIO DI COME CAMBIA UN FILE DI CONFIGURAZIONE**]()
+   [**IN FONDO UN ESEMPIO DI COME CAMBIA UN FILE DI CONFIGURAZIONE**](#cambiamenti-file-di-configurazione-per-il-tmkms)
 
 
    **Alternativamente** potete lasciare le configurazioni e spostare il file di stato
