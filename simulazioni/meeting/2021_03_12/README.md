@@ -136,7 +136,7 @@ pkill cncli
 ### 6) Eseguire l'esportazione della chain
 
 ```bash
-cnd export --for-zero-height > export_meeting01_genesis.json
+cnd export --for-zero-height > ~/export_meeting01_genesis.json
 ```
 
 ### 7) Creare un salvataggio dei dati della chain e delle configurazioni
@@ -149,7 +149,7 @@ cp -r $HOME_CND_CONFIG config_backup_meeting01
 ### 8) Controllare sul gruppo Telegram se l'export corrisponde  
 
 ```bash
-jq -S -c -M '' export_meeting01_genesis.json | shasum -a 256
+jq -S -c -M '' ~/export_meeting01_genesis.json | shasum -a 256
 ```
 
 
@@ -164,16 +164,16 @@ cp $BUILD_DIR/cn* $BIN_DIR/.
 
 ```bash
 cd
-$BIN_DIR/cnd migrate v2.2.0 ./export_meeting01_genesis.json \
+$BIN_DIR/cnd migrate v2.2.0 ~/export_meeting01_genesis.json \
 --chain-id=$NEW_CHAIN_ID \
 --genesis-time=$NEW_GENESIS_TIME \
-> ./genesis.json
+> ~/genesis.json
 ```
 
 Validare il nuovo genesis
 
 ```bash
-$BIN_DIR/cnd validate-genesis ./genesis.json
+$BIN_DIR/cnd validate-genesis ~/genesis.json
 ```
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere validato il migrate non avverrà e si dovrà far partire nuovamente la chain
@@ -183,14 +183,14 @@ $BIN_DIR/cnd validate-genesis ./genesis.json
 **ATTENZIONE**: se il nuovo genesis non dovesse essere verificato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
 ```bash
-jq -S -c -M '' genesis.json | shasum -a 256
+jq -S -c -M '' ~/genesis.json | shasum -a 256
 ```
 
 
 ### 12) Reset della chain
 
 ```bash
-$BIN_DIR/cnd unsafe-reset-all
+$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND_CONFIG
 ```
 
 ### 13) Sostituzione del genesis e dei file di configurazione
@@ -383,7 +383,7 @@ Chiunque abbia svolto preliminarmente le operazioni vada direttamente alla sezio
 
    la versione dovrebbe essere `0.10.0`
 4. Modificare le configurazioni
-   Nella sezione `[[validator]]` dei vari file toml del validatore aggiungere `protocol_version = "0.33"`
+   Nella sezione `[[validator]]` dei vari file toml del validatore aggiungere `protocol_version = "v0.33"`
    ```toml
    [[validator]]
    .....
@@ -432,7 +432,7 @@ Questa sezione riguarda solo chi ha precedentemente eseguito l'aggiornamento del
    ```
    dove `tmkms-node` è qualunque servzio associato a un qualsiasi nodo validatore.
 4. Modificare le configurazioni
-   Nella sezione `[[validator]]` dei vari file toml del validatore aggiungere `protocol_version = "0.33"`
+   Nella sezione `[[validator]]` dei vari file toml del validatore aggiungere `protocol_version = "v0.33"`
    ```toml
    [[validator]]
    .....
@@ -522,7 +522,7 @@ addr = "tcp://10.1.1.1:26658"
 chain_id = "commercio-meeting02"
 reconnect = true
 secret_key = "/data_tmkms/tmkms/kms/commercio/secret_connection1.key"
-protocol_version = "0.33"
+protocol_version = "v0.33"
 
 [[providers.yubihsm]]
 adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
@@ -545,7 +545,7 @@ state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state1.js
 ...   
 chain_id = "commercio-meeting01"   -->  chain_id = "commercio-meeting02" 
 ...
---> protocol_version = "legacy" --> protocol_version = "0.33"
+--> protocol_version = "legacy" --> protocol_version = "v0.33"
 ```
 
 ```toml
