@@ -1,6 +1,31 @@
 # Guida esercitazione aggiornamento 12/03/2021 
 
-[[_TOC_]]
+  * [Premessa](#premessa)
+  * [Prerequisiti](#prerequisiti)
+    + [1) Configurare i path e le variabili](#1--configurare-i-path-e-le-variabili)
+    + [2) Compilare i nuovi binari](#2--compilare-i-nuovi-binari)
+    + [3) Impostare l'altezza di stop della chain (si bloccherà in automatico)](#3--impostare-l-altezza-di-stop-della-chain--si-bloccher--in-automatico-)
+    + [4) Controllo dell'effettivo stop della chain](#4--controllo-dell-effettivo-stop-della-chain)
+    + [5) Assicurarsi di aver stoppato servizi](#5--assicurarsi-di-aver-stoppato-servizi)
+    + [6) Eseguire l'esportazione della chain](#6--eseguire-l-esportazione-della-chain)
+    + [7) Creare un salvataggio dei dati della chain e delle configurazioni](#7--creare-un-salvataggio-dei-dati-della-chain-e-delle-configurazioni)
+    + [8) Controllare sul gruppo Telegram se l'export corrisponde](#8--controllare-sul-gruppo-telegram-se-l-export-corrisponde)
+    + [8) Cambiare i binari](#8--cambiare-i-binari)
+    + [9) Eseguire la migrazione](#9--eseguire-la-migrazione)
+    + [10) Verificare il nuovo genesis con gli altri validatori.](#10--verificare-il-nuovo-genesis-con-gli-altri-validatori)
+    + [11) Reset della chain](#11--reset-della-chain)
+    + [12) Sostituzione del genesis e dei file di configurazione](#12--sostituzione-del-genesis-e-dei-file-di-configurazione)
+    + [13) Ripartenza della chain](#13--ripartenza-della-chain)
+    + [14) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time](#14--la-nuova-chain-dovrebbe-ripartire-all-orario-fissato-nel-genesis-time)
+- [KMS](#kms)
+  * [Aggiornamento tmkms prima dell'aggiornamento chain](#aggiornamento-tmkms-prima-dell-aggiornamento-chain)
+    + [Aggiornare tutti i service dei tmkms](#aggiornare-tutti-i-service-dei-tmkms)
+    + [Aggiornare un service per volta](#aggiornare-un-service-per-volta)
+  * [Aggiornamento tmkms durante l'aggiornamento chain](#aggiornamento-tmkms-durante-l-aggiornamento-chain)
+    + [Aggiornarnamento software e servizi](#aggiornarnamento-software-e-servizi)
+    + [Aggiornamento configurazioni](#aggiornamento-configurazioni)
+- [Cambiamenti file di configurazione per il tmkms](#cambiamenti-file-di-configurazione-per-il-tmkms)
+
 
 ## Premessa
 
@@ -23,7 +48,7 @@ apt install jq -y
 
 Controllare la versione di `go` che sia almeno `1.15+`
 
-## 1) Configurare i path e le variabili 
+### 1) Configurare i path e le variabili 
 
 Impostare le variabili di ambiente per l'aggiornamento. **NB: I dati sono variabili da ambiente ad ambiente e quindi le configurazioni vanno adattate**
 
@@ -49,7 +74,7 @@ echo '. /root/env_update_chain_meeting.txt' >> ~/.profile
 
 provare a disconnettersi dal nodo e ricollegarsi verificando che le variabili vengono impostate.
 
-## 2) Compilare i nuovi binari
+### 2) Compilare i nuovi binari
 
 Se non è già stato scaricato clonare il repository
 
@@ -99,7 +124,7 @@ Per verificare che effettivamente la chain sia bloccata verificare con la lettur
 journalctl -u cnd -f
 ```
 
-## 5) Assicurarsi di aver stoppato servizi
+### 5) Assicurarsi di aver stoppato servizi
 
 ```bash
 systemctl stop cnd
@@ -108,34 +133,34 @@ pkill cnd
 pkill cncli
 ```
 
-## 6) Eseguire l'esportazione della chain
+### 6) Eseguire l'esportazione della chain
 
 ```bash
 cnd export --for-zero-height > export_meeting01_genesis.json
 ```
 
-## 7) Creare un salvataggio dei dati della chain e delle configurazioni
+### 7) Creare un salvataggio dei dati della chain e delle configurazioni
 
 ```bash
 mv $HOME_CND_DATA data_backup_meeting01
 cp -r $HOME_CND_CONFIG config_backup_meeting01
 ```
 
-## 8) Controllare sul gruppo Telegram se l'export corrisponde  
+### 8) Controllare sul gruppo Telegram se l'export corrisponde  
 
 ```bash
 jq -S -c -M '' export_meeting01_genesis.json | shasum -a 256
 ```
 
 
-## 8) Cambiare i binari
+### 8) Cambiare i binari
 
 
 ```bash
 cp $BUILD_DIR/cn* $BIN_DIR/.
 ```
 
-## 9) Eseguire la migrazione
+### 9) Eseguire la migrazione
 
 ```bash
 cd
@@ -153,7 +178,7 @@ $BIN_DIR/cnd validate-genesis ./genesis.json
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere validato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
-## 10) Verificare il nuovo genesis con gli altri validatori. 
+### 10) Verificare il nuovo genesis con gli altri validatori. 
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere verificato il migrate non avverrà e si dovrà far partire nuovamente la chain
 
@@ -162,13 +187,13 @@ jq -S -c -M '' genesis.json | shasum -a 256
 ```
 
 
-## 11) Reset della chain
+### 11) Reset della chain
 
 ```bash
 cnd unsafe-reset-all
 ```
 
-## 12) Sostituzione del genesis e dei file di configurazione
+### 12) Sostituzione del genesis e dei file di configurazione
 
 ```bash
 cp genesis.json $HOME_CND_CONFIG
@@ -198,7 +223,7 @@ https://hackmd.io/1K-n9P6fTTWBTbH0g3-EvQ?both
 Al file di configurazione `config.toml` vanno aggiunti i vari `persistent_peers`.    
 Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   
 
-## 13) Ripartenza della chain
+### 13) Ripartenza della chain
 
 Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
@@ -206,7 +231,7 @@ Quando si sono completate le operazioni e sono presenti un buon numero di peer p
 systemctl start cnd
 ```
 
-## 14) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
+### 14) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
 
 ```bash
 journalctl -u cnd -f
