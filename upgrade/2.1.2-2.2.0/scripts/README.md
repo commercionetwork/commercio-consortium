@@ -11,3 +11,15 @@ Il loro sviluppo cerca di venire incontro a dei sistemi eteregeneri di ambienti,
 
 Trasferire l'intera cartella `scripts` sui server che si devono aggiornare.
 
+
+Su server lanciare 
+```bash
+/path/scripts/setup.sh
+```
+Rispondere a tutte le domande
+
+Lanciare 
+
+```bash
+/path/scripts/01_val_config_stop.sh $ENV_FILE
+```

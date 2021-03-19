@@ -128,7 +128,7 @@ go: go version go1.15.8 linux/amd64
 ```bash
 cd
 sed -e "s|halt-height = .*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
-systemctl restart cnd
+sudo systemctl restart cnd
 ```
 
 **Questo operazione DEVE essere eseguita su tutti i nodi validatori e full-node (sentry compresi) prima della data di aggiornamento.**
@@ -139,7 +139,7 @@ systemctl restart cnd
 Per verificare che effettivamente la chain sia bloccata verificare con la lettura dei logs    
 
 ```bash
-journalctl -u cnd -f
+sudo journalctl -u cnd -f
 ```
 
 ### 5) Assicurarsi di aver stoppato servizi
@@ -239,13 +239,13 @@ cp $BUILD_DIR/template_home/config/app.toml $APP_TOML
 Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
 ```bash
-systemctl start cnd
+sudo systemctl start cnd
 ```
 
 ### 15) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
 
 ```bash
-journalctl -u cnd -f
+sudo journalctl -u cnd -f
 ```
 Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il consenso, che potrebbe andare oltre il genesis time.
 
@@ -318,7 +318,7 @@ go: go version go1.15.8 linux/amd64
 ```bash
 cd
 sed -e "s|halt-height = .*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
-systemctl restart cnd
+sudo systemctl restart cnd
 ```
 
 **Questo operazione DEVE essere eseguita su tutti i nodi validatori e full-node (sentry compresi) prima della data di aggiornamento.**
@@ -329,7 +329,7 @@ systemctl restart cnd
 Per verificare che effettivamente la chain sia bloccata verificare con la lettura dei logs    
 
 ```bash
-journalctl -u cnd -f
+sudo journalctl -u cnd -f
 ```
 
 ### 5) Assicurarsi di aver stoppato servizi
@@ -403,13 +403,13 @@ external_address="tcp://<IP PUBBLICO>:26656"
 Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
 ```bash
-systemctl start cnd
+sudo systemctl start cnd
 ```
 
 ### 11) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
 
 ```bash
-journalctl -u cnd -f
+sudo journalctl -u cnd -f
 ```
 Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il consenso, che potrebbe andare oltre il genesis time.
 
