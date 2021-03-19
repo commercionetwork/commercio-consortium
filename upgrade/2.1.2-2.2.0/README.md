@@ -1,5 +1,5 @@
 # Istruzioni aggiornamento da 2.1.2 a 2.2.0 Chain Commercio Network
-# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: IL PARAMETRI NON SOSNO ANCORA QUELLI UFFICIALI
+# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI
 
 
 Il seguente documento descrive i passaggi necessari per eseguire l'aggiornamento dei nodi validatori della chain di Commercio Network da `commercio-2_1` (basata sulla versione 2.1.2 del core) a `commercio-2_2` (basata sulla versione 2.2.0 del core).    

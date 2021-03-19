@@ -1,9 +1,9 @@
 # Guida aggiornamento 22/03/2021 
-# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: IL PARAMETRI NON SOSNO ANCORA QUELLI UFFICIALI
+# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI
 
 
 - [Guida aggiornamento 22/03/2021](#guida-aggiornamento-22032021)
-- [ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: IL PARAMETRI NON SOSNO ANCORA QUELLI UFFICIALI](#attenzione-le-istruzioni-sono-ancora-in-fase-di-redazione-il-parametri-non-sosno-ancora-quelli-ufficiali)
+- [ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI](#attenzione-le-istruzioni-sono-ancora-in-fase-di-redazione-i-parametri-non-sono-ancora-quelli-ufficiali)
   - [Premessa](#premessa)
   - [Aggiornamento validator](#aggiornamento-validator)
     - [Prerequisiti](#prerequisiti)
