@@ -1,6 +1,9 @@
-# Guida esercitazione aggiornamento 12/03/2021 
+# Guida aggiornamento 22/03/2021 
+# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: IL PARAMETRI NON SOSNO ANCORA QUELLI UFFICIALI
 
-- [Guida esercitazione aggiornamento 12/03/2021](#guida-esercitazione-aggiornamento-12032021)
+
+- [Guida aggiornamento 22/03/2021](#guida-aggiornamento-22032021)
+- [ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: IL PARAMETRI NON SOSNO ANCORA QUELLI UFFICIALI](#attenzione-le-istruzioni-sono-ancora-in-fase-di-redazione-il-parametri-non-sosno-ancora-quelli-ufficiali)
   - [Premessa](#premessa)
   - [Aggiornamento validator](#aggiornamento-validator)
     - [Prerequisiti](#prerequisiti)
@@ -78,7 +81,7 @@ echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=58750' >> $ENV_FILE
+echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
 echo 'export VERSIONE_BINARI=master' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
@@ -264,7 +267,7 @@ echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=58750' >> $ENV_FILE
+echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
 echo 'export VERSIONE_BINARI=master' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
