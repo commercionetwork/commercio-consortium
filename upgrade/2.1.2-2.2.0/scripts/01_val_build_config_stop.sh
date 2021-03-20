@@ -14,6 +14,7 @@ commands=(
   "git clone https://github.com/commercionetwork/commercionetwork.git $SRC_GIT_DIR"
   "cd $SRC_GIT_DIR && git pull && git checkout $VERSIONE_BUILD && git pull && make GENERATE=0 build"
   "$SRC_GIT_DIR/build/cnd version  --long"
+  "sed -e \"s|halt-height = .*|halt-height = $ALT_BLOCK|g\" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML"
   #"git pull"
   #"git checkout $VERSIONE_BUILD"
   #"git pull"
@@ -37,12 +38,15 @@ if [ "$ANSW" = "y" ] || [ "$ANSW" = "Y" ]; then
     for k in ${!commands[@]}; do
         echo "${commands[$k]}" | sh
     done
+
+    echo "[OK] Sto per riavviare il nodo con il comando \"sudo systemctl restart cnd\" e subito dopo lancerò \"journalctl -u cnd -f\""
+    sudo systemctl restart cnd
 fi
 
 exit
 
 #```bash
 #cd
-#sed -e "s|halt-height = .*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
+#sed -e "s|halt-height =.*|halt-height = $ALT_BLOCK|g" $APP_TOML > $APP_TOML.tmp; mv $APP_TOML.tmp $APP_TOML
 #sudo systemctl restart cnd
 #```

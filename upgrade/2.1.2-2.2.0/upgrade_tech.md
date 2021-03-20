@@ -35,7 +35,15 @@
     - [10) Ripartenza della chain](#10-ripartenza-della-chain)
     - [11) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time](#11-la-nuova-chain-dovrebbe-ripartire-allorario-fissato-nel-genesis-time)
   - [Ripristino](#ripristino)
-
+    - [1) Fermare qualsiasi servizio](#1-fermare-qualsiasi-servizio)
+    - [2) Ripristinare correttamente il file `app.toml`](#2-ripristinare-correttamente-il-file-apptoml)
+    - [3) Avvio della precedente chain](#3-avvio-della-precedente-chain)
+    - [4) Controllare lo stato del nodo](#4-controllare-lo-stato-del-nodo)
+    - [1) Fermare qualsiasi servizio](#1-fermare-qualsiasi-servizio-1)
+    - [2) Ripristinare i precedenti binari e le precedenti configurazioni](#2-ripristinare-i-precedenti-binari-e-le-precedenti-configurazioni)
+    - [3) Verificare la versione corrente (v2.1.2) di _cnd_:](#3-verificare-la-versione-corrente-v212-di-cnd)
+    - [4) Avvio della precedente chain](#4-avvio-della-precedente-chain)
+    - [5) Controllare lo stato del nodo](#5-controllare-lo-stato-del-nodo)
 
 ## Premessa
 
@@ -82,7 +90,6 @@ echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
 echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
-echo 'export VERSIONE_BINARI=master' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
@@ -186,7 +193,7 @@ cp $BUILD_DIR/cn* $BIN_DIR/.
 
 ```bash
 cd
-$BIN_DIR/cnd migrate v2.2.0 ~/ommercio-2_1_genesis_export.json \
+$BIN_DIR/cnd migrate v2.2.0 ~/commercio-2_1_genesis_export.json \
 --chain-id=$NEW_CHAIN_ID \
 --genesis-time=$NEW_GENESIS_TIME \
 > ~/genesis.json
@@ -268,7 +275,6 @@ echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
 echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
-echo 'export VERSIONE_BINARI=master' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
@@ -414,3 +420,84 @@ sudo journalctl -u cnd -f
 Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il consenso, che potrebbe andare oltre il genesis time.
 
 ## Ripristino
+
+In caso la chain non riparta regolarmente si deve procedere a un ripristino.  
+
+Se **NON** si è arrivati al punto [6) ossia "Eseguire l'esportazione della chain"](#6-eseguire-lesportazione-della-chain) questi sono i passaggi per la procedura di ripristino 
+### 1) Fermare qualsiasi servizio
+   ```bash
+   systemctl stop cnd
+   systemctl stop cncli
+   pkill cnd
+   pkill cncli
+   ```
+### 2) Ripristinare correttamente il file `app.toml`
+   ```bash
+   sed 's/^halt-block =.*/halt-block = 0/g' $APP_TOML > $APP_TOML.tmp
+   mv $APP_TOML.tmp $APP_TOML
+   ```  
+### 3) Avvio della precedente chain
+
+   ```bash
+   systemctl start cnd
+   ```
+### 4) Controllare lo stato del nodo
+   ```bash
+   journalctl -u cnd -f
+   ```
+   I nodi potrebbero impiegare del tempo per arrivare al consenso.
+ 
+
+Se si è arrivati al punto [6) ossia "Eseguire l'esportazione della chain"](#6-eseguire-lesportazione-della-chain) o oltre questi sono i passaggi per la procedura di ripristino è la seguente
+
+### 1) Fermare qualsiasi servizio
+   ```bash
+   systemctl stop cnd
+   systemctl stop cncli
+   pkill cnd
+   pkill cncli
+   ```
+
+### 2) Ripristinare i precedenti binari e le precedenti configurazioni
+
+
+   ```bash
+   cp ~/data_backup/bin/cn* $BIN_DIR/.
+   $BIN_DIR/cnd unsafe-reset-all
+   rm -rf $HOME_CND_DATA/data 
+   mv ~/data_backup/data $HOME_CND_DATA
+   cp ~/data_backup/config/genesis.json $HOME_CND_CONFIG/.
+   cp ~/data_backup/config/config.tomln $HOME_CND_CONFIG/.
+   cp ~/data_backup/config/app.toml $APP_TOML
+   sed 's/^halt-block =.*/halt-block = 0/g' $APP_TOML > $APP_TOML.tmp
+   mv $APP_TOML.tmp $APP_TOML
+   ```
+
+### 3) Verificare la versione corrente (v2.1.2) di _cnd_:
+
+   ```bash
+   $BIN_DIR/cnd version --long
+   ```  
+   Dovrebbe riportare il seguente risultato
+   ``` 
+    name: commercionetwork
+    server_name: cnd
+    client_name: cndcli
+    version: 2.1.2
+    commit: 8d5916146ab76bb6a4059ab83c55d861d8c97130
+    build_tags: netgo,ledger
+    go: go version go1.15.8 linux/amd64
+    ...
+   ```
+
+### 4) Avvio della precedente chain
+
+   ```bash
+   systemctl start cnd
+   ```
+### 5) Controllare lo stato del nodo
+   ```bash
+   journalctl -u cnd -f
+   ```
+   I nodi potrebbero impiegare del tempo per arrivare al consenso.
+ 

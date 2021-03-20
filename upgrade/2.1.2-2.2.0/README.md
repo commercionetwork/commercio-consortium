@@ -5,16 +5,16 @@
 Il seguente documento descrive i passaggi necessari per eseguire l'aggiornamento dei nodi validatori della chain di Commercio Network da `commercio-2_1` (basata sulla versione 2.1.2 del core) a `commercio-2_2` (basata sulla versione 2.2.0 del core).    
 Alla fine delle operazioni di aggiornamento verrà prodotto un file di genesis che verrà pubblicato su https://github.com/commercionetwork/chains, ma si invita tutti i validatori a partecipare attivamente alla procedura.
 
-La data di aggiornamento è stata fissata per `22 Marzo 2021 alle 15.00 UTC` = `16.00 CET`
+La data di aggiornamento è stata fissata per `22 Marzo 2021 alle 15.00 UTC` = `16.00 CET`. L'altezza pubblicata dovrebbe fermare la chain poco dopo le 15.00 UTC = 16.00 CET. Lo scostamento potrebbe essere di qualche minuto. 
 
 
   - [Sommario](#Sommario)
   - [Migrazione](#Migrazioni)
   - [Operazioni preliminari](#operazioni-preliminari)
   - [Rischi](#rischi)
-  - [Ripristino](#ripristino)
   - [Procedura di aggiornamento validatore](#procedura-di-aggiornamento)
   - [Procedure aggiornamento full-node](#guida-per-i-full-node-sentry)
+  - [Ripristino](#ripristino)
   - [Note](#note)
  
 # Sommario
@@ -74,94 +74,7 @@ Uno dei maggiori rischi per i validatori è di incorrere nella doppia firma. E' 
 
 Se durante l'aggiornamento viene fatto qualche errore, ad esempio utilizzando una versione errata del software o un genesis non corretto meglio aspettare che la chain riparta e unirsi successivamente.
 
-## Ripristino
-
-Prima dell'aggiornamento tutti i validatori sono tenuti a eseguire un backup dello stato della chain. Il backup deve essere eseguito sia su i nodi validatori sia sui sentry e in generale su qualsiasi full node della chain.    
-E' sconsigliato avere un backup remoto, dato che il volume dell'archivio della chain non permetterebbe un ripristino veloce.    
-E' essenziale salvare anche il file `.cnd/data/priv_validator_state.json`, o nel caso di utilizzo del `tmkms` del file di stato riportato nella configurazione `state_file`. Questo file, in special modo, dovrà essere ripristinato nel caso l'aggiornamento fallisca.    
-
-Necessario è fare un backup anche delle configurazioni, sia sui nodi validatori, sentry e tmkms, sempre per avere la possibilità di compiere un ripristino pulito nel caso di problemi.     
-
-Se **NON** si è arrivati al punto 4. della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino 
-
-1. Fermare qualsiasi servizio
-   ```bash
-   systemctl stop cnd
-   systemctl stop cncli
-   pkill cnd
-   pkill cncli
-   ```
-1. Ripristinare correttamente il file `app.toml`
-   ```bash
-   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
-   mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
-   ```  
-5. Avvio della precedente chain
-
-   ```bash
-   systemctl start cnd
-   ```
-6. Controllare lo stato del nodo
-   ```bash
-   journalctl -u cnd -f
-   ```
-   I nodi potrebbero impiegare del tempo per arrivare al consenso.
- 
-
-Se si è arrivati punto 4. o oltre della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino è la seguente
-
-1. Fermare qualsiasi servizio
-   ```bash
-   systemctl stop cnd
-   systemctl stop cncli
-   pkill cnd
-   pkill cncli
-   ```
-
-2. Ripristinare i precedenti binari e le precedenti configurazioni
-
-   ```bash
-   cp ./cnd_backup/bin/cn* ~go/bin/.
-   cnd unsafe-reset-all
-   rm -rf ~/.cnd/data 
-   mv ./cnd_backup/data ~/.cnd/.
-   cp ./cnd_backup/config/genesis.json ~/.cnd/config/.
-   cp ./cnd_backup/config/config.toml ~/.cnd/config/.
-   ```
-
-3. Verificare la versione corrente (v2.1.2) di _cnd_:
-
-   ```bash
-    cnd version --long
-   ```  
-   Dovrebbe riportare il seguente risultato
-   ``` 
-    name: commercionetwork
-    server_name: cnd
-    client_name: cndcli
-    version: 2.1.2
-    commit: 8d5916146ab76bb6a4059ab83c55d861d8c97130
-    build_tags: netgo,ledger
-    go: go version go1.15.8 linux/amd64
-    ...
-   ```
-
-4. Ripristinare correttamente il file `app.toml`
-   ```bash
-   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
-   mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
-   ```  
-5. Avvio della precedente chain
-
-   ```bash
-   systemctl start cnd
-   ```
-6. Controllare lo stato del nodo
-   ```bash
-   journalctl -u cnd -f
-   ```
-   I nodi potrebbero impiegare del tempo per arrivare al consenso.
- 
+**LEGGERE ATTENTAMENTE LA SEZIONE [RIPRISTIONO](#ripristino)**
 
 ## Procedura di aggiornamento
 
@@ -170,7 +83,7 @@ __Note 2__: Le istruzioni devono essere adattate al proprio ambiente, quindi var
 
 
 
-**WIP = NON ANCORA PRONTI**  Degli scripts guida sono stati prodotti in questa sezione [scripts](scripts)  **WIP**
+**!!!SCRIPTS**  Lo sviluppo di scripts o programmi automatici è stato sospeso perché durante l'ultimo meeting la maggior parte dei partecipanti li hanno ritenuti inutili. Ogni partecipante ha già predisposte le proprie procedure  **SCRIPTS!!**
 
 La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059ab83c55d861d8c97130`
 
@@ -236,10 +149,10 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
 2. Salvataggio delle vostra cartella `.cnd` directory
 
    ```bash
-    mkdir -p ./cnd_backup/bin
-    mv ~/.cnd/data ./cnd_backup/.
-    cp -r ~/.cnd/config ./cnd_backup/.
-    cp ~go/bin/cn* ./cnd_backup/bin/.
+    mkdir -p ~/cnd_backup/bin
+    mv ~/.cnd/data ~/cnd_backup/.
+    cp -r ~/.cnd/config ~/cnd_backup/.
+    cp ~go/bin/cn* ~/cnd_backup/bin/.
    ```
 
     **NB**: Il backup è fondamentale nel caso la procedura non riuscisse e tutti i nodi sono invitati a eseguirla. Il backup verrà utilizzato nell'eventualità come indicato nella sezione See [Ripristino](#ripristino).
@@ -374,9 +287,9 @@ Scaricare e installare i binari
 3. Salvataggio delle vostra cartella `.cnd` directory
 
    ```bash
-    mkdir ./cnd_backup
-    mv ~/.cnd/data ./cnd_backup/.
-    cp -r ~/.cnd/config ./cnd_backup/.
+    mkdir ~/cnd_backup
+    mv ~/.cnd/data ~/cnd_backup/.
+    cp -r ~/.cnd/config ~/cnd_backup/.
    ```
 
     **NB**: Il backup è fondamentale nel caso la procedura non riuscisse e tutti i nodi sono invitati a eseguirla. Il backup verrà utilizzato nell'eventualità come indicato nella sezione See [Ripristino](#ripristino).
@@ -451,6 +364,96 @@ Scaricare e installare i binari
    systemctl start cnd
    ```
 
+## Ripristino
+
+Prima dell'aggiornamento tutti i validatori sono tenuti a eseguire un backup dello stato della chain. Il backup deve essere eseguito sia su i nodi validatori sia sui sentry e in generale su qualsiasi full node della chain.    
+E' sconsigliato avere un backup remoto, dato che il volume dell'archivio della chain non permetterebbe un ripristino veloce.    
+E' essenziale salvare anche il file `.cnd/data/priv_validator_state.json`, o nel caso di utilizzo del `tmkms` del file di stato riportato nella configurazione `state_file`. Questo file, in special modo, dovrà essere ripristinato nel caso l'aggiornamento fallisca.    
+
+Necessario è fare un backup anche delle configurazioni, sia sui nodi validatori, sentry e tmkms, sempre per avere la possibilità di compiere un ripristino pulito nel caso di problemi.     
+
+Se **NON** si è arrivati al punto 4. della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino 
+
+1. Fermare qualsiasi servizio
+   ```bash
+   systemctl stop cnd
+   systemctl stop cncli
+   pkill cnd
+   pkill cncli
+   ```
+1. Ripristinare correttamente il file `app.toml`
+   ```bash
+   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
+   ```  
+5. Avvio della precedente chain
+
+   ```bash
+   systemctl start cnd
+   ```
+6. Controllare lo stato del nodo
+   ```bash
+   journalctl -u cnd -f
+   ```
+   I nodi potrebbero impiegare del tempo per arrivare al consenso.
+ 
+
+Se si è arrivati punto 4. o oltre della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino è la seguente
+
+1. Fermare qualsiasi servizio
+   ```bash
+   systemctl stop cnd
+   systemctl stop cncli
+   pkill cnd
+   pkill cncli
+   ```
+
+2. Ripristinare i precedenti binari e le precedenti configurazioni
+
+   ```bash
+   cp ~/cnd_backup/bin/cn* ~go/bin/.
+   cnd unsafe-reset-all
+   rm -rf ~/.cnd/data 
+   mv ~/cnd_backup/data ~/.cnd/.
+   cp ~/cnd_backup/config/genesis.json ~/.cnd/config/.
+   cp ~/cnd_backup/config/config.toml ~/.cnd/config/.
+   ```
+
+3. Verificare la versione corrente (v2.1.2) di _cnd_:
+
+   ```bash
+    cnd version --long
+   ```  
+   Dovrebbe riportare il seguente risultato
+   ``` 
+    name: commercionetwork
+    server_name: cnd
+    client_name: cndcli
+    version: 2.1.2
+    commit: 8d5916146ab76bb6a4059ab83c55d861d8c97130
+    build_tags: netgo,ledger
+    go: go version go1.15.8 linux/amd64
+    ...
+   ```
+
+4. Ripristinare correttamente il file `app.toml`
+   ```bash
+   cp ~/cnd_backup/config/app.toml ~/.cnd/config/.
+   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
+   ```  
+5. Avvio della precedente chain
+
+   ```bash
+   systemctl start cnd
+   ```
+6. Controllare lo stato del nodo
+   ```bash
+   journalctl -u cnd -f
+   ```
+   I nodi potrebbero impiegare del tempo per arrivare al consenso.
+ 
+
 # Note
 
 ## Spiegazioni guida
@@ -464,7 +467,7 @@ Sostanzialmente tutta la procedura, limitatamente ai nodi, si riduce a
 * far ripartire i servizi
 Compresa la procedura il processo sostanzialamente non è particolarmente complicato.
 Ognuno può estrarre dalle indicazioni una propria procedura automatizzata.   
-In ogni caso abbiamo tentato di implementare alcuni scripts di agevolazione.  
+~~In ogni caso abbiamo tentato di implementare alcuni scripts di agevolazione.~~
 
 ### Errori o dubbi comuni
 

@@ -3,12 +3,13 @@
 In questa sezione viene indicato come aggiornare i kms basati su yubihsm e tmkms con singola chiave.   
 **Si precisa che si tratta di linee guida, ed è essenziale capire il processo che qui viene sintetizzato**
 
-**WIP**  Degli scripts guida sono stati prodotti in questa sezione [scripts](scripts)  **WIP**
+**!!!SCRIPTS**  Lo sviluppo di scripts o programmi automatici è stato sospeso perché durante l'ultimo meeting la maggior parte dei partecipanti li hanno ritenuti inutili. Ogni partecipante ha già predisposte le proprie procedure  **SCRIPTS!!**
 
 1. Deve essere aggiornato il software `tmkms`
 2. Devono essere modificate le configurazioni del servizio di `tmkms` per poter operare con il nuovo core della chain
 3. Tutto può essere preparato in precedenza: predisporre già i file con le configurazioni aggiornate in modo che al momento dell'upgrade della chain l'unica cosa da fare sia fermare i servizi e sostituire le configurazioni. Le precedenti configurazioni poi possono essere salvata in maniera da poterle recuperare velocemente nel caso di problemi.
 
+Alcuni dettagli sulle differenti configurazioni possono essere trovati a [questa pagina](./specifiche_tmkms.md)
 
 ## Aggiornamento software `tmkms` e configurazioni
 
@@ -74,7 +75,7 @@ Il software può essere compilato separatamente da quello in funzione e quindi p
    * `[[chain]]` `state_file`: è il file di stato e dovrà essere cambiato. **Mantenere il file precedente**
    * `[[chain]]` `id`: chain id. Passerà da `commercio-2_1` a `commercio-2_2`
    * `[[validator]]` `chain_id`: chain id. Passerà da `commercio-2_1` a `commercio-2_2`
-   * `[[providers.yubihsm]]` `keys` `chain_ids`: chain id. Passerà da `commercio-2_1` a `commercio-2_2`
+   * `[[providers.yubihsm]]` `keys` `chain_ids`: chain id. Passerà da `commercio-2_1` a `commercio-2_2`      
    In aggiunta
    * `[[validator]]` `protocol_version`: dovrà essere configurato con il valore `v0.33`
 
@@ -123,7 +124,7 @@ Il software può essere compilato separatamente da quello in funzione e quindi p
 4. Creare il nuovo servizio.
    Supponendo di avere il servizio
    ```
-   /etc/systemctl/system/tmkms.service
+   /etc/systemd/system/tmkms.service
    ...
    ```
    con queste configurazioni
@@ -150,7 +151,7 @@ Il software può essere compilato separatamente da quello in funzione e quindi p
    * WorkingDirectory: dovrà cambiare in `/data_tmkms/tmkms/V010/bin`
    * ExecStart: dovrà cambiare in `/data_tmkms/tmkms/V010/bin/tmkms start -c /data_tmkms/tmkms/kms/commercio/2.2.0/tmkms.toml`
 
-   Creare il nuovo servizio `/etc/systemctl/system/tmkms220.service`
+   Creare il nuovo servizio `/etc/systemd/system/tmkms220.service`
 
    ```ini
    [Unit]
