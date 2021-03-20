@@ -164,7 +164,7 @@ chain_id = "commercio-2_2
 [[validator]]
 ...
 ```
-**Cambia in da v0.8.0**
+**Cambia da versione tmkms 0.8.0 a 0.10.0 in**
 ```toml
 [[validator]]
 ...
