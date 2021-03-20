@@ -30,9 +30,9 @@ Questi sono in breve i passi da compiere nell'aggiornamento
 5. Installare il nuovo core di Commercio Network e il nuovo genesis e eseguire un reset della chain
 6. Avviare il demone del nuovo core e attendere il raggiungimento del consenso
 
-I dettagli dell'aggiornamento sono nella sezione [Procedura di aggiornamento](#procedure-di-aggiornamento).     
+I dettagli dell'aggiornamento sono nella sezione [Procedura di aggiornamento](#procedura-di-aggiornamento).     
 
-Per i full-node (sentry) sono state create delle specifiche istruzioni su [Procedure aggiornamento full-node](#procedure-aggiornamento-full-node).
+Per i full-node (sentry) sono state create delle specifiche istruzioni su [Procedure aggiornamento full-node](#guida-per-i-full-node-sentry).
 
 **UNA PROCEDURA PIU' TECNICA PUO' ESSERE TROVATA A [QUESTA PAGINA](./upgrade_tech.md).** E' sostanzialmente una procedura che ricalca l'esercitazione eseguita il 12/03/2021. 
 

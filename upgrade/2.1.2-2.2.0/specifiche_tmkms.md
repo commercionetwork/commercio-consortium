@@ -123,76 +123,68 @@ Da notare
 [[chain]]    
 id = "commercio-2_1"
 ...
-
- ||
-\  /
- \/
-
+```
+**Cambia per l'upgrade chain**
 ```toml
 [[chain]]    
 id = "commercio-2_2"
 ...
 ```
 
+---
 
 ```toml
 [[chain]]    
 ....
 state_file = "/data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state.json"
-
- ||
-\  /
- \/
-
+```
+**Cambia per l'upgrade chain**
+```toml
 [[chain]]    
 ....
 state_file = "/data_tmkms/tmkms/kms/commercio/2.2.0/commercio_priv_validator_state.json"
 ```
+---
 
 ```toml
 [[validator]]
 ...   
 chain_id = "commercio-2_1"
-
- ||
-\  /
- \/
-
+```
+**Cambia per l'upgrade chain**
+```toml
 [[validator]]
 ...
 chain_id = "commercio-2_2
 ```
 
+---
 
 ```toml
 [[validator]]
 ...
- ||
-\  /
- \/
-
+```
+**Cambia in da v0.8.0**
+```toml
 [[validator]]
 ...
 protocol_version = "legacy"
-
- ||
-\  /
- \/
-
+```
+**Cambia per l'upgrade chain**
+```toml
 [[validator]]
 ...
 protocol_version = "v0.33"
 ```
+---
 
 ```toml
 [[providers.yubihsm]]
 ...   
 keys = [{ chain_ids = ["commercio-2_1"], key = 1 }]
-
- ||
-\  /
- \/
-
+```
+**Cambia per l'upgrade chain**
+```toml
 [[providers.yubihsm]]
 ...
 keys = [{ chain_ids = ["commercio-2_2"], key = 1 }]
