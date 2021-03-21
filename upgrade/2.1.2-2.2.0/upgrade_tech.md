@@ -80,7 +80,7 @@ Impostare le variabili di ambiente per l'aggiornamento. **NB: I dati sono variab
 
 ```bash
 cd
-ENV_FILE="~/env_update_chain_2.2.0.txt"
+ENV_FILE="/root/env_update_chain_2.2.0.txt"
 echo 'export HOME_CND="/root/.cnd"' > $ENV_FILE
 echo 'export HOME_CND_CONFIG="$HOME_CND/config"' >> $ENV_FILE
 echo 'export HOME_CND_DATA="$HOME_CND/data"' >> $ENV_FILE
@@ -265,7 +265,7 @@ Impostare le variabili di ambiente per l'aggiornamento. **NB: I dati sono variab
 
 ```bash
 cd
-ENV_FILE="~/env_update_chain_2.2.0.txt"
+ENV_FILE="/root/env_update_chain_2.2.0.txt"
 echo 'export HOME_CND="/root/.cnd"' > $ENV_FILE
 echo 'export HOME_CND_CONFIG="$HOME_CND/config"' >> $ENV_FILE
 echo 'export HOME_CND_DATA="$HOME_CND/data"' >> $ENV_FILE
