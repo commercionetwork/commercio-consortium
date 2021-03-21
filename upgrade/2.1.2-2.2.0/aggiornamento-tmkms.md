@@ -155,7 +155,7 @@ Il software può essere compilato separatamente da quello in funzione e quindi p
 
    ```ini
    [Unit]
-   Description=Commercio tmkms
+   Description=Commercio tmkms220
    After=network.target
 
    [Service]
@@ -163,7 +163,7 @@ Il software può essere compilato separatamente da quello in funzione e quindi p
    WorkingDirectory=/data_tmkms/tmkms/V010/bin
    ExecStart=/data_tmkms/tmkms/V010/bin/tmkms start -c /data_tmkms/tmkms/kms/commercio/2.2.0/tmkms.toml
    Restart=always
-   SyslogIdentifier=tmkms
+   SyslogIdentifier=tmkms220
    RestartSec=3
    LimitNOFILE=4096
 

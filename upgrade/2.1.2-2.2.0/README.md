@@ -1,5 +1,7 @@
 # Istruzioni aggiornamento da 2.1.2 a 2.2.0 Chain Commercio Network
-# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI
+# IL BLOCCO DI STOP DOVREBBE ESSERE QUELLO UFFICIALE.
+
+SE IL PROGRESSO DEI BLOCCHI SI RIVELASSE DIVERSO DA QUELLO PREVISTO L'ALTEZZA POTREBBE SUBIRE VARIAZIONI NELLA MATTINATA DEL 22/03/2021
 
 
 Il seguente documento descrive i passaggi necessari per eseguire l'aggiornamento dei nodi validatori della chain di Commercio Network da `commercio-2_1` (basata sulla versione 2.1.2 del core) a `commercio-2_2` (basata sulla versione 2.2.0 del core).    
@@ -113,18 +115,18 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
    Controllare la versione di `go` che sia almeno `1.15+`
 
 
-2. Verificare che sia impostato il blocco di stop esatto: `<DA COMUNICARE>`
+2. Verificare che sia impostato il blocco di stop esatto: `2938049` (Verrà fatto un check comunque la mattina del 22/03/2021 per verificare il progresso dei blocchi)
 
    
    ```bash
-   sed 's/^halt-block =.*/halt-block = <DA COMUNICARE>`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-block =.*/halt-block = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
    ```bash
    systemctl restart cnd
    ```
-   Il nodo si dovrebe fermare all'altezza `<DA COMUNICARE>`. Controllare con
+   Il nodo si dovrebe fermare all'altezza `2938049`. Controllare con
 
    ```bash
    journalctl -u cnd -f
@@ -207,7 +209,7 @@ Scaricare e installare i binari
    cnd migrate v2.2.0 \
     ~/commercio-2_1_genesis_export.json \
     --chain-id=commercio-2_2 \
-    --genesis-time="" > ~/genesis.json
+    --genesis-time="2021-03-22T16:00:00Z" > ~/genesis.json
    ```
 
 
@@ -258,18 +260,18 @@ Scaricare e installare i binari
 
 # Guida per i full node (Sentry)
 
-1. Verificare che sia impostato il blocco di stop esatto: `<DA COMUNICARE>`
+1. Verificare che sia impostato il blocco di stop esatto: `2938049`
 
    
    ```bash
-   sed 's/^halt-block =.*/halt-block = <DA COMUNICARE>`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-block =.*/halt-block = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
    ```bash
    systemctl restart cnd
    ```
-   Il nodo si dovrebe fermare all'altezza `<DA COMUNICARE>`. Controllare con
+   Il nodo si dovrebe fermare all'altezza `2938049`. Controllare con
 
    ```bash
    journalctl -u cnd -f
@@ -348,7 +350,7 @@ Scaricare e installare i binari
 
    Il risultato del comando sono quelli che faranno da peer persistenti per la nuova chain. Condividere il dato su
 
-   `https://hackmd.io/<DA COMUNICARE>`
+   `https://hackmd.io/7v3XcG6qQQqVKMWRdTBW1w` 
 
    Al file di configurazione `~/.cnd/config/config.toml` vanno aggiunti i vari `persistent_peers`, escludendo il proprio nodo naturalmente.   
    Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   

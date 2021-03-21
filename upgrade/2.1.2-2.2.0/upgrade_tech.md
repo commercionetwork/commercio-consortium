@@ -1,9 +1,10 @@
 # Guida aggiornamento 22/03/2021 
-# ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI
+# IL BLOCCO DI STOP DOVREBBE ESSERE QUELLO UFFICIALE.
+SE IL PROGRESSO DEI BLOCCHI SI RIVELASSE DIVERSO DA QUELLO PREVISTO L'ALTEZZA POTREBBE SUBIRE VARIAZIONI NELLA MATTINATA DEL 22/03/2021
 
 
 - [Guida aggiornamento 22/03/2021](#guida-aggiornamento-22032021)
-- [ATTENZIONE LE ISTRUZIONI SONO ANCORA IN FASE DI REDAZIONE: I PARAMETRI NON SONO ANCORA QUELLI UFFICIALI](#attenzione-le-istruzioni-sono-ancora-in-fase-di-redazione-i-parametri-non-sono-ancora-quelli-ufficiali)
+- [IL BLOCCO DI STOP DOVREBBE ESSERE QUELLO UFFICIALE.](#il-blocco-di-stop-dovrebbe-essere-quello-ufficiale)
   - [Premessa](#premessa)
   - [Aggiornamento validator](#aggiornamento-validator)
     - [Prerequisiti](#prerequisiti)
@@ -88,8 +89,8 @@ echo 'export BIN_DIR="/root/go/bin"' >> $ENV_FILE
 echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
-echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
+echo 'export NEW_GENESIS_TIME="2021-03-22T16:00:00Z"' >> $ENV_FILE
+echo 'export ALT_BLOCK=2938049' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
@@ -273,8 +274,8 @@ echo 'export BIN_DIR="/root/go/bin"' >> $ENV_FILE
 echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
-echo 'export NEW_GENESIS_TIME="2021-03-12T15:15:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=<DA COMUNICARE>' >> $ENV_FILE
+echo 'export NEW_GENESIS_TIME="2021-03-22T16:00:00Z"' >> $ENV_FILE
+echo 'export ALT_BLOCK=2938049' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
@@ -393,7 +394,7 @@ echo $($BIN_DIR/cnd tendermint show-node-id --home $HOME_CND)@$(wget -qO- icanha
 
 Il risultato del comando sono quelli che faranno da peer persistenti per la nuova chain. Condividere il dato su
 
-`https://hackmd.io/<DA COMUNICARE>` 
+`https://hackmd.io/7v3XcG6qQQqVKMWRdTBW1w` 
 
 Al file di configurazione `config.toml` vanno aggiunti i vari `persistent_peers`.    
 Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   
