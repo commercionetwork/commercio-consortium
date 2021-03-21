@@ -236,7 +236,7 @@ Scaricare e installare i binari
 3. Installare il nuovo geneis della nuova chain
 
     ```bash
-    cp genesis.json ~/.cnd/config/
+    cp ~/genesis.json ~/.cnd/config/
     ```
 
    <img src="img/attetion.png" width="30"> **ATTENZIONE** in questa fase devono essere aggiornati prima i sentry. Verificare la [procedura di aggiornamento full node](#guida-per-i-full-node-sentry)

@@ -162,7 +162,7 @@ sudo pkill cncli
 ### 6) Eseguire l'esportazione della chain
 
 ```bash
-cnd export --for-zero-height > ~/commercio-2_1_genesis_export.json
+$BIN_DIR/cnd export --for-zero-height > ~/commercio-2_1_genesis_export.json
 ```
 
 ### 7) Creare un salvataggio dei dati della chain e delle configurazioni
@@ -227,7 +227,7 @@ $BIN_DIR/cnd unsafe-reset-all --home $HOME_CND_CONFIG
 ### 13) Sostituzione del genesis e dei file di configurazione
 
 ```bash
-cp genesis.json $HOME_CND_CONFIG
+cp ~/genesis.json $HOME_CND_CONFIG
 ```
 
 Creare un template con i nuovi file di configurazione `toml`
