@@ -221,7 +221,7 @@ jq -S -c -M '' ~/genesis.json | shasum -a 256
 ### 12) Reset della chain
 
 ```bash
-$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND_CONFIG
+$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND
 ```
 
 ### 13) Sostituzione del genesis e dei file di configurazione
@@ -361,7 +361,7 @@ cp $BIN_DIR/cn* ~/data_backup/bin/.
 ### 7) Reset della chain
 
 ```bash
-$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND_CONFIG
+$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND
 ```
 
 ### 8) Sostituzione del genesis e dei file di configurazione
@@ -464,7 +464,7 @@ Se si è arrivati al punto [6) ossia "Eseguire l'esportazione della chain"](#6-e
 
    ```bash
    cp ~/data_backup/bin/cn* $BIN_DIR/.
-   $BIN_DIR/cnd unsafe-reset-all
+   $BIN_DIR/cnd unsafe-reset-all --home $HOME_CND
    rm -rf $HOME_CND_DATA/data 
    mv ~/data_backup/data $HOME_CND_DATA
    cp ~/data_backup/config/genesis.json $HOME_CND_CONFIG/.
