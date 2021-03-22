@@ -115,18 +115,18 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
    Controllare la versione di `go` che sia almeno `1.15+`
 
 
-2. Verificare che sia impostato il blocco di stop esatto: `2938049` (Verrà fatto un check comunque la mattina del 22/03/2021 per verificare il progresso dei blocchi)
+2. Verificare che sia impostato il blocco di stop esatto: `2937550` (Verrà fatto un check comunque la mattina del 22/03/2021 per verificare il progresso dei blocchi)
 
    
    ```bash
-   sed 's/^halt-block =.*/halt-block = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-block =.*/halt-block = 2937550`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
    ```bash
    systemctl restart cnd
    ```
-   Il nodo si dovrebe fermare all'altezza `2938049`. Controllare con
+   Il nodo si dovrebe fermare all'altezza `2937550`. Controllare con
 
    ```bash
    journalctl -u cnd -f

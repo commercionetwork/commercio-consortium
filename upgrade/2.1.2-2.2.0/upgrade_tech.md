@@ -90,7 +90,7 @@ echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-22T16:00:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=2938049' >> $ENV_FILE
+echo 'export ALT_BLOCK=2937550' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
@@ -275,7 +275,7 @@ echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-meeting02"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-22T16:00:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=2938049' >> $ENV_FILE
+echo 'export ALT_BLOCK=2937550' >> $ENV_FILE
 echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
 
 source $ENV_FILE
