@@ -196,11 +196,11 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
     name: cnd
     server_name: cnd
     version: v2.2.0
-    commit: <DA COMUNICARE>
+    commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
     build_tags: netgo,ledger
     ...
    ```
-    La versione hash del nuovo software dovrebbe essere v2.2.0: `<DA COMUNICARE>`
+    La versione hash del nuovo software dovrebbe essere v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
 
 2. A questo punto deve essere eseguita la migrazione del file di genesis per rendere conforme il nuovo stato per il nuovo core.
 Scaricare e installare i binari

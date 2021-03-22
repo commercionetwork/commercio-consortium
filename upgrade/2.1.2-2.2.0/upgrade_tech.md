@@ -314,7 +314,7 @@ name: commercionetwork
 server_name: cnd
 client_name: cndcli
 version: 2.2.0
-commit: <DA COMUNICARE>
+commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
 build_tags: netgo,ledger
 go: go version go1.15.8 linux/amd64
 ```
