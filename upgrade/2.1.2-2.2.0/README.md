@@ -264,7 +264,7 @@ Scaricare e installare i binari
 
    
    ```bash
-   sed 's/^halt-block =.*/halt-block = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
@@ -385,7 +385,7 @@ Se **NON** si è arrivati al punto 4. della [procedura di aggiornamento](#proced
    ```
 1. Ripristinare correttamente il file `app.toml`
    ```bash
-   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```  
 5. Avvio della precedente chain
@@ -441,7 +441,7 @@ Se si è arrivati punto 4. o oltre della [procedura di aggiornamento](#procedura
 4. Ripristinare correttamente il file `app.toml`
    ```bash
    cp ~/cnd_backup/config/app.toml ~/.cnd/config/.
-   sed 's/^halt-block =.*/halt-block = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```  
 5. Avvio della precedente chain

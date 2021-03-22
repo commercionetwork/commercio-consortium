@@ -434,7 +434,7 @@ Se **NON** si è arrivati al punto [6) ossia "Eseguire l'esportazione della chai
    ```
 ### 2) Ripristinare correttamente il file `app.toml`
    ```bash
-   sed 's/^halt-block =.*/halt-block = 0/g' $APP_TOML > $APP_TOML.tmp
+   sed 's/^halt-height =.*/halt-height = 0/g' $APP_TOML > $APP_TOML.tmp
    mv $APP_TOML.tmp $APP_TOML
    ```  
 ### 3) Avvio della precedente chain
@@ -470,7 +470,7 @@ Se si è arrivati al punto [6) ossia "Eseguire l'esportazione della chain"](#6-e
    cp ~/data_backup/config/genesis.json $HOME_CND_CONFIG/.
    cp ~/data_backup/config/config.tomln $HOME_CND_CONFIG/.
    cp ~/data_backup/config/app.toml $APP_TOML
-   sed 's/^halt-block =.*/halt-block = 0/g' $APP_TOML > $APP_TOML.tmp
+   sed 's/^halt-height =.*/halt-height = 0/g' $APP_TOML > $APP_TOML.tmp
    mv $APP_TOML.tmp $APP_TOML
    ```
 
