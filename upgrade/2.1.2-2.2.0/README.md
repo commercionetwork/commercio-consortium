@@ -119,7 +119,7 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
 
    
    ```bash
-   sed 's/^halt-block =.*/halt-block = 2937550`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2937550`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
