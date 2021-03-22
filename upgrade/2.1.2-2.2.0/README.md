@@ -179,7 +179,7 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
 4. Compilare i nuovi binari
 
    ```bash
-    git clone https://github.com/commercio/commercionetwork && cd commercionetwork
+    git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
     git checkout v2.2.0
     make GENERATE=0 install
    ```
@@ -299,7 +299,7 @@ Scaricare e installare i binari
 4. Compilare i nuovi binari
 
    ```bash
-   git clone https://github.com/commercio/commercionetwork && cd commercionetwork && git checkout v2.2.0; make install
+   git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork && git checkout v2.2.0; make install
    ```
 
    Se sono già stati compilati i binari potete direttamente copiare i binari nei path dei precedenti binari.   
