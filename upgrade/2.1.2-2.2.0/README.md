@@ -260,18 +260,18 @@ Scaricare e installare i binari
 
 # Guida per i full node (Sentry)
 
-1. Verificare che sia impostato il blocco di stop esatto: `2938049`
+1. Verificare che sia impostato il blocco di stop esatto: `2937550`
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2938049`/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2937550/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
    ```bash
    systemctl restart cnd
    ```
-   Il nodo si dovrebe fermare all'altezza `2938049`. Controllare con
+   Il nodo si dovrebe fermare all'altezza `2937550`. Controllare con
 
    ```bash
    journalctl -u cnd -f
