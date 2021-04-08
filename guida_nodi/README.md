@@ -12,12 +12,12 @@ Creare una guida generalizzata è abbastanza complesso e consta di una grossa mo
 Concetto generale di validatore e breve spiegazione sulla configurazione.
 
 
-## [Installazione kms chiave singola](installazione_tmkms.md)
+## [Installazione kms chiave singola (wip)](installazione_tmkms.md)
 Guida per installare un kms con una sola chiave, e quindi da utilizzare se è presente un solo nodo validatore.
 ## [Installazione kms chiavi multiple](installazione_tmkms_chiavi_multiple.md)
 Guida per installare un kms con chiavi multiple, e quindi da utilizzare se è presente più di un nodo validatore.
 
-## [Installazione nodo validatore con kms](installazione_validatore_kms.md)
+## [Installazione nodo validatore con kms (wip)](installazione_validatore_kms.md)
 Guida per installare un nodo validatore con il supporto kms.
 
 ---
