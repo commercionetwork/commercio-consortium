@@ -16,7 +16,7 @@ La fonte primaria di documentazione sull'installazione di un full-node e di un v
 
 ## Creazione ambiente
 
-Per la gestione del nodo non si dovrebbe usare un utente privilegiato tipo `root`, e quindi si dvorebbe procedere alla creazione di un utente non privilegiato e privo di shell. Es.  
+Per la gestione del nodo non si dovrebbe usare un utente privilegiato tipo `root`, e quindi si dovrebbe procedere alla creazione di un utente non privilegiato e privo di shell. Es.  
 
 ```bash 
 mkdir /opt/cnd
@@ -29,7 +29,9 @@ In questa modo abbiamo creato la home per il nostro nodo validatore che sarà ap
 
 ## Scaricamento dati della chain
 
-Selezionare la versione della chain attuale. Nel codice seguente sarà `<chain-version>`. Alla stesura di questa guida la versione della chain attuale è la `commercio-2_2`.
+Selezionare la versione della chain attuale. Nel codice seguente sarà `<chain-version>`. Alla stesura di questa guida la versione della chain attuale è la `commercio-2_2`. Se invece si vuole utilizzare la chain di testnet alla stesuara della guida la versione è `commercio-testnet10k2`.
+
+Consultare il [repo delle chains](https://github.com/commercionetwork/chains) per sapere sempre quale siano le chain attuali
 
 ```bash 
 CHAIN_VERSION=<chain-version>
@@ -143,134 +145,132 @@ Premere `ctrl + c` per interrompere.
 
 ## Configurazione Validator Node
 
-Per creare il nodo validatore possiamo partire dallo stesso tipo di installazione del sentry node.
+Per creare il nodo validatore possiamo partire dallo stesso tipo di installazione del sentry node/full node.    
+Consultare la [guida ufficiale](http://docs.commercio.network) per i dettagli delle transazioni di creazione del nodo validatore.   
+
+
+### Configurazione nodo validatore vs nodi sentry
+
+Generalmente il nodo validatore non deve essere esposto sulla rete pubblica, ma deve accedere solo a nodi fidati, e questi ultimi devono essere esposti alla rete globale.    
+Riferendosi ai [concetti generali](./concetti_generali.md) prenderemo in esame il caso `Doppio kms/Doppio validatore/Nodi Sentry`.     
+Per semplicità considereremo solo il kms attivo e il validatore attivo.    
+Inizialmente devono essere installati i nodi sentry: il loro funzionamento non dipende dal nodo validatore, ma solo sull'esistenza della chain.   
+Deve poi essere installato il validatore. Nella fase iniziale il validatore sarà solo un full node. Per poter funzionare il nodo validatore dovrà poter accedere ai sentry node, ossia i nodi fidati della struttura del validatore.   
+
+Nel validatore devono essere implementate queste configurazioni nel file `config.toml`
+
+| Configurazione | Valore | Descrizione | 
+|--|--|--|
+| `pex` | false | Impedisce di utilizzare il p2p per fare il crawling della rete | 
+| `persistant_peers` | id_sentry01@ip_sentry01:26656,id_sentry02@ip_sentry02:26656 | La lista dei nodi persistenti. Per il nodo validatore dovranno essere **solo** i nodi fidati | 
+| `seeds` |  | La lista dei seeds dovrà essere vuota | 
+| `addr_book_strict` | false | Da impostare a false se alcuni nodi sono in una Lan privata | 
+
+Per ottenere i valori di `id_sentry01` e `id_sentry02` usare il comando sui sentry stessi
+
+```bash
+/bin/cnd tendermint show-node-id --home /opt/cnd
+```
+
+Il comando dovrebbe dare in output l'id del nodo.   
+`ip_sentry01` e `ip_sentry02` sono gli ip dei sentry accessibili dal validatore. Il validatore si presumo sia collegato ai sentry attraverso vpn, quindi gli ip non saranno quelli pubblici, ma quelli appunto della rete vpn.   
+
+
+Sui sentry devono essere implementate queste configurazioni nel file `config.toml`
+
+| Configurazione | Valore | Descrizione | 
+|--|--|--|
+| `pex` | false | Impedisce di utilizzare il p2p per fare il crawling della rete | 
+| `persistant_peers` | id_validatore@ip_validatore:26656,id_other_nodes@ip_other_nodes:26656 | La lista dei nodi persistenti. Per il nodo validatore dovranno essere solo i nodi fidati | 
+| `private_peer_ids` | id_validatore | Il parametro contiene la lista degli id da non diffondere nella rete. In questo caso sarà quello del nodo validatore | 
+| `addr_book_strict` | false | Da impostare a false se alcuni nodi sono in una Lan privata | 
+
+
+Analogamento sul validatore dobbiamo recuperare `id_validatore` usando il comando
+
+```bash
+/bin/cnd tendermint show-node-id --home /opt/cnd
+```
+
+`ip_validatore` è l'ip del validatore accessibile dai sentry, anche in questo caso si presumo quello della vpn.  
+
+`id_other_nodes` e `ip_other_nodes` saranno gli id e gli ip già presenti sul file di configurazione recuperati dalle configurazioni del network ossia dal [repo delle chains](https://github.com/commercionetwork/chains)
+
+
+Far ripartire i sentry con il comando
+
+```bash 
+sudo systemctl restart cnd
+``` 
+
+e poi avviare il validatore il validatore che dovrebbe sincronizzarsi con il comando
+
+```bash 
+sudo systemctl start cnd
+``` 
+Controllare la sincronizzazione sul validatore con il comando
+
+```bash 
+sudo journalctl -u cnd -f
+``` 
 
 
 ### Configurazione nodo con KMS
 
-Configurare il nome che si vuole attribuire al nodo (i sentry node di default prendono il nome host).
+Il concetto fondamentale del funzionamento del validatore è che debba poter accedere a una chiave privata per il sign dei blocchi rilasciati dalla chain.   
+La chiave privata può essere fornita in varie maniere, ad esempio con un file oppure come nel caso che stiamo pre trattare attraverso un KMS.    
+Fondamentale aver seguito la [guida per installazione kms per chiavi multiple](./installazione_tmkms_chiavi_multiple.md) o per [chiave singola](./installazione_tmkms.md) per procedere in questa fase.     
 
+Sul file di configurazione del nodo validatore `/opt/cnd/config/config.toml` deve essere modificato il parametro di accesso alle chiavi di validazione.  
+Sostituire
 
-NODENAME="**nome_nodo**"
+```toml
+#priv_validator_laddr = "tcp://.*:26658"
+```
 
-Accedere ai sentry node e ottenere gli id. Per ogni sentry node usare il comando
+con 
 
-```sh 
-sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | fgrep "10.1." | fgrep -v "10.1.1" | awk '{print $2}'):26656 > node_id.$(/bin/cnd tendermint show-node-id --home /opt/cnd).txt
+```toml
+priv_validator_laddr = "tcp://<indirizzo validatore>:26658"
+```
+
+`<indirizzo validatore>` deve essere l'indirizzo del validatore che è stato impostato all'interno del file di configurazione del kms nel parametro `addr` sotto la sezione `[[validator]]`
+Es.
+
+```toml
+...
+[[validator]]
+addr = "tcp://<indirizzo validatore>:26658"
+...
+```
+
+**NB**: il kms agisce come client e non come server. Il kms non ha bisogno di avere nessuna porta aperta verso il validatore. E' il validatore che espone sulla porta `26658` l'ascolto della chiave privata.
+
+Una volta modificata la configurazione si può far ripartire il nodo validatore con il comando
+
+```bash 
+sudo systemctl restart cnd
 ``` 
-	
 
-
-<img src="img/attetion.png" width="30"> **Attenzione**: in questo comando si è supposto che il sentry node sia su una rete separata rispetto alla vpn del validator node e del kms. Le istruzioni in grassetto hanno questa implicazione. Questa estrazione delle informazioni è strettamente legato alla struttura delle rete che si sta implementando e che generalmente non può essere omogenea in generale sulle varie installazione di nodi.
-
-E’ necessario modificare la configurazione del nodo validatore  in modo che il KMS possa connettersi e che possa connettersi ai sentry node.
-
-Ottenere le informazioni del validator node
-
-```sh 
-sudo printf $(/bin/cnd tendermint show-node-id --home /opt/cnd)@$(ifconfig | fgrep "inet " | fgrep -v "127.0.0.1" | fgrep "10.1.1" | awk '{print $2}'):26656 > node_id.val.txt
-```
-
-Ottenere le configurazioni dai sentry node
-
-```sh 
-for S_NODE in $LIST_S_NODES; do
-scp $S_NODE:node_id* .
-done
-```
-
-Costruire la stringa di configurazione per il config.toml
-
-```sh 
-for S_NODE_INFO  in node_id*; do
-S_NODES_IDS=$S_NODES_IDS”,”$S_NODE_INFO
-done
-```
-
-Immettere le configurazioni nel config.toml del nodo validatore
-
-```sh 
-sudo sed -e "s|priv_validator_key_file = 
-\"config/priv_validator_key.json\"|#priv_validator_key_file = \"config/priv_validator_key.json\"|g" /opt/cnd/config/config.toml | \
-sed -e "s|#priv_validator_laddr = \"tcp://.*:26658\"|priv_validator_laddr = \"tcp://10.1.1.254:26658\"|g" | \
-sed -e "s|moniker = \".*\"|moniker = \"$NODENAME\"|g" | \ 
-sed -e "s|persistent_peers = \"(.*)\"|persistent_peers = \"\1$S_NODES_IDS\"|g" | \
-sed -e "s|pex = \".*\"|pex = \"false\"|g" | \
-sed -e "s|addr_book_strict = \".*\"|addr_book_strict = \"false\"|g" > \
-/opt/cnd/config/config.toml.tmp
-sudo mv /opt/cnd/config/config.toml.tmp /opt/cnd/config/config.toml
-sudo chown -R cnd /opt/cnd
-```
-
-
-<img src="img/attetion.png" width="30"> **Attenzione**: non deve essere fatto ripartire il validator node in questo momento, perché dobbiamo ancora trasferire le informazioni del nodo validatore ai nodi sentry, per non diffondere le proprie informazioni
-
-Trasferire le informazioni del validator node ai senry node
-
-```sh 
-for S_NODE in $LIST_S_NODES; do
-  scp node_id.val.txt $S_NODE:.
-done
-```
-
-Per ogni sentry node deve essere inserito nelle configurazioni le informazioni del validator node per non diffonderle nella rete p2p
-
-```sh 
-sed -e "s|private_peer_ids = \".*\"|private_peer_ids = \"$(cat node_id.val.txt)\"|g" /opt/cnd/config/config.toml > /opt/cnd/config/config.toml.tmp
-sudo mv /opt/cnd/config/config.toml.tmp /opt/cnd/config/config.toml
-sudo chown -R cnd /opt/cnd
-sudo systemctl stop cnd; sleep 7; sudo systemctl start cnd
-```
-
-Avviare il nodo validatore
-
-```sh 
-sudo systemctl start cnd
-``` 
 
 Controllare l’output dei logs del kms dovrebbero variare in questa maniera
 
 ```log 
-Jan 11 09:23:14.389  INFO tmkms::session: [commercio-testnet6002@tcp://10.1.1.254:26658] connected to validator successfully
-Jan 11 09:23:14.389  WARN tmkms::session: [commercio-testnet6002] tcp:/10.1.1.254:26658: unverified validator peer ID! (A312D8F64C9FC71A1A947C377F64B7302C951361)
+Jan 11 09:23:14.389  INFO tmkms::session: [<chain-version>@tcp://<indirizzo validatore>:26658] connected to validator successfully
+Jan 11 09:23:14.389  WARN tmkms::session: [<chain-version>] tcp:/<indirizzo validatore>:26658: unverified validator peer ID! (A312D8F64C9FC71A1A947C377F64B7302C951361)
 ```
 
+Se l'output ha la dicitura `connected to validator successfully` il kms è correttamente collegato al validatore.
 
-Controllare l’output dei logs del validator node. Dovrebbero riportare il funzionamento normale. Se qualcosa non funziona i blocchi in teoria non dovrebbero poter essere rilasciati
 
+## Creazione validatore
 
-## Creazione sulla chain nodo Validator Node
-
-Se tutti i passaggi sono corretti e il nodo validatore funziona correttamente si può eseguire la transazione di creazione del nodo validatore.
-
-Da qualsiasi postazione dotata del client cncli, il wallet, e un accesso a un full node possiamo lanciare il comando di creazione del nodo
-
-```sh 
-cncli tx staking create-validator \
-  --amount=50000000000ucommercio \
-  --pubkey=did:com:valconspub1zcjduepq592mn6xucyqvfrvjegruhnx55cruffkrfq0rryu809fzkgwg684qmetxxs \
-  --moniker="nome_nodo" \
-  --chain-id="commercio-testnet6002" \ 
-  --details="nodo validatore di Commercio" \
-  --commission-rate="0.10" \
-  --commission-max-rate="0.20" \
-  --commission-max-change-rate="0.01" \
-  --min-self-delegation="1" \
-  --from=did:com:1zcjduep… \
-  --node=tcp://10.1.2.1:26657 \
-  --fees=10000ucommercio \
-  -y
-```
-
-Dove
-
-*   **--pubkey**: la chiave pubblica del validatore fornita dal kms
-*   **--moniker**: Nome del nodo
-*   **--chain-id**: Id della chain per cui si sta creando il nodo (parametro non necessario se nelle configurazioni del client è già stato inserito)
-*   **--from**: wallet contenente i token da delegare al validatore
-*   **--node**: un full node a cui si ha accesso con la porta 26657 in ascolto
-
-Se la transazione di creazione del nodo è andata a buon fine i logs del kms dovrebbe cominciare a mostrare le operazioni di PreVote e PreCommit.
-
+Riferirsi alla [guida ufficiale](https://docs.commercio.network) per eseguire le transazioni per la creazione del validatore.
 
 ## Considerazioni
+
+La guida è intesa per fare un setup della struttura del validatore, e non per spiegare il funzionamento della chain o delle sue transazioni.    
+Spiegazioni sui messaggi sono da ricercare in guide differenti.   
+Nei concetti generali si possono trovare alcuni esempi di tolpologie di nodi, e ognuno è libero di scegliere una propria configurazione.    
+E' fondamentale semplicemente capire che il nodo validatore non è altro che un full node che accede a un particolare materiale crittografico, e lui e solo lui potrà accedervi.   
+I nodi di supporto quali i sentry sono da intendersi appunto di supporto al funzionamento del nodo, per renderlo sicuro e robusto nell'ambito della rete globale.   

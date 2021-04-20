@@ -266,6 +266,12 @@ printf "double section release consider diet pilot flip shell mother alone what 
 ```
 **<img src="img/attetion.png" width="30">ATTENZIONE**: se la password non viene salvata in questo momento lo yubiHSM non potrà essere utilizzato e l'unico modo di fare un reset è quello di farlo manualmente.
 
+Nel caso si volesse fare un `restore` di una precedente installazione è necessario eseguire un recover con le 24 parole. Questa procedura potrebbe essere necessaria nel caso si debba replicare le chiavi su un nuovo yubi o nel caso si voglia resettare lo yubi avendo comunque la possibilità di reimportare le chiave esportate crittate
+```bash
+tmkms yubihsm setup -c /data_tmkms/tmkms/kms/base/base.toml --restore
+```
+
+Verrà quindi richiesto di inserire il mnemonic con le 24 parole.
 
 ### Creazione configurazioni nodi
 
