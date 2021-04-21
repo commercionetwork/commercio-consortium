@@ -313,6 +313,7 @@ tmkms init /data_tmkms/tmkms/kms/templates/node2
 Creare le configurazioni per i nodi
 
 **Node1**
+
 Creare il file `/data_tmkms/tmkms/kms/commercio/node1.toml` con i seguenti dati
 
 ```toml
