@@ -71,10 +71,12 @@ Eseguire un reset della chain (questo inizializza anche la struttura delle carte
 ```bash
 sudo -u cnd /bin/cnd unsafe-reset-all --home=/opt/cnd
 sudo cp $CHAIN_DATA_FOLDER/genesis.json /opt/cnd/config/.
+
 sudo sed -e "s|persistent_peers = \".*\"|persistent_peers = \"$CHAIN_PER_PEERS\"|g" /opt/cnd/config/config.toml | \
-sed -e "s|addr_book_strict = \".*\"|addr_book_strict = \"false\"|g" | \ 
-sed -e "s|seeds = \".*\"|seeds = \"$CHAIN_SEEDS\"|g" > \
-/opt/cnd/config/config.toml.tmp
+   sed -e "s|addr_book_strict = \".*\"|addr_book_strict = \"false\"|g" | \ 
+   sed -e "s|seeds = \".*\"|seeds = \"$CHAIN_SEEDS\"|g" > \
+   /opt/cnd/config/config.toml.tmp
+
 sudo mv /opt/cnd/config/config.toml.tmp /opt/cnd/config/config.toml
 ```
 
