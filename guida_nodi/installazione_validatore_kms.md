@@ -19,8 +19,9 @@ La fonte primaria di documentazione sull'installazione di un full-node e di un v
 Per la gestione del nodo non si dovrebbe usare un utente privilegiato tipo `root`, e quindi si dovrebbe procedere alla creazione di un utente non privilegiato e privo di shell. Es.  
 
 ```bash 
-mkdir /opt/cnd
+sudo mkdir /opt/cnd
 sudo useradd -m -d /opt/cnd --system --shell /usr/sbin/nologin cnd
+sudo chown -R cnd:cnd /opt/cnd
 sudo -u cnd mkdir -p /opt/cnd/config
 ```
 
