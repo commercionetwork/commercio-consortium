@@ -44,10 +44,10 @@ git clone https://github.com/commercionetwork/chains.git commercio-chains
 CHAIN_DATA_FOLDER="$HOME/commercio-chains/$CHAIN_VERSION"
 CHAIN_DATA_FILE="$CHAIN_DATA_FOLDER/.data"
 CHAIN_VERSION=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Name\s+\K\S+')
-CHAIN_BIN_RELEASE=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Release\s+\K\S+')
+CHAIN_BIN_RELEASE=$(cat $CHAIN_DATA_FILE | grep -oP 'Release\s+\K\S+')
 CHAIN_PER_PEERS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Persistent peers\s+\K\S+')
 CHAIN_SEEDS=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Seeds\s+\K\S+')
-CHAIN_GEN_CHECKSUM=commercio-$(cat $CHAIN_DATA_FILE | grep -oP Genesis Checksum\s+\K\S+')
+CHAIN_GEN_CHECKSUM=commercio-$(cat $CHAIN_DATA_FILE | grep -oP 'Genesis Checksum\s+\K\S+')
 ```
 
 ## Installazione binari
