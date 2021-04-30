@@ -183,7 +183,7 @@ Sui sentry devono essere implementate queste configurazioni nel file `config.tom
 
 | Configurazione | Valore | Descrizione | 
 |--|--|--|
-| `pex` | false | Impedisce di utilizzare il p2p per fare il crawling della rete | 
+| `pex` | true | Abilita il p2p per fare il crawling della rete | 
 | `persistant_peers` | id_validatore@ip_validatore:26656,id_other_nodes@ip_other_nodes:26656 | La lista dei nodi persistenti. Per il nodo validatore dovranno essere solo i nodi fidati | 
 | `private_peer_ids` | id_validatore | Il parametro contiene la lista degli id da non diffondere nella rete. In questo caso sarà quello del nodo validatore | 
 | `addr_book_strict` | false | Da impostare a false se alcuni nodi sono in una Lan privata | 
