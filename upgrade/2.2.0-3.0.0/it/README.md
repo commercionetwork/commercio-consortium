@@ -46,11 +46,11 @@ Di seguito vengono elencati i cambiamenti più rilevanti
 
 1. `Id` -> `Did`
 1. `Documents`
-1. `Accreditations` -> `CommercioKyc`
-1. `CommercioMint`
-1. `VBR`
-1. `Ante`
-2. `Government`
+2. `CommercioKyc`
+3. `CommercioMint`
+4. `VBR`
+5. `Ante`
+6. `Government`
 
 Maggiori dettagli sono riportati in [docs.commercio.network](https://docs.commercio.network). In tale documentazione sono evidenziati in alto a destra la documentazione della versione `2.1.2`, `2.2.0` e quella della versione `3.0.0`
 
@@ -58,9 +58,9 @@ Maggiori dettagli sono riportati in [docs.commercio.network](https://docs.commer
 ## Operazioni preliminari
 
 Prima di eseguire l'aggiornamento ci sono alcuni aspetti da considerare
-1. Verificare di avere abbastanza spazio su disco: attualmente il database pruned della chain occupa 80/90Gb, quindi il disco dei server deve avere abbastanza spazio da contenere il backup più almeno altri 5Gb per le operazioni di export e migration e per l'avvio della nuova chain 
+1. Verificare di avere abbastanza spazio su disco: attualmente il database pruned della chain occupa 80/90Gb, quindi il disco dei server deve avere abbastanza spazio da contenere il database della chain precedente che fungerà da backup più almeno altri 5Gb per le operazioni di export e migration e per l'avvio della nuova chain 
 2. **Ram**: minima richiesta 8Gb. Consigliata 16Gb.
-3. E' consigliabile, non appena verrà pubblicato la release finale, la compilazione sul nodo: compilare i binari durante l'aggiornamento potrebbe rallentare le operazioni. **La versione finale sarà con il tag `v3.0.0`**
+3. E' consigliabile, non appena verrà pubblicato la release finale, la **compilazione sul nodo**: compilare i binari durante l'aggiornamento potrebbe rallentare le operazioni. **La versione finale sarà con il tag `v3.0.0`**
 4. Preparare le configurazioni dei file `config.toml` e `app.toml` prima in modo da averli pronti nel momento dell'aggiornamento
 5. Sospendere le transazioni dove possibile: le transazioni nel momento in cui la chain verrà fermata verranno rifiutate e quindi il loro invio dipenderà da come il client che invia gestisce tali errori.
 6. Per chi fa uso di `tmkms` aggiornare da subito il tmkms almeno alla versione 0.9.0 (meglio 0.10.0). Per chi usa lo yubiHSM con una sola chiave leggere la procedura in [Aggiornamento tmkms](./aggiornamento-tmkms.md). Chi invece usa lo yubiHSM con chiavi multiple leggere la guida [Aggiornamento tmkms con chiavi multiple](./aggiornamento-tmkms-chiavi-multiple.md)
@@ -75,59 +75,57 @@ Se durante l'aggiornamento viene fatto qualche errore, ad esempio utilizzando un
 
 ## Procedura di aggiornamento
 
-__Note__: Viene dato per scontato che il nodo su cui si va ad operare ha la versione v2.1.2 del core della chain.     
+__Note__: Viene dato per scontato che il nodo su cui si va ad operare ha la versione v2.2.0 del core della chain.     
 __Note 2__: Le istruzioni devono essere adattate al proprio ambiente, quindi variabili e path devono essere cambiate a seconda delle installazioni.
 
 
+La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
 
-**!!!SCRIPTS**  Lo sviluppo di scripts o programmi automatici è stato sospeso perché durante l'ultimo meeting la maggior parte dei partecipanti li hanno ritenuti inutili. Ogni partecipante ha già predisposte le proprie procedure  **SCRIPTS!!**
-
-La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059ab83c55d861d8c97130`
-
-1. Verificare la versione corrente (v2.1.2) di _cnd_:
+1. Verificare la versione corrente (v2.2.0) di _cnd_:
 
    ```bash
     cnd version --long
    ```  
    Dovrebbe riportare il seguente risultato
    ``` 
-    name: commercionetwork
-    server_name: cnd
-    client_name: cndcli
-    version: 2.1.2
-    commit: 8d5916146ab76bb6a4059ab83c55d861d8c97130
-    build_tags: netgo,ledger
-    go: go version go1.15.8 linux/amd64
+   name: commercionetwork
+   server_name: cnd
+   client_name: cndcli
+   version: 2.2.0
+   commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
+   build_tags: netgo,ledger
+   go: go version go1.17.5 linux/amd64
+   build_deps:
     ...
    ```
 
-   Installare il tool adeguati
+   Installare il tool adeguati se non presenti
 
    ```bash
    apt install jq -y
    ```
 
-   Controllare la versione di `go` che sia almeno `1.15+`
+   Controllare la versione di `go` che sia almeno `1.16+`
 
 
-2. Verificare che sia impostato il blocco di stop esatto: `2937550` (Verrà fatto un check comunque la mattina del 22/03/2021 per verificare il progresso dei blocchi)
+2. Verificare che sia impostato il blocco di stop esatto: `2248540` (Verrà fatto un check comunque la mattina del 21/02/2022 per verificare il progresso dei blocchi)
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2937550/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2248540/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    E applicare la configurazione usando il comando 
    ```bash
    systemctl restart cnd
    ```
-   Il nodo si dovrebe fermare all'altezza `2937550`. Controllare con
+   Il nodo si dovrebe fermare all'altezza `2248540`. Controllare con
 
    ```bash
    journalctl -u cnd -f
    ```
 
-1. Dopo lo stop della chain fermare il nodo e eseguire l'export dello stato:
+3. Dopo lo stop della chain fermare il nodo e eseguire l'export dello stato:
    ```bash
    systemctl stop cnd
    systemctl stop cncli
@@ -138,12 +136,12 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
 
    Eseguire l'export della chain
    ```bash
-   cnd export --for-zero-height  > ~/commercio-2_1_genesis_export.json
+   cnd export  > ~/commercio-2_2_genesis_export.json
    ```
    **NB**: questa operazione è necessaria solo sui nodi validatori. Il genesis prodotto poi potrà essere installato sui nodi sentry.     
    Il processo potrebbe richiedere un po' di tempo e dipende dalle risorse disponibili sul nodo.
 
-2. Salvataggio delle vostra cartella `.cnd` directory
+4. Salvataggio delle vostra cartella `.cnd` directory
 
    ```bash
     mkdir -p ~/cnd_backup/bin
@@ -156,99 +154,114 @@ La versione/hash commit di commercio network è  v2.1.2: `8d5916146ab76bb6a4059a
 
 
 
-3. Verifca del checsum del file gensis esportato:
+5. Verifca del checsum del file gensis esportato:
 
    Attraverso la comunicazione in chat tutti i nodi validatori dovranno postare il risultato del checksum dell'export
 
    ```bash
-   $ jq -S -c -M '' ~/commercio-2_1_genesis_export.json | shasum -a 256
+   $ jq -S -c -M '' ~/commercio-2_2_genesis_export.json | shasum -a 256
    ```
 
-   <img src="img/attetion.png" width="30">Il risultato dovrebbe essere nella formula
+   <img src="img/attetion.png" width="30">Il risultato dovrebbe essere del tipo
    ```
-   [SHA256_VALUE]  commercio-2_1_genesis_export.json
+   [SHA256_VALUE]  commercio-2_2_genesis_export.json
    ```
    Copiare e incollare sul gruppo di Telegram il valore `[SHA256_VALUE]` e compararlo con tutti gli altri validatori
 
 
-4. Compilare i nuovi binari
+6. Compilare i nuovi binari
 
    ```bash
     git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
-    git checkout v2.2.0
-    make GENERATE=0 install
+    git checkout v3.0.0
+    make install
    ```
 
-   Se sono già stati compilati i binari potete direttamente copiare i binari nei path dei precedenti binari.
 
-1. Verificare che gli applicativi siano la versione giusta:
+7. Verificare che gli applicativi siano la versione giusta:
 
    ```bash
-    cnd version
+    commercionetworkd version
     ```
     I valori dovrebbe essere 
     ```
-    name: cnd
-    server_name: cnd
-    version: v2.2.0
-    commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
+    name: commercionetworkd
+    server_name: commercionetworkd
+    version: v3.0.0
+    commit: ??????
     build_tags: netgo,ledger
     ...
    ```
-    La versione hash del nuovo software dovrebbe essere v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
+    La versione hash del nuovo software dovrebbe essere v3.0.0: `????`
 
-2. A questo punto deve essere eseguita la migrazione del file di genesis per rendere conforme il nuovo stato per il nuovo core.
-Scaricare e installare i binari
+8. A questo punto deve essere eseguita la migrazione del file di genesis per rendere conforme il nuovo stato per il nuovo core.
+   Deve essere acquisito l'ultima altezza validata per la chain
 
    ```bash
-   cnd migrate v2.2.0 \
-    ~/commercio-2_1_genesis_export.json \
-    --chain-id=commercio-2_2 \
-    --genesis-time="2021-03-22T16:00:00Z" > ~/genesis.json
+   cat .cnd/data/priv_validator_state.json
+   ```   
+
+   ```bash
+   commercionetworkd migrate v3.0.0 \
+    ~/commercio-2_2_genesis_export.json \
+    --chain-id=commercio-3 \
+    --initial-height=2248541 > ~/genesis.json
    ```
 
 
-1. Verificare il checksum del genesis prodotto:
+9.  Verificare il checksum del genesis prodotto:
 
    ```bash
    $ jq -S -c -M '' ~/genesis.json | shasum -a 256
    ```
 
-   Il risultato dovrebbe essere nella formula
+   Il risultato dovrebbe essere del tipo
    ```
    [SHA256_VALUE]  genesis.json
    ```
    <img src="img/attetion.png" width="30">Copiare e incollare sul gruppo di Telegram il valore `[SHA256_VALUE]` e compararlo con tutti gli altri validatori
 
-2. Reset dello stato della chain:
+10. Reset/inizializzazione cartelle della chain:
+   ```bash
+   commercionetworkd unsafe-reset-all
+   ```
+   Dovrebbe prodursi una cartella sulla propria home `.commmercionetwork`
 
-   <img src="img/attetion.png" width="30">**NOTE**: questo è un punto molto delicato e assicuratevi per l'ennesima volta di avere un backup del database della chain e delle configurazioni. 
+1.  Installare il nuovo geneis della nuova chain
 
    ```bash
-   cnd unsafe-reset-all
+   cp ~/genesis.json ~/.commmercionetwork/config/
    ```
-
-3. Installare il nuovo geneis della nuova chain
-
-    ```bash
-    cp ~/genesis.json ~/.cnd/config/
-    ```
-
    <img src="img/attetion.png" width="30"> **ATTENZIONE** in questa fase devono essere aggiornati prima i sentry. Verificare la [procedura di aggiornamento full node](#guida-per-i-full-node-sentry)
-1. Installare il nuovo template del file `app.toml`
+
+12. Verificare le configurazioni del file `congit.toml`.
+    
+13. Creazione del nuovo service
    ```bash
-   cnd init templ --home ~/cnd_template
-   cp ~/cnd_template/config/app.toml ~/.cnd/config/.
+      tee /etc/systemd/system/commercionetworkd.service > /dev/null <<EOF  
+      [Unit]
+      Description=Commercio Node
+      After=network-online.target
+
+      [Service]
+      User=root
+      ExecStart=/root/go/bin/commercionetworkd start
+      Restart=always
+      RestartSec=3
+      LimitNOFILE=4096
+
+      [Install]
+      WantedBy=multi-user.target
+      EOF
    ```
 
-2. Avvio della nuova chain
-
+14. Avvio della nuova chain
    ```bash
-   systemctl start cnd
+   systemctl start commercionetworkd
    ```
-1. Controllare lo stato del nodo
+15. Controllare lo stato del nodo
    ```bash
-   journalctl -u cnd -f
+   journalctl -u commercionetworkd -f
    ```
    I nodi potrebbero impiegare del tempo per arrivare al consenso.
 
