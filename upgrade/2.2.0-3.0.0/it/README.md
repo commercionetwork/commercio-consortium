@@ -294,17 +294,8 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
    **Attenzione**: il comando `systemctl stop cncli` potrebbe dare un errore, dato che il servizio `cncli` serve solo per le rest api e non è predisposto ovunque.
 
-3. Salvataggio delle vostra cartella `.cnd` directory
 
-   ```bash
-    mkdir ~/cnd_backup
-    mv ~/.cnd/data ~/cnd_backup/.
-    cp -r ~/.cnd/config ~/cnd_backup/.
-   ```
-
-    **NB**: Il backup è fondamentale nel caso la procedura non riuscisse e tutti i nodi sono invitati a eseguirla. Il backup verrà utilizzato nell'eventualità come indicato nella sezione See [Ripristino](#ripristino).
-
-4. Compilare i nuovi binari
+3. Compilare i nuovi binari
 
    ```bash
    git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork && git checkout v2.2.0; make install
@@ -313,156 +304,76 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    Se sono già stati compilati i binari potete direttamente copiare i binari nei path dei precedenti binari.   
    I binari possono essere anche copiati da un'altra macchina (validatore ad esempio) con la stessa architettura della macchina del full node.
 
-1. Verificare che gli applicativi siano la versione giusta:
+4. Verificare che gli applicativi siano la versione giusta:
 
    ```bash
     cnd version
     ```
     I valori dovrebbe essere 
     ```
-    name: cnd
-    server_name: cnd
-    version: v2.2.0
-    commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
+    name: commercionetworkd
+    server_name: commercionetworkd
+    version: v3.0.0
+    commit: ??????
     build_tags: netgo,ledger
     ...
    ```
-    La versione hash del nuovo software dovrebbe essere v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
+    La versione hash del nuovo software dovrebbe essere v3.0.0: `????`
 
-2. Reset dello stato della chain:
-
-   <img src="img/attetion.png" width="30">**NOTE**: questo è un punto molto delicato e assicuratevi per l'ennesima volta di avere un backup del database della chain e delle configurazioni. 
+5. Reset dello stato della chain:
 
    ```bash
-   cnd unsafe-reset-all
+   commercionetworkd unsafe-reset-all
    ```
-3. Installare il nuovo geneis della nuova chain
+6. Installare il nuovo geneis della nuova chain
    
    Da un nodo validatore o dal repo della chains (questo però sarà pronto solo dopo il completamento della procedura) copiare il genesis.
    **Dal vostro computer, quindi fuori dai server, supposto che stiate utilizzando ssh per l'accesso e che la procedura sul validatore sia al punto 11**
    ```bash
-   scp <UTENTE VALIDATORE>@<IP VALIDATORE>:.cnd/config/genesis.json .
-   scp genesis.json <UTENTE FULL NODE>@<IP FULL NODE>:.cnd/config/.
+   scp <UTENTE VALIDATORE>@<IP VALIDATORE>:.commercionetwork/config/genesis.json .
+   scp genesis.json <UTENTE FULL NODE>@<IP FULL NODE>:.commercionetwork/config/.
    ```
-1. Installare il nuovo template del file `app.toml`
-   ```bash
-   cnd init templ --home ~/cnd_template
-   cp ~/cnd_template/config/app.toml ~/.cnd/config/.
-   ```
+7. Installare il service
 
-   lanciare il comando
+8. Avvio della nuova chain
 
    ```bash
-   echo $($BIN_DIR/cnd tendermint show-node-id --home $HOME_CND)@$(wget -qO- icanhazip.com):26656
-   ```
-
-   Il risultato del comando sono quelli che faranno da peer persistenti per la nuova chain. Condividere il dato su
-
-   `https://hackmd.io/7v3XcG6qQQqVKMWRdTBW1w` 
-
-   Al file di configurazione `~/.cnd/config/config.toml` vanno aggiunti i vari `persistent_peers`, escludendo il proprio nodo naturalmente.   
-   Questa procedura mette la chain in condizione di collegare i nodi tra loro più velocemente.   
-   Se non presente aggiungere sempre nel file `~/.cnd/config/config.toml` anche il proprio ip pubblico nel parametro `external_address` in questa maniera
-   ```toml
-   external_address="tcp://<IP PUBBLICO>:26656"
-   ```
-
-
-2. Avvio della nuova chain
-
-   ```bash
-   systemctl start cnd
+   systemctl start commercionetworkd
    ```
 
 ## Ripristino
 
-Prima dell'aggiornamento tutti i validatori sono tenuti a eseguire un backup dello stato della chain. Il backup deve essere eseguito sia su i nodi validatori sia sui sentry e in generale su qualsiasi full node della chain.    
-E' sconsigliato avere un backup remoto, dato che il volume dell'archivio della chain non permetterebbe un ripristino veloce.    
+Prima dell'aggiornamento tutti i validatori sono tenuti a mantenere la cartella `.cnd` come backup dello stato della chain. Il backup deve mantenuto sia su i nodi validatori sia sui sentry e in generale su qualsiasi full node della chain.    
 E' essenziale salvare anche il file `.cnd/data/priv_validator_state.json`, o nel caso di utilizzo del `tmkms` del file di stato riportato nella configurazione `state_file`. Questo file, in special modo, dovrà essere ripristinato nel caso l'aggiornamento fallisca.    
 
 Necessario è fare un backup anche delle configurazioni, sia sui nodi validatori, sentry e tmkms, sempre per avere la possibilità di compiere un ripristino pulito nel caso di problemi.     
 
-Se **NON** si è arrivati al punto 4. della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino 
+Dalla [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino 
 
 1. Fermare qualsiasi servizio
    ```bash
-   systemctl stop cnd
-   systemctl stop cncli
-   pkill cnd
-   pkill cncli
-   ```
-1. Ripristinare correttamente il file `app.toml`
-   ```bash
-   sed 's/^halt-height =.*/halt-height = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
-   mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
-   ```  
-5. Avvio della precedente chain
-
-   ```bash
-   systemctl start cnd
-   ```
-6. Controllare lo stato del nodo
-   ```bash
-   journalctl -u cnd -f
-   ```
-   I nodi potrebbero impiegare del tempo per arrivare al consenso.
- 
-
-Se si è arrivati punto 4. o oltre della [procedura di aggiornamento](#procedura-di-aggiornamento) questi sono i passaggi per la procedura di ripristino è la seguente
-
-1. Fermare qualsiasi servizio
-   ```bash
-   systemctl stop cnd
-   systemctl stop cncli
-   pkill cnd
-   pkill cncli
+   systemctl stop commercionetworkd
+   pkill commercionetworkd
    ```
 
-2. Ripristinare i precedenti binari e le precedenti configurazioni
-
-   ```bash
-   cp ~/cnd_backup/bin/cn* ~go/bin/.
-   cnd unsafe-reset-all
-   rm -rf ~/.cnd/data 
-   mv ~/cnd_backup/data ~/.cnd/.
-   cp ~/cnd_backup/config/genesis.json ~/.cnd/config/.
-   cp ~/cnd_backup/config/config.toml ~/.cnd/config/.
-   ```
-
-3. Verificare la versione corrente (v2.1.2) di _cnd_:
-
-   ```bash
-    cnd version --long
-   ```  
-   Dovrebbe riportare il seguente risultato
-   ``` 
-    name: commercionetwork
-    server_name: cnd
-    client_name: cndcli
-    version: 2.1.2
-    commit: 8d5916146ab76bb6a4059ab83c55d861d8c97130
-    build_tags: netgo,ledger
-    go: go version go1.15.8 linux/amd64
-    ...
-   ```
-
-4. Ripristinare correttamente il file `app.toml`
+2. Ripristinare correttamente il file `app.toml`
    ```bash
    cp ~/cnd_backup/config/app.toml ~/.cnd/config/.
    sed 's/^halt-height =.*/halt-height = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```  
-5. Avvio della precedente chain
+
+
+3. Avvio della precedente chain
 
    ```bash
    systemctl start cnd
    ```
-6. Controllare lo stato del nodo
+4. Controllare lo stato del nodo
    ```bash
    journalctl -u cnd -f
    ```
    I nodi potrebbero impiegare del tempo per arrivare al consenso.
- 
 
 # Note
 
@@ -477,7 +388,6 @@ Sostanzialmente tutta la procedura, limitatamente ai nodi, si riduce a
 * far ripartire i servizi
 Compresa la procedura il processo sostanzialamente non è particolarmente complicato.
 Ognuno può estrarre dalle indicazioni una propria procedura automatizzata.   
-~~In ogni caso abbiamo tentato di implementare alcuni scripts di agevolazione.~~
 
 ### Errori o dubbi comuni
 
