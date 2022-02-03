@@ -14,15 +14,15 @@ SE IL PROGRESSO DEI BLOCCHI SI RIVELASSE DIVERSO DA QUELLO PREVISTO L'ALTEZZA PO
     - [4) Controllo dell'effettivo stop della chain](#4-controllo-delleffettivo-stop-della-chain)
     - [5) Assicurarsi di aver stoppato servizi](#5-assicurarsi-di-aver-stoppato-servizi)
     - [6) Eseguire l'esportazione della chain](#6-eseguire-lesportazione-della-chain)
-    - [7) Creare un salvataggio dei dati della chain e delle configurazioni](#7-creare-un-salvataggio-dei-dati-della-chain-e-delle-configurazioni)
+    - [7) Non è necessario creare un backup dei dati della chain e delle configurazioni perché la nuova chain creerà la cartalla di home in dei nuovi path.](#7-non-è-necessario-creare-un-backup-dei-dati-della-chain-e-delle-configurazioni-perché-la-nuova-chain-creerà-la-cartalla-di-home-in-dei-nuovi-path)
     - [8) Controllare sul gruppo Telegram se l'export corrisponde](#8-controllare-sul-gruppo-telegram-se-lexport-corrisponde)
-    - [9) Cambiare i binari](#9-cambiare-i-binari)
+    - [9) Rielvare l'ultimo blocco valido della chain](#9-rielvare-lultimo-blocco-valido-della-chain)
     - [10) Eseguire la migrazione](#10-eseguire-la-migrazione)
     - [11) Verificare il nuovo genesis con gli altri validatori.](#11-verificare-il-nuovo-genesis-con-gli-altri-validatori)
     - [12) Reset della chain](#12-reset-della-chain)
-    - [13) Sostituzione del genesis e dei file di configurazione](#13-sostituzione-del-genesis-e-dei-file-di-configurazione)
+    - [13) Sostituzione del genesis e dei file di configurazione e predisposizione service](#13-sostituzione-del-genesis-e-dei-file-di-configurazione-e-predisposizione-service)
     - [14) Ripartenza della chain](#14-ripartenza-della-chain)
-    - [15) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time](#15-la-nuova-chain-dovrebbe-ripartire-allorario-fissato-nel-genesis-time)
+    - [15) La nuova chain dovrebbe ripartire quando il consenso è stato raggiunto](#15-la-nuova-chain-dovrebbe-ripartire-quando-il-consenso-è-stato-raggiunto)
   - [Full node (sentry)](#full-node-sentry)
     - [1) Configurare i path e le variabili](#1-configurare-i-path-e-le-variabili-1)
     - [2) Compilare i nuovi binari](#2-compilare-i-nuovi-binari-1)
@@ -66,13 +66,13 @@ Nel processo di aggiornamento **bisogna fermarsi al punto 8**  e al **punto 10**
 
 ### Prerequisiti
 
-Installare jq: usare il comando 
+Installare jq
 
 ```bash
-apt install jq -y
+sudo apt install jq -y
 ```
 
-Controllare la versione di `go` che sia almeno `1.15+`
+Controllare la versione di `go` che sia almeno `1.16+`
 
 ### 1) Configurare i path e le variabili 
 
@@ -80,18 +80,21 @@ Impostare le variabili di ambiente per l'aggiornamento. **NB: I dati sono variab
 
 ```bash
 cd
-ENV_FILE="/root/env_update_chain_2.2.0.txt"
+ENV_FILE="/root/env_update_chain_3.0.0.txt"
 echo 'export HOME_CND="/root/.cnd"' > $ENV_FILE
 echo 'export HOME_CND_CONFIG="$HOME_CND/config"' >> $ENV_FILE
 echo 'export HOME_CND_DATA="$HOME_CND/data"' >> $ENV_FILE
+echo 'export HOME_COMMERCIONETWORK="/root/.commercionetwork"' > $ENV_FILE
+echo 'export HOME_COMMERCIONETWORK_CONFIG="$HOME_CND/config"' >> $ENV_FILE
+echo 'export HOME_COMMERCIONETWORK_DATA="$HOME_CND/data"' >> $ENV_FILE
 echo 'export APP_TOML="$HOME_CND_CONFIG/app.toml"' >> $ENV_FILE
 echo 'export BIN_DIR="/root/go/bin"' >> $ENV_FILE
 echo 'export SRC_GIT_DIR="/root/commercionetwork"' >> $ENV_FILE
 echo 'export BUILD_DIR="$SRC_GIT_DIR/build"' >> $ENV_FILE
 echo 'export NEW_CHAIN_ID="commercio-2_2"' >> $ENV_FILE
 echo 'export NEW_GENESIS_TIME="2021-03-22T16:00:00Z"' >> $ENV_FILE
-echo 'export ALT_BLOCK=2937550' >> $ENV_FILE
-echo 'export VERSIONE_BUILD="v2.2.0"' >> $ENV_FILE
+echo 'export ALT_BLOCK=---' >> $ENV_FILE
+echo 'export VERSIONE_BUILD="v3.0.0"' >> $ENV_FILE
 
 source $ENV_FILE
 
@@ -115,19 +118,19 @@ cd $SRC_GIT_DIR
 git pull
 git checkout $VERSIONE_BUILD
 git pull
-make GENERATE=0 build
-./build/cnd version  --long
+make install
+commercionetworkd version  --long
 #dovrebbe corrispondere a $VERSIONE_BUILD
 ```
 Il comando dovrebbe visualizzare i seguenti dati
 ```
 name: commercionetwork
-server_name: cnd
-client_name: cndcli
-version: 2.2.0
-commit: 3e02d5e761eab3729ccf6f874d3c929342e4230c
+server_name: commercionetworkd
+client_name: commercionetworkd
+version: 3.0.0
+commit: ?????
 build_tags: netgo,ledger
-go: go version go1.15.8 linux/amd64
+....
 ```
 
 
@@ -162,48 +165,34 @@ sudo pkill cncli
 ### 6) Eseguire l'esportazione della chain
 
 ```bash
-$BIN_DIR/cnd export --for-zero-height > ~/commercio-2_1_genesis_export.json
+$BIN_DIR/cnd export > ~/commercio-2_2_genesis_export.json
 ```
 
-### 7) Creare un salvataggio dei dati della chain e delle configurazioni
-
-```bash
-mkdir -p ~/data_backup/bin
-mv $HOME_CND_DATA ~/data_backup/.
-cp -r $HOME_CND_CONFIG data_backup/.
-cp $BIN_DIR/cn* ~/data_backup/bin/.
-```
+### 7) Non è necessario creare un backup dei dati della chain e delle configurazioni perché la nuova chain creerà la cartalla di home in dei nuovi path.
 
 ### 8) Controllare sul gruppo Telegram se l'export corrisponde  
 
 ```bash
-jq -S -c -M '' ~/commercio-2_1_genesis_export.json | shasum -a 256
+jq -S -c -M '' ~/commercio-2_2_genesis_export.json | shasum -a 256
 ```
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere **verificato** il migrate non avverrà e si dovrà far partire nuovamente la chain
 
-
-### 9) Cambiare i binari
-
-
-```bash
-cp $BUILD_DIR/cn* $BIN_DIR/.
-```
-
+### 9) Rielvare l'ultimo blocco valido della chain
 ### 10) Eseguire la migrazione
 
 ```bash
 cd
-$BIN_DIR/cnd migrate v2.2.0 ~/commercio-2_1_genesis_export.json \
+$BIN_DIR/cnd migrate v3.0.0 ~/commercio-2_2_genesis_export.json \
 --chain-id=$NEW_CHAIN_ID \
---genesis-time=$NEW_GENESIS_TIME \
+--intial-height=$INITIAL_HEIGHT \
 > ~/genesis.json
 ```
 
 Validare il nuovo genesis
 
 ```bash
-$BIN_DIR/cnd validate-genesis ~/genesis.json
+$BIN_DIR/commercionetworkd validate-genesis ~/genesis.json
 ```
 
 **ATTENZIONE**: se il nuovo genesis non dovesse essere **validato** il migrate non avverrà e si dovrà far partire nuovamente la chain
@@ -221,41 +210,30 @@ jq -S -c -M '' ~/genesis.json | shasum -a 256
 ### 12) Reset della chain
 
 ```bash
-$BIN_DIR/cnd unsafe-reset-all --home $HOME_CND
+$BIN_DIR/commercionetworkd unsafe-reset-all --home $HOME_COMMERCIONETWORK
 ```
 
-### 13) Sostituzione del genesis e dei file di configurazione
+### 13) Sostituzione del genesis e dei file di configurazione e predisposizione service
 
 ```bash
-cp ~/genesis.json $HOME_CND_CONFIG
+cp ~/genesis.json $HOME_COMMERCIONETWORK_CONFIG
 ```
 
-Creare un template con i nuovi file di configurazione `toml`
-
-```bash
-$BIN_DIR/cnd init templ --home $BUILD_DIR/template_home
-```
-e copiare i template nella cartella ufficiale
-
-```bash
-cp $BUILD_DIR/template_home/config/app.toml $APP_TOML
-```
-
+.......
 
 ### 14) Ripartenza della chain
 
 Quando si sono completate le operazioni e sono presenti un buon numero di peer persistenti lanciare il comando
 
 ```bash
-sudo systemctl start cnd
+sudo systemctl start commercionetworkd
 ```
 
-### 15) La nuova chain dovrebbe ripartire all'orario fissato nel genesis time 
-
+### 15) La nuova chain dovrebbe ripartire quando il consenso è stato raggiunto
 ```bash
-sudo journalctl -u cnd -f
+sudo journalctl -u commercionetworkd -f
 ```
-Ci potrebbe essere un periodo in cui bisogna attendere che si raggiunga il consenso, che potrebbe andare oltre il genesis time.
+
 
 ## Full node (sentry)
 

@@ -29,7 +29,7 @@ I dettagli dell'aggiornamento sono nella sezione [Procedura di aggiornamento](#p
 
 Per i full-node (sentry) sono state create delle specifiche istruzioni su [Procedure aggiornamento full-node](#guida-per-i-full-node-sentry).
 
-**UNA PROCEDURA PIU' TECNICA PUO' ESSERE TROVATA A [QUESTA PAGINA](./upgrade_tech.md).** E' sostanzialmente una procedura che ricalca l'esercitazione eseguita il 12/03/2021. 
+**UNA PROCEDURA PIU' TECNICA PUO' ESSERE TROVATA A [QUESTA PAGINA](./upgrade_tech.md).**
 
 
 Il coordinamento dei nodi verrà gestito all'interno del canale Telegram per i nodi validatori.
