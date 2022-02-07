@@ -1,9 +1,9 @@
-# Guida aggiornamento 21/02/2022 
+# Guida aggiornamento 23/02/2022 
 # IL BLOCCO DI STOP DOVREBBE ESSERE QUELLO UFFICIALE.
-SE IL PROGRESSO DEI BLOCCHI SI RIVELASSE DIVERSO DA QUELLO PREVISTO L'ALTEZZA POTREBBE SUBIRE VARIAZIONI NELLA MATTINATA DEL 21/02/2022
+SE IL PROGRESSO DEI BLOCCHI SI RIVELASSE DIVERSO DA QUELLO PREVISTO L'ALTEZZA POTREBBE SUBIRE VARIAZIONI NELLA MATTINATA DEL 23/02/2022
 
 
-- [Guida aggiornamento 21/02/2022](#guida-aggiornamento-21022022)
+- [Guida aggiornamento 23/02/2022](#guida-aggiornamento-23022022)
 - [IL BLOCCO DI STOP DOVREBBE ESSERE QUELLO UFFICIALE.](#il-blocco-di-stop-dovrebbe-essere-quello-ufficiale)
   - [Premessa](#premessa)
   - [Aggiornamento validator](#aggiornamento-validator)

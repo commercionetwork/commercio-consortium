@@ -1,7 +1,7 @@
 # Istruzioni aggiornamento da 2.2.0 a 3.0.0 Chain Commercio Network (WIP)
 # IL BLOCCO DI STOP VERRA' COMUNICATO A BREVE.
 
-La data di aggiornamento è stata fissata per `21 Febbraio 2022 alle 14.30 UTC` = `15.30 CET`. L'altezza pubblicata dovrebbe fermare la chain poco dopo le 14.30 UTC = 15.30 CET. Lo scostamento potrebbe essere di qualche minuto. 
+La data di aggiornamento è stata fissata per `23 Febbraio 2022 alle 14.30 UTC` = `15.30 CET`. L'altezza pubblicata dovrebbe fermare la chain poco dopo le 14.30 UTC = 15.30 CET. Lo scostamento potrebbe essere di qualche minuto. 
 
 
   - [Sommario](#Sommario)
@@ -15,7 +15,7 @@ La data di aggiornamento è stata fissata per `21 Febbraio 2022 alle 14.30 UTC` 
  
 # Sommario
 
-L'aggiornamento della chain è schedulata per il 21 Febbraio 2022 alle 14.30 UTC (15.30 orario europa centrale).
+L'aggiornamento della chain è schedulata per il 23 Febbraio 2022 alle 14.30 UTC (15.30 orario europa centrale).
 
 Questi sono in breve i passi da compiere nell'aggiornamento
 
@@ -108,7 +108,7 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    Controllare la versione di `go` che sia almeno `1.16+`
 
 
-2. Verificare che sia impostato il blocco di stop esatto: `2248540` (Verrà fatto un check comunque la mattina del 21/02/2022 per verificare il progresso dei blocchi)
+2. Verificare che sia impostato il blocco di stop esatto: `2248540` (Verrà fatto un check comunque la mattina del 23/02/2022 per verificare il progresso dei blocchi)
 
    
    ```bash
