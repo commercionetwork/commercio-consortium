@@ -162,7 +162,7 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    $ jq -S -c -M '' ~/commercio-2_2_genesis_export.json | shasum -a 256
    ```
 
-   <img src="img/attetion.png" width="30">Il risultato dovrebbe essere del tipo
+   <img src="../img/attetion.png" width="30">Il risultato dovrebbe essere del tipo
    ```
    [SHA256_VALUE]  commercio-2_2_genesis_export.json
    ```
@@ -219,7 +219,7 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
    [SHA256_VALUE]  genesis.json
    ```
-   <img src="img/attetion.png" width="30">Copiare e incollare sul gruppo di Telegram il valore `[SHA256_VALUE]` e compararlo con tutti gli altri validatori
+   <img src="../img/attetion.png" width="30">Copiare e incollare sul gruppo di Telegram il valore `[SHA256_VALUE]` e compararlo con tutti gli altri validatori
 
 10. Reset/inizializzazione cartelle della chain:
    ```bash
@@ -232,7 +232,7 @@ La versione/hash commit di commercio network è v2.2.0: `3e02d5e761eab3729ccf6f8
    ```bash
    cp ~/genesis.json ~/.commmercionetwork/config/
    ```
-   <img src="img/attetion.png" width="30"> **ATTENZIONE** in questa fase devono essere aggiornati prima i sentry. Verificare la [procedura di aggiornamento full node](#guida-per-i-full-node-sentry)
+   <img src="../img/attetion.png" width="30"> **ATTENZIONE** in questa fase devono essere aggiornati prima i sentry. Verificare la [procedura di aggiornamento full node](#guida-per-i-full-node-sentry)
 
 12. Verificare le configurazioni del file `congit.toml`.
     

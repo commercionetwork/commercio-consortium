@@ -57,32 +57,36 @@ Migration involves substantial changes in some modules and other minor changes i
 
 More details are given in [docs.commercio.network](https://docs.commercio.network). In this documentation, the version documentation and the version documentation are highlighted at the 2.1.2top 2.2.0right3.0.0
 
-
+---
 ## Preliminary operations
 
 There are a few things to consider before upgrading
 1. Make sure you have enough disk space: currently the pruned database of the chain occupies 80 / 90Gb, so the servers disk must have enough space to contain the database of the previous chain which will act as a backup plus at least another 5Gb for export and migration operations and for the start of the new chain 
 2. **Ram**: 8GB minimum required. 16Gb recommended.
 3. It is advisable, as soon as the final release is published, to **compile on the node**: compiling the binaries during the upgrade could slow down the operations. **The final version will be with the tag `v3.0.0`**
-4. Prepare the file configurations `config.toml` and `app.toml` first so that you have them ready at the time of the upgrade
+4. Prepare the file configurations `config.toml` and `app.toml` first so that you have them ready at the time of the upgrade. Read this [guide](./prepare_config.md) to prepare your configurations.
 5. Suspend transactions where possible: the transactions when the chain will be stopped will be rejected and therefore their sending will depend on how the sending client handles these errors.
 6. For those who make use of `tmkms` immediately update the tmkms at least to version 0.9.0 (better 0.10.0). For those who use the yubiHSM with a single key, read the procedure in [Updating tmkms](./aggiornamento-tmkms.md). Those who use the yubiHSM with multiple keys, on the other hand, read the [tmkms update with multiple keys guide](./aggiornamento-tmkms-chiavi-multiple.md)
 
+---
 ## Risks
 
-One of the biggest risks for validators is to incur double signing. It is absolutely necessary to check your software version and genesis. Furthermore, it is necessary to move the state file, both on the validator, if you are using keys on the file, and on the tmkms if you use the latter. **Do not delete the status file**
+One of the biggest risks for validators is to incur in double signing. It is absolutely necessary to check your software version and genesis. Furthermore, it is necessary to move the state file, both on the validator, if you are using file private key, and on the tmkms if you use the latter. 
+
+<img src="../img/attetion.png" width="30"> **Do not delete the status file**
 
 If any errors are made during the update, for example using an incorrect version of the software or an incorrect genesis, it is better to wait for the chain to restart and join later.
 
-**READ THE [RESTORE SECTION](#restore) CAREFULLY**
+**READ THE [RECOVERY SECTION](#recovery) CAREFULLY**
 
+---
 ## Update procedure
 
 __Note__: It is assumed that the node on which you are going to operate has the v2.2.0 version of the core of the chain.      
 __Note 2__: The instructions must be adapted to your environment, so variables and paths must be changed according to the installations.
 
 
-The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
+The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f874d3c929342e4230c`
 
 1. Check the current version (v2.2.0) of _cnd_:
 
@@ -122,7 +126,7 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
    ```bash
    systemctl restart cnd
    ```
-   The knot should stop at the height `2248540`. Check with
+   The node should stop at the height `2248540`. Check with
 
    ```bash
    journalctl -u cnd -f
@@ -137,25 +141,17 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
    ```
    **Warning**: the command `systemctl stop cncli` could give an error, since the service `cncli` is only for the rest api and is not set up everywhere.
 
-  Export the chain
+   Export the chain
    ```bash
    cnd export  > ~/commercio-2_2_genesis_export.json
    ```
    **NB**: this operation is only necessary on the validator nodes. The produced genesis can then be installed on sentry nodes. 
    The process may take some time and depends on the resources available on the node.
 
-4. Saving your `.cnd` directory folder
-
-   ```bash
-    mkdir -p ~/cnd_backup/bin
-    mv ~/.cnd/data ~/cnd_backup/.
-    cp -r ~/.cnd/config ~/cnd_backup/.
-    cp ~go/bin/cn* ~/cnd_backup/bin/.
-   ```
+4. Keep safe your `.cnd` directory folder
+    The new version will create the database and config folder under other directory. Leave the `.cnd` folder in your server and keep it safe as backup.
 
     **NB**: The backup is essential in case the procedure fails and all nodes are invited to perform it. The backup will be used in the eventuality as indicated in the See [Restore](#restore) section.
-
-
 
 5. Checsum check of the exported gensis file:
 
@@ -165,7 +161,7 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
    $ jq -S -c -M '' ~/commercio-2_2_genesis_export.json | shasum -a 256
    ```
 
-   <img src="img/attetion.png" width="30">The result should be like
+   <img src="../img/attetion.png" width="30">The result should be like
    ```
    [SHA256_VALUE]  commercio-2_2_genesis_export.json
    ```
@@ -176,7 +172,7 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
 
    ```bash
     git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
-    git checkout v3.0.0
+    git checkout tags/v3.0.0
     make install
    ```
 
@@ -185,9 +181,9 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
 
    ```bash
     commercionetworkd version
-    ```
+   ```
     Values ​​should be 
-    ```
+   ```
     name: commercionetworkd
     server_name: commercionetworkd
     version: v3.0.0
@@ -201,45 +197,53 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
    Deve essere acquisito l'ultima altezza validata per la chain
 
    ```bash
-   cat .cnd/data/priv_validator_state.json
-   ```   
+   LAST_220_BLOCK=$(cat .cnd/data/priv_validator_state.json  | jq -r '.height')
+   LAST_220_BLOCK=$(($LAST_220_BLOCK+1))
+   echo $LAST_220_BLOCK
+   ```
+   <img src="../img/attetion.png" width="30">Compare the value of `$LAST_220_BLOCK` with all other validators.      
+   If the value is the same then go haed with migration
 
    ```bash
    commercionetworkd migrate v3.0.0 \
     ~/commercio-2_2_genesis_export.json \
     --chain-id=commercio-3 \
-    --initial-height=2248541 > ~/genesis.json
+    --initial-height=$LAST_220_BLOCK > ~/genesis.json
    ```
 
-
-9.  Check the checksum of the produced genesis:
-
+9. Check the checksum of the produced genesis:
    ```bash
-   $ jq -S -c -M '' ~/genesis.json | shasum -a 256
+    jq -S -c -M '' ~/genesis.json | shasum -a 256
    ```
-
    The result should be like
    ```
-   [SHA256_VALUE]  genesis.json
+    [SHA256_VALUE]  genesis.json
    ```
-   <img src="img/attetion.png" width="30">Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
+   <img src="../img/attetion.png" width="30">Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
 
-10. Reset / initialization of folders in the chain:
+1. Initialization of folders in the chain:
    ```bash
-   commercionetworkd unsafe-reset-all
+    commercionetworkd unsafe-reset-all
    ```
    A folder should appear on your home `.commmercionetwork`
 
-11.  Install the new geneis of the new chain
-
+1. Install the new geneis of the new chain
    ```bash
-   cp ~/genesis.json ~/.commmercionetwork/config/
+    cp ~/genesis.json ~/.commmercionetwork/config/
    ```
-   <img src="img/attetion.png" width="30"> **ATTENZIONE** at this stage the sentries must be updated first. Check the [full node upgrade procedure](#full-node-upgrade-procedure)
+   <img src="../img/attetion.png" width="30"> **ATTENZIONE** at this stage the sentries must be updated first. Check the [full node upgrade procedure](#full-node-upgrade-procedure)
 
-12. Check the file configurations `congit.toml`.
+1. Check the file configurations `config.toml` and copy your crypto material
+    Install the `config.toml` file in `.commmercionetwork/config` folder as you prepare before. If you use `priv_validator_key.json` copy it from previus folder
+    ```bash
+      cp ~.cnd/config/priv_validator_key.json .commmercionetwork/config/.
+    ```
+    Copy your `node_key.json` file. It not strictly necessary, but if you use sentries or if you are a persistent peers for someone you need to copy it
+    ```bash
+      cp ~.cnd/config/node_key.json .commmercionetwork/config/.
+    ```    
     
-13. Creation of the new service
+1. Creation of the new service
    ```bash
       tee /etc/systemd/system/commercionetworkd.service > /dev/null <<EOF  
       [Unit]
@@ -258,16 +262,19 @@ The version / hash commit of trade network is v2.2.0: `3e02d5e761eab3729ccf6f874
       EOF
    ```
 
-14. Starting the new chain
+1. Starting the new chain
    ```bash
    systemctl start commercionetworkd
    ```
-15. Check the status of the node
+1. Check the status of the node
    ```bash
    journalctl -u commercionetworkd -f
    ```
    The nodes may take some time to arrive at consensus.
+   You can check the consensus using
+   ```bash
 
+   ```
 
 # Full Node Guide (Sentry)
 
