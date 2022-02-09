@@ -55,7 +55,8 @@ Migration involves substantial changes in some modules and other minor changes i
 5. `Ante`
 6. `Government`
 
-More details are given in [docs.commercio.network](https://docs.commercio.network). In this documentation, the version documentation and the version documentation are highlighted at the 2.1.2top 2.2.0right3.0.0
+More details are given in [docs.commercio.network](https://docs.commercio.network). In this documentation, the documentation of the version `2.1.2`, `2.2.0` and `3.0.0` are highlighted at the top-right
+
 
 ---
 ## Preliminary operations
@@ -77,7 +78,7 @@ One of the biggest risks for validators is to incur in double signing. It is abs
 
 If any errors are made during the update, for example using an incorrect version of the software or an incorrect genesis, it is better to wait for the chain to restart and join later.
 
-**READ THE [RECOVERY SECTION](#recovery) CAREFULLY**
+**READ THE [RESTORE SECTION](#restore) CAREFULLY**
 
 ---
 ## Update procedure
@@ -273,9 +274,13 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    The nodes may take some time to arrive at consensus.
    You can check the consensus using
    ```bash
-
+   curl -s http://127.0.0.1:26657/dump_consensus_state | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
    ```
-
+   A message like this
+   ```
+   "BA{71:_xxxxx__x__x___x__xx__x___x__xx__x__x__xx__x__} 34908030/169756481 = 0.21"
+   ```
+   should be returned. The number at the and of the line is the percentage of validator that returned on-line. 0.21 = 21%
 # Full Node Guide (Sentry)
 
 1. Verify that the exact stop block is set: `2937550`
@@ -385,6 +390,7 @@ From the [update procedure](#update-procedure) these are the steps for the recov
    journalctl -u cnd -f
    ```
    The nodes may take some time to arrive at consensus.
+   
 
 # Note
 
