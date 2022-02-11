@@ -1,4 +1,4 @@
-# Install a testnet node with statesync method (WIP)
+# Install a testnet node (WIP)
 
 ## Hardware requirements:
 
@@ -101,15 +101,24 @@ sed -e "s|external_address = \".*\"|external_address = \"$PUB_IP:26656\"|g" ~/.c
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
-Under the state sync section in `/home/commercionetwork/.commercionetwork/config/config.toml` you will find multiple settings that need to be configured in order for your node to use state sync. 
+Choose 1 of these 3 ways to syncronize your node to the blockchain:
+1. [From the start](#from-the-start)
+2. [Using the state sync future](#using-the-state-sync-future)
+3. [Using the quicksync dump](#using-the-quicksync-dump)
+### From the start
+
+If you intend to syncronize eveything from the start you can skip this part and continue with the configuration.
+
+### Using the state sync future
+
+Under the state sync section in `/home/commercionetwork/.commercionetwork/config/config.toml` you will find multiple settings that need to be configured in order for your node to use state sync.
 You need get information from chain about trusted block using
 
 ```bash
-curl -s "http://157.230.110.18:26657/block" |   jq -r '.result.block.header.height + "\n" + .result.block_id.hash'
+curl -s "http://157.230.110.18:26657/block" | jq -r '.result.block.header.height + "\n" + .result.block_id.hash'
 ```
 
-The command should be return block height and hash of block
-
+The command should be return block height and hash of block:
 ```
 5075021
 EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1
@@ -127,8 +136,17 @@ trust_height = 5075021
 trust_hash = "EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1"
 ```
 
-If you get a old node change your `trust_period` accordingly.
+### Using the quicksync dump
 
+Run these commands to quickly sync your node:
+
+```bash
+wget "https://quicksync.commercio.network/$CHAINID.latest.tgz" -P ~/.commercionetwork/
+# Check if the checksum matches the one present inside https://quicksync.commercio.network
+cd ~/.commercionetwork/
+tar -zxf $(echo $CHAINID).latest.tgz
+```
+---
 
 Configure the service:
 ```bash
