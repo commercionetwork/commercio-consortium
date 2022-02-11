@@ -183,3 +183,35 @@ If the chain update fails, follow this procedure
     sudo systemctl enable tmkms.service
     sudo systemctl start tmkms.service
     ```
+
+## Note
+
+### Guide explanations
+
+Other upgrade strategies may be chosen, but a specific path has been chosen in this guide. 
+Anyone can adopt this guide or a personal procedure. 
+Furthermore, the whole procedure was developed on the basis of a standard installation, with well-defined paths. 
+It is believed that the kms managers are able to use the most suitable tools to carry out the updating activity.
+
+### Common mistakes or doubts
+
+1. The service returns a permissions error to me 
+    The service is configured with the user tmkms, so any folder to which the service needs access for reading, but especially for writing, must be configured appropriately. 
+    For example, if you act on the kms server as root all the time, you have to run the commands before starting the services
+    ```bash
+    sudo chown -R tmkms:tmks /data_tmkms/tmkms
+    ```
+    this command should fix any file access problems.
+2. The tmkms tells me that it cannot reach the validator 
+    Check that there are no network problems between the kms and the validator, eg. Vpn off, firewall or something like that. A simple ping should sufficient to check reachability. 
+    Also check if the configuration in `config.toml` of the validator has changed by removing the value of `priv_validator_laddr`
+
+3. Is it necessary to change the service `yubihsm-connector`? 
+    It is not necessary to update the yubi service. 
+    If you want you can try new software updates from the yubi website
+
+    https://developers.yubico.com/YubiHSM2/Releases/
+
+4. Is it necessary to update `tmkms` software?
+    The newest version `0.10.1` adds only documentation and leaves immutate the software.     
+    Versions `0.11.x` are in prerelease.
