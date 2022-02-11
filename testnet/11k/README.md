@@ -94,7 +94,27 @@ sed -e "s|seeds = \".*\"|seeds = \"$(cat .data | grep -oP 'Seeds\s+\K\S+')\"|g" 
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
-Under the state sync section in `/home/commercionetwork/.commercionetwork/config/config.toml` you will find multiple settings that need to be configured in order for your node to use state sync. Edit these settings accordingly:
+Chenge `external_address` value to contact your node using public ip of your node:
+```bash
+PUB_IP=`curl -s -4 icanhazip.com`
+sed -e "s|external_address = \".*\"|external_address = \"$PUB_IP:26656\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
+```
+
+Under the state sync section in `/home/commercionetwork/.commercionetwork/config/config.toml` you will find multiple settings that need to be configured in order for your node to use state sync. 
+You need get information from chain about trusted block using
+
+```bash
+curl -s "http://157.230.110.18:26657/block" |   jq -r '.result.block.header.height + "\n" + .result.block_id.hash'
+```
+
+The command should be return block height and hash of block
+
+```
+5075021
+EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1
+```
+
+Edit these settings accordingly:
 
 ```
 [statesync]
@@ -102,8 +122,8 @@ Under the state sync section in `/home/commercionetwork/.commercionetwork/config
 enable = true
 
 rpc_servers = "157.230.110.18:26657,46.101.146.48:26657"
-trust_height = 4934252
-trust_hash = "71333A8C237FFD152ACBB182E5C6BD0196D2EC6CA331A56773EC20C60D87943C"
+trust_height = 5075021
+trust_hash = "EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1"
 ```
 
 

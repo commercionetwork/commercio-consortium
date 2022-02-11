@@ -116,18 +116,18 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    Check the version of `go` it at least `1.16+`
 
 
-2. Verify that the exact stop block is set: `2248540` (A check will still be made on the morning of 23/02/2022 to verify the progress of the blocks)
+2. Verify that the exact stop block is set: `2235000` (A check will still be made on the morning of 23/02/2022 to verify the progress of the blocks)
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2248540/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2235000/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    And apply the configuration using the command
    ```bash
    systemctl restart cnd
    ```
-   The node should stop at the height `2248540`. Check with
+   The node should stop at the height `2235000`. Check with
 
    ```bash
    journalctl -u cnd -f
