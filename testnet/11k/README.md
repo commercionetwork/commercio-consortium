@@ -98,6 +98,7 @@ Chenge `external_address` value to contact your node using public ip of your nod
 ```bash
 PUB_IP=`curl -s -4 icanhazip.com`
 sed -e "s|external_address = \".*\"|external_address = \"$PUB_IP:26656\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
+mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
 Under the state sync section in `/home/commercionetwork/.commercionetwork/config/config.toml` you will find multiple settings that need to be configured in order for your node to use state sync. 
