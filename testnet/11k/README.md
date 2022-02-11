@@ -94,7 +94,7 @@ sed -e "s|seeds = \".*\"|seeds = \"$(cat .data | grep -oP 'Seeds\s+\K\S+')\"|g" 
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
-Chenge `external_address` value to contact your node using public ip of your node:
+Change `external_address` value to contact your node using public ip of your node:
 ```bash
 PUB_IP=`curl -s -4 icanhazip.com`
 sed -e "s|external_address = \".*\"|external_address = \"$PUB_IP:26656\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
@@ -126,6 +126,8 @@ rpc_servers = "157.230.110.18:26657,46.101.146.48:26657"
 trust_height = 5075021
 trust_hash = "EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1"
 ```
+
+If you get a old node change your `trust_period` accordingly.
 
 
 Configure the service:
