@@ -88,7 +88,7 @@ sed -e "s|persistent_peers = \".*\"|persistent_peers = \"$(cat .data | grep -oP 
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
-Change the seeds inside the `config.toml` file:
+Change the seeds inside `config.toml` file:
 ```bash
 sed -e "s|seeds = \".*\"|seeds = \"$(cat .data | grep -oP 'Seeds\s+\K\S+')\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
@@ -98,6 +98,12 @@ Change `external_address` value to contact your node using public ip of your nod
 ```bash
 PUB_IP=`curl -s -4 icanhazip.com`
 sed -e "s|external_address = \".*\"|external_address = \"$PUB_IP:26656\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
+mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
+```
+
+Change the `chain-id` inside `config.toml` file:
+```bash
+sed -e "s|chain-id = \".*\"|chain-id = \"$CHAINID\"|g" ~/.commercionetwork/config/config.toml > ~/.commercionetwork/config/config.toml.tmp
 mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config.toml
 ```
 
@@ -120,8 +126,7 @@ curl -s "http://157.230.110.18:26657/block" | jq -r '.result.block.header.height
 
 The command should be return block height and hash of block:
 ```
-5075021
-EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1
+5075021EB1032C6DFC9F2708B16DF8163CAB2258B0F1E1452AEF031CA3F32004F54C9D1
 ```
 
 Edit these settings accordingly:
@@ -146,7 +151,28 @@ wget "https://quicksync.commercio.network/$CHAINID.latest.tgz" -P ~/.commercione
 cd ~/.commercionetwork/
 tar -zxf $(echo $CHAINID).latest.tgz
 ```
----
+
+## Cosmovisor configuration
+
+Download and compile cosmovisor:
+```bash
+git clone https://github.com/cosmos/cosmos-sdk.git
+cd cosmos-sdk
+git checkout cosmovisor/v0.1.0
+cd cosmovisor
+make
+```
+
+Make cosmovisor folder structure:
+```bash
+mkdir -p $HOME/.commercionetwork/cosmovisor/genesis/bin
+mkdir -p $HOME/.commercionetwork/cosmovisor/upgrades
+```
+
+Copy `commercionetwork` to cosmovisor folder
+```bash
+cp $HOME/go/bin/commercionetworkd $HOME/.commercionetwork/cosmovisor/genesis/bin
+``` 
 
 Configure the service:
 ```bash
@@ -154,22 +180,30 @@ exit # <- Login back to root at this point!
 
 tee /etc/systemd/system/commercionetwork.service > /dev/null <<EOF  
 [Unit]
-Description=Commercio Node
-After=network-online.target
+Description=Commercio Network Node
+After=network.target
 
 [Service]
-User=commercionetwork
-ExecStart=/home/commercionetwork/go/bin/commercionetworkd start
+User=root
+LimitNOFILE=4096
+
 Restart=always
 RestartSec=3
-LimitNOFILE=4096
+
+Environment="DAEMON_NAME=commercionetworkd"
+Environment="DAEMON_HOME=/home/commercionetwork/.commercionetwork"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_LOG_BUFFER_SIZE=512"
+
+ExecStart=/home/commercionetwork/go/bin/cosmovisor start --home="/home/commercionetwork/.commercionetwork" 
 
 [Install]
 WantedBy=multi-user.target
 EOF
 ```
 
-Now you can start your full node. Enable the newly created server and try starting it using:
+Now you can start your full node. Enable the newly created server and try to start it using:
 ```bash
 systemctl enable commercionetwork  
 systemctl start commercionetwork

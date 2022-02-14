@@ -1,14 +1,6 @@
 # Becoming a validator (WIP)
 Once you've properly set up a [full node](full-node-installation.md), your node is ready to become a validator. 
 
-Before you start, we recommend you to run this command 
-
-```bash
-commercionetworkd config chain-id $CHAINID
-```
-
-In this way you can omit the flag `--chain-id="$CHAINID"` in every line of the **commercionetworkd**
-
 ## Requirements
 The requirements are:
 
@@ -53,7 +45,7 @@ Copy your public address. It should have the format `did:com:<data>`.
 
 To make sure you have enough tokens (just 2 COM are required), query your account running this command:
 ```bash
-commercionetworkd query account <your pub addr creator val> --chain-id $CHAINID
+commercionetworkd query bank balances <your pub addr creator val> --chain-id $CHAINID
 ```
 
 The output should look like this:
@@ -235,7 +227,7 @@ commercionetworkd tx staking delegate \
 If I try to search for my address with the command 
 
 ```bash
-commercionetworkd query account <my account> --chain-id $CHAINID
+commercionetworkd query bank balances <my account> --chain-id $CHAINID
 ```
 
 returns the message
