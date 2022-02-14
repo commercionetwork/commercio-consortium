@@ -13,8 +13,8 @@ Some details on the different configurations can be found on **this page**
 This section explains the setup to perform even before updating the chain.      
 We assume that you run `tmkms` version **0.10**
 
-1. Create new configurations. The new configuration must be created for compatibility with the new software version. In this phase you can directly prepared configuration compatible with the core version v3.0.0 of Commercio.Network chain.
-   On this guide we will directly prepare the configuration for the version v3.0.0 on which the service always prepared for the version will draw v3.0.0.
+1. Create new configurations. The new configuration must be created for compatibility with the new software version. In this phase you can directly prepared configuration compatible with the core version `v3.0.0` of Commercio.Network chain.
+   On this guide we will directly prepare the configuration for the version `v3.0.0` on which the service always prepared for the version will draw `v3.0.0`.
 
    In the single key configuration you will have a single configuration. Assuming that the configuration is contained in the folder `/data_tmkms/tmkms/kms/commercio` (each manager will have its own path).
 
@@ -45,10 +45,10 @@ We assume that you run `tmkms` version **0.10**
     Note the following configuration specific parameters to consider for the upgrade
 
     `[[chain]]` `state_file`: is the status file and will need to be changed. Preserve the previous file.
-    `[[chain]]` `id`: It will change from commercio-2_2 to commercio-3
-    `[[validator]]` `chain_id`: chain id. It will change from commercio-2_2 to commercio-3
-    `[[providers.yubihsm]]` `keys chain_ids`: It will change from commercio-2_2 to commercio-3
-    `[[validator]]` `protocol_version`: must be configured with the value v0.34
+    `[[chain]]` `id`: It will change from `commercio-2_2` to `commercio-3`
+    `[[validator]]` `chain_id`: chain id. It will change from `commercio-2_2` to `commercio-3`
+    `[[providers.yubihsm]]` `keys chain_ids`: It will change from `commercio-2_2` to `commercio-3`
+    `[[validator]]` `protocol_version`: must be configured with the value `v0.34`
 
     **ATTENTION**
 
@@ -153,7 +153,15 @@ This section discusses the procedure to be followed when the core of the chain i
     sudo systemctl stop tmkms.service
     sudo systemctl disable tmkms.service
     ```
-3. Starting the new service This phase can be launched regardless of the validator node activity. 
+3. Get height of chain
+    ```bash
+    cat /data_tmkms/tmkms/kms/commercio/commercio_priv_validator_state.json  | jq -r '.height'
+    ```
+    Use this value to compare with all other validators.
+    **NB**: you need `jq` program insalled in your kms. Use `sudo apt install jq` to install it
+
+
+4. Starting the new service This phase can be launched regardless of the validator node activity. 
     As soon as the validator node starts working again, kms will immediately start providing the signing service.
     ```bash
     sudo systemctl enable tmkms.v3.service
@@ -202,12 +210,12 @@ It is believed that the kms managers are able to use the most suitable tools to 
     sudo chown -R tmkms:tmks /data_tmkms/tmkms
     ```
     this command should fix any file access problems.
-2. The tmkms tells me that it cannot reach the validator 
+2. The `tmkms` tells me that it cannot reach the validator 
     Check that there are no network problems between the kms and the validator, eg. Vpn off, firewall or something like that. A simple ping should sufficient to check reachability. 
     Also check if the configuration in `config.toml` of the validator has changed by removing the value of `priv_validator_laddr`
 
 3. Is it necessary to change the service `yubihsm-connector`? 
-    It is not necessary to update the yubi service. 
+    It is **not** necessary to update the yubi service. 
     If you want you can try new software updates from the yubi website
 
     https://developers.yubico.com/YubiHSM2/Releases/

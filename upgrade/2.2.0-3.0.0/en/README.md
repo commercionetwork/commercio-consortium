@@ -195,13 +195,15 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    The hash version of the new software should be v3.0.0: `????`
 
 8. At this point, the genesis file must be migrated to make the new state compliant for the new core. The last validated height for the chain must be acquired
-   Deve essere acquisito l'ultima altezza validata per la chain
+   The last validated height for the chain must be acquired
 
    ```bash
    LAST_220_BLOCK=$(cat .cnd/data/priv_validator_state.json  | jq -r '.height')
    LAST_220_BLOCK=$(($LAST_220_BLOCK+1))
    echo $LAST_220_BLOCK
    ```
+   <img src="../img/attetion.png" width="30"> **If you use kms read this value from your kms.**
+
    <img src="../img/attetion.png" width="30">Compare the value of `$LAST_220_BLOCK` with all other validators.      
    If the value is the same then go haed with migration
 
