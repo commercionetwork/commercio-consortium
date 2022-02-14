@@ -5,9 +5,12 @@ This section shows how to update yubihsm and tmkms based kms with multiple keys.
 
 
 Everything can be prepared in advance: already prepare the files with the updated configurations so that at the moment of the chain upgrade the only thing to do is to stop the services and replace the configurations. The previous configurations can then be saved in order to be able to recover them quickly in case of problems.
-Some details on the different configurations can be found on this [page](page)
 
 ## Update configurations
+
+**The kms configurations can be updated even before the chain upgrade procedure.** 
+This section explains the setup to perform even before updating the chain.      
+We assume that you run `tmkms` version **0.10**
 
 1. Create new configurations. The new configuration must be created for compatibility with the new software version. In this phase you can directly prepared configuration compatible with the core version `v3.0.0` of Commercio.Network chain.
    On this guide we will directly prepare the configuration for the version `v3.0.0` on which the service always prepared for the version will draw `v3.0.0`.

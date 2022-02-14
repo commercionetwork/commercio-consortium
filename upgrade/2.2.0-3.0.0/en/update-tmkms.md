@@ -4,7 +4,6 @@ This section shows how to update yubihsm and tmkms based kms with single key.
 **It should be noted that these are guidelines, and it is essential to understand the process summarized here**
 
 Everything can be prepared in advance: already prepare the files with the updated configurations so that at the moment of the chain upgrade the only thing to do is to stop the services and replace the configurations. The previous configurations can then be saved in order to be able to recover them quickly in case of problems.
-Some details on the different configurations can be found on **this page**
 
 
 ## Update configurations
