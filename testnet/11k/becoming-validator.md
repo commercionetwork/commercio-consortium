@@ -112,22 +112,7 @@ timestamp: ""
 
 
 ### Confirm your validator is active
-Please confirm that your validator is active by running the following command:
-
-```bash
-commercionetworkd query staking validators --chain-id $CHAINID | fgrep -B 1 $VALIDATOR_PUBKEY
-```
-
-The output should look like this:
-
-```
-  operatoraddress: did:com:valoper1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  conspubkey: did:com:valconspub1zcjduepq592mn5xucyqvfrvjegruhnx15rruffkrfq0rryu809fzkgwg684qmetxxs
-```
-
-Copy the value of `operatoraddress`.
-
-You can also verify that the validator is active by browsing 
+You can verify that the validator is active by browsing 
 
 [Commercio.network explorer Testnet](https://testnet.commercio.network/it/validators).       
 
