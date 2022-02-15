@@ -10,7 +10,7 @@ The update date has been set for `23 Febbraio 2022 alle 14.30 UTC= 15.30 CET`. T
   - [Migration](#migration)
   - [Preliminary operations](preliminary-operations)
   - [Risks](#risks)
-  - [Validator update procedure](#validator-update-procedure)
+  - [Validator update procedure](#update-procedure)
   - [Full-node upgrade procedures](#full-node-upgrade-procedures)
   - [Restoration](#restoration)
   - [Note](#note)
@@ -29,19 +29,17 @@ These are briefly the steps to take in the update
 1. Start the new core daemon and wait for the consensus to be reached
 
 
-The details of the upgrade are in the [Upgrade Procedure section](#validator-update-procedure).     
+The details of the upgrade are in the [Upgrade Procedure section](#update-procedure).     
 
 For full-nodes (sentry) specific instructions have been created on [Full-node upgrade procedures](#full-node-upgrade-procedures).
-
-**A MORE TECHNICAL PROCEDURE CAN BE FOUND AT [THIS PAGE](./upgrade_tech.md).**
 
 
 The coordination of the nodes will be managed within the Telegram channel for the validating nodes.
 
 **Important** The update may have the following results:
-1. `Aggiornamento riuscito`: the validators succeed in the migration and in the update and the new chain will be started. The period for issuing the first block and reaching consensus may take a long time.
-2. `Avvio nuova chain fallito`: if problems are found during the start of the new chain and it is not possible to reach consensus. In this case the nodes will be stopped and the backup will be recovered and the chain will restart with the previous version. The update will be rescheduled by checking the problems found and running the related fixes.  
-3. `Procedura non completabile`: if problems are found at the export or migration level that do not allow the update to proceed (e.g. the checksum of the new genesis does not match between the validating nodes) it will be aborted and the backup of the chain will be recovered and restarted the previous version.
+1. `Successful upgrade`: the validators succeed in the migration and in the update and the new chain will be started. The period for issuing the first block and reaching consensus may take a long time.
+2. `Starting new chain failed`: if problems are found during the start of the new chain and it is not possible to reach consensus. In this case the nodes will be stopped and the backup will be recovered and the chain will restart with the previous version. The update will be rescheduled by checking the problems found and running the related fixes.  
+3. `Procedure cannot be completed`: if problems are found at the export or migration level that do not allow the update to proceed (e.g. the checksum of the new genesis does not match between the validating nodes) it will be aborted and the backup of the chain will be recovered and restarted the previous version.
 
 # Migration
 
