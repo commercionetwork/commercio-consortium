@@ -11,8 +11,8 @@ The update date has been set for `23 Febbraio 2022 alle 14.30 UTC= 15.30 CET`. T
   - [Preliminary operations](preliminary-operations)
   - [Risks](#risks)
   - [Validator update procedure](#update-procedure)
-  - [Full-node upgrade procedures](#full-node-upgrade-procedures)
-  - [Restoration](#restoration)
+  - [Full-node upgrade procedures](#full-node-guide)
+  - [Restore](#restore)
   - [Note](#note)
  
 # Summary
@@ -31,7 +31,7 @@ These are briefly the steps to take in the update
 
 The details of the upgrade are in the [Upgrade Procedure section](#update-procedure).     
 
-For full-nodes (sentry) specific instructions have been created on [Full-node upgrade procedures](#full-node-upgrade-procedures).
+For full-nodes (sentry) specific instructions have been created on [Full-node upgrade procedures](#full-node-guide).
 
 
 The coordination of the nodes will be managed within the Telegram channel for the validating nodes.
@@ -53,7 +53,7 @@ Migration involves substantial changes in some modules and other minor changes i
 5. `Ante`
 6. `Government`
 
-More details are given in [docs.commercio.network](https://docs.commercio.network). In this documentation, the documentation of the version `2.1.2`, `2.2.0` and `3.0.0` are highlighted at the top-right
+More details are given in [docs.commercio.network](https://docs.commercio.network). In that documentation, the versions `2.1.2`, `2.2.0` and `3.0.0` are highlighted at the top-right
 
 
 ---
@@ -61,11 +61,11 @@ More details are given in [docs.commercio.network](https://docs.commercio.networ
 
 There are a few things to consider before upgrading
 1. Make sure you have enough disk space: currently the pruned database of the chain occupies 80 / 90Gb, so the servers disk must have enough space to contain the database of the previous chain which will act as a backup plus at least another 5Gb for export and migration operations and for the start of the new chain 
-2. **Ram**: 8GB minimum required. 16Gb recommended.
+2. **Ram**: 8GB minimum required. 16Gb recommended. Ram requirements may be increased in the future.
 3. It is advisable, as soon as the final release is published, to **compile on the node**: compiling the binaries during the upgrade could slow down the operations. **The final version will be with the tag `v3.0.0`**
 4. Prepare the file configurations `config.toml` and `app.toml` first so that you have them ready at the time of the upgrade. Read this [guide](./prepare_config.md) to prepare your configurations.
 5. Suspend transactions where possible: the transactions when the chain will be stopped will be rejected and therefore their sending will depend on how the sending client handles these errors.
-6. For those who make use of `tmkms` immediately update the tmkms at least to version 0.9.0 (better 0.10.0). For those who use the yubiHSM with a single key, read the procedure in [Updating tmkms](./aggiornamento-tmkms.md). Those who use the yubiHSM with multiple keys, on the other hand, read the [tmkms update with multiple keys guide](./aggiornamento-tmkms-chiavi-multiple.md)
+6. For those who make use of `tmkms` immediately update the tmkms at least to version 0.10.0. For those who use the yubiHSM with a single key, read the procedure in [Updating tmkms](./update-tmkms.md). Those who use the yubiHSM with multiple keys, on the other hand, read the [tmkms update with multiple keys guide](./update-tmkms-multiple-keys.md)
 
 ---
 ## Risks
@@ -81,7 +81,7 @@ If any errors are made during the update, for example using an incorrect version
 ---
 ## Update procedure
 
-__Note__: It is assumed that the node on which you are going to operate has the v2.2.0 version of the core of the chain.      
+__Note__: It is assumed that the node on which you are going to operate has the `v2.2.0` version of the core of the chain.      
 __Note 2__: The instructions must be adapted to your environment, so variables and paths must be changed according to the installations.
 
 
@@ -137,6 +137,8 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    systemctl stop cncli
    pkill cnd
    pkill cncli
+   systemctl disable cnd
+   systemctl disable cncli
    ```
    **Warning**: the command `systemctl stop cncli` could give an error, since the service `cncli` is only for the rest api and is not set up everywhere.
 
@@ -167,7 +169,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
 
 
-6. Fill in the new binaries
+6. Compile the new binary **if you haven't done it before**
 
    ```bash
     git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
@@ -192,7 +194,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
    The hash version of the new software should be v3.0.0: `????`
 
-8. At this point, the genesis file must be migrated to make the new state compliant for the new core. The last validated height for the chain must be acquired
+8. At this point, the genesis file must be migrated to make the new state compliant for the new core.
    The last validated height for the chain must be acquired
 
    ```bash
@@ -203,7 +205,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    <img src="../img/attetion.png" width="30"> **If you use kms read this value from your kms.**
 
    <img src="../img/attetion.png" width="30">Compare the value of `$LAST_220_BLOCK` with all other validators.      
-   If the value is the same then go haed with migration
+   If the value is the same then go haed with migration. If the value is different, the one with the minor common value will be selected.
 
    ```bash
    commercionetworkd migrate v3.0.0 \
@@ -222,29 +224,29 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
    <img src="../img/attetion.png" width="30">Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
 
-1. Initialization of folders in the chain:
+10. Initialization of folders in the chain:
    ```bash
     commercionetworkd unsafe-reset-all
    ```
    A folder should appear on your home `.commmercionetwork`
 
-1. Install the new geneis of the new chain
+11. Install the new genesis of the new chain
    ```bash
     cp ~/genesis.json ~/.commmercionetwork/config/
    ```
-   <img src="../img/attetion.png" width="30"> **ATTENZIONE** at this stage the sentries must be updated first. Check the [full node upgrade procedure](#full-node-upgrade-procedure)
+   <img src="../img/attetion.png" width="30"> **ATTENTION** at this stage the sentries must be updated first. Check the [full node upgrade procedure](#full-node-guide)
 
-1. Check the file configurations `config.toml` and copy your crypto material
-    Install the `config.toml` file in `.commmercionetwork/config` folder as you prepare before. If you use `priv_validator_key.json` copy it from previus folder
+12. Check the file configurations `config.toml`, `app.toml` and copy your crypto material
+    Install the `config.toml` and `app.toml` files in `.commmercionetwork/config` folder as you prepare before. If you use `priv_validator_key.json` copy it from previus folder
     ```bash
-      cp ~.cnd/config/priv_validator_key.json .commmercionetwork/config/.
+      cp ~/.cnd/config/priv_validator_key.json ~/.commmercionetwork/config/.
     ```
     Copy your `node_key.json` file. It not strictly necessary, but if you use sentries or if you are a persistent peers for someone you need to copy it
     ```bash
-      cp ~.cnd/config/node_key.json .commmercionetwork/config/.
+      cp ~/.cnd/config/node_key.json ~/.commmercionetwork/config/.
     ```    
     
-1. Creation of the new service
+13. Creation of the new service
    ```bash
       tee /etc/systemd/system/commercionetworkd.service > /dev/null <<EOF  
       [Unit]
@@ -263,11 +265,11 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
       EOF
    ```
 
-1. Starting the new chain
+14. Starting the new chain
    ```bash
    systemctl start commercionetworkd
    ```
-1. Check the status of the node
+15. Check the status of the node
    ```bash
    journalctl -u commercionetworkd -f
    ```
@@ -281,20 +283,20 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    "BA{71:_xxxxx__x__x___x__xx__x___x__xx__x__x__xx__x__} 34908030/169756481 = 0.21"
    ```
    should be returned. The number at the and of the line is the percentage of validator that returned on-line. 0.21 = 21%
-# Full Node Guide (Sentry)
+# Full Node Guide
 
-1. Verify that the exact stop block is set: `2937550`
+1. Verify that the exact stop block is set: `2235000`
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2937550/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2235000/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    And apply the configuration using the command 
    ```bash
    systemctl restart cnd
    ```
-   The knot should stop at the height `2937550`. Check with
+   The knot should stop at the height `2235000`. Check with
 
    ```bash
    journalctl -u cnd -f
@@ -307,18 +309,19 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    systemctl stop cncli
    pkill cnd
    pkill cncli
+   systemctl disable cnd
+   systemctl disable cncli
    ```
    **Warning**: the command `systemctl stop cncli` could give an error, since the service `cncli` is only for the rest api and is not set up everywhere.
 
 
-3. Compile the new binaries
+3. Compile the new binary
 
    ```bash
-   git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork && git checkout v2.2.0; make install
+    git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
+    git checkout tags/v3.0.0
+    make install
    ```
-
-   If the binaries have already been compiled you can directly copy the binaries to the paths of the previous binaries. 
-   The binaries can also be copied from another machine (validator for example) with the same architecture as the machine of the full node.
 
 4. Verify that the applications are the right version:
 
@@ -346,18 +349,36 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    From a validator node or from the repo of the chains (this however will be ready only after the completion of the procedure) copy the genesis.
    **From your computer, therefore outside the servers, assuming you are using ssh for access and that the procedure on the validator is in point 11**
    ```bash
-   scp <UTENTE VALIDATORE>@<IP VALIDATORE>:.commercionetwork/config/genesis.json .
-   scp genesis.json <UTENTE FULL NODE>@<IP FULL NODE>:.commercionetwork/config/.
+   scp <VALIDATOR USER>@<VALIDATOR IP>:.commercionetwork/config/genesis.json .
+   scp genesis.json <FULL NODE USER>@<FULL NODE IP>:.commercionetwork/config/.
    ```
-7. Install the service
+7. Creation of the new service
+   ```bash
+      tee /etc/systemd/system/commercionetworkd.service > /dev/null <<EOF  
+      [Unit]
+      Description=Commercio Node
+      After=network-online.target
+
+      [Service]
+      User=root
+      ExecStart=/root/go/bin/commercionetworkd start
+      Restart=always
+      RestartSec=3
+      LimitNOFILE=4096
+
+      [Install]
+      WantedBy=multi-user.target
+      EOF
+   ```
 
 8. Starting the new chain
 
    ```bash
    systemctl start commercionetworkd
+   systemctl enable commercionetworkd
    ```
 
-## Recovery
+## Restore
 
 Before updating all validators are required to keep the folder `.cnd` as a backup of the chain state. The backup must be kept both on the validator nodes and on the sentries and in general on any full node in the chain.     
 It is also essential to save the file `.cnd/data/priv_validator_state.json`, or in the case of using the `tmkms` status file reported in the configuration `state_file`. This file, especially, will need to be restored in case the update fails.   
@@ -374,7 +395,6 @@ From the [update procedure](#update-procedure) these are the steps for the recov
 
 2. Correctly restore the file `app.toml`
    ```bash
-   cp ~/cnd_backup/config/app.toml ~/.cnd/config/.
    sed 's/^halt-height =.*/halt-height = 0/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```  
@@ -384,6 +404,7 @@ From the [update procedure](#update-procedure) these are the steps for the recov
 
    ```bash
    systemctl start cnd
+   systemctl enable cnd
    ```
 4. Check the status of the node
    ```bash
@@ -409,10 +430,10 @@ Including the procedure, the process is substantially not particularly complicat
 ### Common mistakes or doubts
 
 1. The service returns me a permissions error     
-   In the guide it is supposed to act as `root` for the whole process. If the services have been configured with another user, parameter `User=<UTENTE CHAIN>` in `/etc/systemctl/system/cnd.service`, then the folders of the `cnd` may no longer be accessible with that user because they have been changed by `root`.    
+   In the guide it is supposed to act as `root` for the whole process. If the services have been configured with another user, parameter `User=<CHAIN USER>` in `/etc/systemctl/system/cnd.service`, then the folders of the `cnd` may no longer be accessible with that user because they have been changed by `root`.    
    Before starting the services it should be sufficient to run the command
    ```bash
-   sudo chown -R <UTENTE CHAIN> ~/.cnd
+   sudo chown -R <CHAIN USER> ~/.cnd
    ```
    In general, if the procedure will be performed with a user other than `root` stopping the services and restarting them, always use sudo `sudo`. For example 
 
