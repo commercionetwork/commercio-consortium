@@ -149,6 +149,22 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    **NB**: this operation is only necessary on the validator nodes. The produced genesis can then be installed on sentry nodes. 
    The process may take some time and depends on the resources available on the node.
 
+   Some statistics 
+    * Export height: **2210048**
+    * Server used
+      * 4 Cpu
+      * 8Gb ram
+      * SSD disk
+    * Export duration: **12minutes**
+    * Export weight: **81Mbyte**
+    * Shasum calculation duration: **7seconds**
+    * Binary compile: **2minutes**
+    * Migrate duration: **30seconds**
+    * New genesis weight: **85Mbyte**
+    * Shasum calculation duration: **7seconds**
+    * Startup: **N.A.**
+  
+
 4. Keep safe your `.cnd` directory folder
     The new version will create the database and config folder under other directory. Leave the `.cnd` folder in your server and keep it safe as backup.
 
@@ -164,14 +180,16 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
 
    <img src="../img/attetion.png" width="30">The result should be like
    ```
-   [SHA256_VALUE]  commercio-2_2_genesis_export.json
+   [SHA256_VALUE]  -
    ```
    Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
 
 
 6. Compile the new binary **if you haven't done it before**
 
+    
    ```bash
+    rm -rf commercionetwork # Delete repo folder if exists
     git clone https://github.com/commercionetwork/commercionetwork.git && cd commercionetwork
     git checkout tags/v3.0.0
     make install
@@ -220,7 +238,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
    The result should be like
    ```
-    [SHA256_VALUE]  genesis.json
+    [SHA256_VALUE]  -
    ```
    <img src="../img/attetion.png" width="30">Copy and paste the value on the Telegram group `[SHA256_VALUE]` and compare it with all the other validators
 
