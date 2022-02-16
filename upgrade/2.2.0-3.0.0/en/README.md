@@ -1,6 +1,8 @@
 # Upgrade instructions from 2.2.0 to 3.0.0 Commercio Network Chain (WIP)
 # THE STOP BLOCK WILL BE COMMUNICATED SHORTLY.
 
+# `THE FINAL VERSION 3.0.0 WILL BE PUBLISHED SHORTLY BEFORE THE UPDATE`
+
 The update date has been set for `23 Febbraio 2022 alle 14.30 UTC= 15.30 CET`. The posted height should stop the chain shortly after 14.30 UTC = 15.30 CET. The deviation could be a few minutes.
 
 
@@ -149,7 +151,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    **NB**: this operation is only necessary on the validator nodes. The produced genesis can then be installed on sentry nodes. 
    The process may take some time and depends on the resources available on the node.
 
-   Some statistics 
+   Some statistics with mainnet
     * Export height: **2210048**
     * Server used
       * 4 Cpu
@@ -163,6 +165,8 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
     * New genesis weight: **85Mbyte**
     * Shasum calculation duration: **7seconds**
     * Startup: **N.A.**
+    * Total update duration: **15minutes**
+    * Total space required: **200Mbyte**
   
 
 4. Keep safe your `.cnd` directory folder
