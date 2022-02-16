@@ -1,7 +1,7 @@
 # Upgrade instructions from 2.2.0 to 3.0.0 Commercio Network Chain (WIP)
 # THE STOP BLOCK WILL BE COMMUNICATED SHORTLY.
 
-# `THE FINAL VERSION 3.0.0 WILL BE PUBLISHED SHORTLY BEFORE THE UPDATE`
+# `THE FINAL VERSION 3.0.0 WILL BE PUBLISHED SHORTLY BEFORE THE UPDATE DATE`
 
 The update date has been set for `23 Febbraio 2022 alle 14.30 UTC= 15.30 CET`. The posted height should stop the chain shortly after 14.30 UTC = 15.30 CET. The deviation could be a few minutes.
 
