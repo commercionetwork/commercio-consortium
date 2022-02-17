@@ -26,7 +26,7 @@ su - commercionetwork
 ```
 
 Set enviroment variables for the node:
-```
+```bash
 echo 'export GOPATH="$HOME/go"' >> ~/.bashrc
 echo 'export PATH="$GOPATH/bin:$PATH"' >> ~/.bashrc
 echo 'export PATH="$PATH:/snap/bin"' >> ~/.bashrc
@@ -58,6 +58,23 @@ Test if you have the correct binaries version:
 ```bash
 commercionetworkd version
 # Should output the same version written inside the .data file
+```
+
+**Follow these steps only if compiled the binary locally (not on your node)**
+1. Transfer the binary to your node:
+```bash
+scp commercionetworkd <username>@<node-ip-address>:/home/commercionetwork/go/bin
+```
+2. Transfer the `libwasm.so` library to your node:
+```bash
+cd $HOME/go/pkg/mod/github.com && cd '!cosm!wasm'
+scp wasmvm@v1.0.0-beta/api/libwasmvm.so <username>@<node-ip-address>:/home/commercionetwork/go/bin
+```
+3. Set `LD_LIBRARY_PATH` enviroment variable:
+```bash
+cat <<EOF >> ~/.bashrc
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$GOPATH/bin
+EOF
 ```
 
 Setup the validator node name. We will use the same name for node as well as the wallet key:
@@ -184,12 +201,13 @@ Description=Commercio Network Node
 After=network.target
 
 [Service]
-User=root
+User=commercionetwork
 LimitNOFILE=4096
 
 Restart=always
 RestartSec=3
 
+Environment="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/commercionetwork/bin/go" # <-- set this only if you compiled "commercionetworkd" locally
 Environment="DAEMON_NAME=commercionetworkd"
 Environment="DAEMON_HOME=/home/commercionetwork/.commercionetwork"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
