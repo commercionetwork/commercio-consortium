@@ -56,6 +56,9 @@ The output should look like this:
 
 :::warning 
 If you don't have enough tokens you have to request them.
+Try get tokens from faucet using
+
+https://faucet-testnet.commercio.network/give?addr=your_pub_addr_creator_val&amount=10000
 :::
 
 Read [Add wallet key](#1-add-wallet-key) to create your own `<your pub addr creator val>`.
