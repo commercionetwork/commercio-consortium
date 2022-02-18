@@ -62,7 +62,7 @@ More details are given in [docs.commercio.network](https://docs.commercio.networ
 ## Preliminary operations
 
 There are a few things to consider before upgrading
-1. Make sure you have enough disk space: currently the pruned database of the chain occupies 80 / 90Gb, so the servers disk must have enough space to contain the database of the previous chain which will act as a backup plus at least another 5Gb for export and migration operations and for the start of the new chain 
+1. Make sure you have enough disk space: currently the pruned database of the chain occupies 80 / 90Gb, so the servers disk must have enough space to contain the database for it, that will act as a backup plus at least another 50Gb for export and migration operations and for the start of the new chain. So you need 90gb + 50gb = 140gb in total in your disk. **NB** In the future you need enlarge your disk when the chain grows.
 2. **Ram**: 8GB minimum required. 16Gb recommended. Ram requirements may be increased in the future.
 3. It is advisable, as soon as the final release is published, to **compile on the node**: compiling the binaries during the upgrade could slow down the operations. **The final version will be with the tag `v3.0.0`**
 4. Prepare the file configurations `config.toml` and `app.toml` first so that you have them ready at the time of the upgrade. Read this [guide](./prepare_config.md) to prepare your configurations.
@@ -199,6 +199,22 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
     make install
    ```
 
+   **Follow these steps only if compiled the binary locally (not on your node)**
+   1. Transfer the binary to your node:
+   ```bash
+   scp commercionetworkd <username>@<node-ip-address>:/home/commercionetwork/go/bin
+   ```
+   2. Transfer the `libwasm.so` library to your node:
+   ```bash
+   cd $HOME/go/pkg/mod/github.com && cd '!cosm!wasm'
+   scp wasmvm@v1.0.0-beta/api/libwasmvm.so <username>@<node-ip-address>:/home/commercionetwork/go/bin
+   ```
+   3. Set `LD_LIBRARY_PATH` enviroment variable:
+   ```bash
+   cat <<EOF >> ~/.bashrc
+   LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$GOPATH/bin
+   EOF
+   ```
 
 7. Verify that the applications are the right version:
 
