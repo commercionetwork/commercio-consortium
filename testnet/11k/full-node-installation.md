@@ -201,7 +201,7 @@ Configure the service:
 ```bash
 exit # <- Login back to root at this point!
 
-tee /etc/systemd/system/commercionetwork.service > /dev/null <<EOF  
+tee /etc/systemd/system/commercionetworkd.service > /dev/null <<EOF  
 [Unit]
 Description=Commercio Network Node
 After=network.target
@@ -229,11 +229,11 @@ EOF
 
 Now you can start your full node. Enable the newly created server and try to start it using:
 ```bash
-systemctl enable commercionetwork  
-systemctl start commercionetwork
+systemctl enable commercionetworkd  
+systemctl start commercionetworkd
 ```
 
 Control if the sync was started. Use `Ctrl + C` to interrupt the `journalctl` command:
 ```bash
-journalctl -u commercionetwork -f
+journalctl -u commercionetworkd -f
 ```
