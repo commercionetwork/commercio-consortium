@@ -125,9 +125,13 @@ mv ~/.commercionetwork/config/config.toml.tmp  ~/.commercionetwork/config/config
 ```
 
 Choose 1 of these 3 ways to syncronize your node to the blockchain:
-1. [From the start](#from-the-start)
-2. [Using the state sync future](#using-the-state-sync-future)
-3. [Using the quicksync dump](#using-the-quicksync-dump)
+- [Install a testnet node (WIP)](#install-a-testnet-node-wip)
+  - [Hardware requirements:](#hardware-requirements)
+  - [Install full node](#install-full-node)
+    - [From the start](#from-the-start)
+    - [Using the state sync future](#using-the-state-sync-future)
+    - [Using the quicksync dump](#using-the-quicksync-dump)
+  - [Cosmovisor configuration](#cosmovisor-configuration)
 ### From the start
 
 If you intend to syncronize eveything from the start you can skip this part and continue with the configuration.
@@ -173,11 +177,13 @@ tar -zxf $(echo $CHAINID).latest.tgz
 
 Download and compile cosmovisor:
 ```bash
+cd $HOME
 git clone https://github.com/cosmos/cosmos-sdk.git
 cd cosmos-sdk
 git checkout cosmovisor/v0.1.0
 cd cosmovisor
 make
+cp cosmovisor $HOME/go/bin
 ```
 
 Make cosmovisor folder structure:
