@@ -117,7 +117,7 @@ timestamp: ""
 ### Confirm your validator is active
 You can verify that the validator is active by browsing 
 
-[Commercio.network explorer Testnet](https://testnet.commercio.network/it/validators).       
+[Commercio.network explorer Testnet](https://testnet.commercio.network/validators).       
 
 
 If you see your validator in the list click on its name.     
