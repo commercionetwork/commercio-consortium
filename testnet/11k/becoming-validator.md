@@ -131,7 +131,7 @@ export OPERATOR_ADDRESS="did:com:valoper1zcjx15rruffkrfq0rryu809fzkgwg684qmetxxs
 
 ### Delegate tokens
 
-If you want to stake tokens from another wallet you can register it using the following command:
+**If you want** to stake tokens from another wallet you can register it using the following command:
 
 ```bash
 commercionetworkd keys add <name of second wallet> --recover
@@ -147,6 +147,8 @@ commercionetworkd keys add <name of second wallet> --ledger
 ```
 In this case the 24 words are not provided because they have already been configured in the **Ledger** initialization
 
+You can ask other token from faucet for this wallet.   
+
 When you're ready you can delegate your token to the validator using this command:
 
 ```bash
@@ -159,6 +161,7 @@ commercionetworkd tx staking delegate \
   -y
 ```
 
+`<amount of tokens>` can also be a single token.     
 The output should look like this:
 ```
 height: 0
