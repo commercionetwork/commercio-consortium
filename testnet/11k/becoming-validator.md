@@ -58,7 +58,7 @@ The output should look like this:
 If you don't have enough tokens you have to request them.
 Try get tokens from faucet using
 
-https://faucet-testnet.commercio.network/give?addr=your_pub_addr_creator_val&amount=10000
+https://faucet-testnet.commercio.network/give?addr=your_pub_addr_creator_val&amount=1110000
 :::
 
 Read [Add wallet key](#1-add-wallet-key) to create your own `<your pub addr creator val>`.
@@ -78,7 +78,7 @@ export VALIDATOR_PUBKEY=$(commercionetworkd tendermint show-validator)
 Create your validator
 ```bash
 commercionetworkd tx staking create-validator \
-  --amount=10000ucommercio \
+  --amount=1000000ucommercio \
   --pubkey=$VALIDATOR_PUBKEY \
   --moniker="$NODENAME" \
   --chain-id="$CHAINID" \
