@@ -59,8 +59,8 @@ Test if you have the correct binaries version:
 commercionetworkd version
 # Should output the same version written inside the .data file
 ```
-
-**Follow these steps only if compiled the binary locally (not on your node)**
+---
+**Follow the three steps below only if compiled the binary locally (not on your node) otherwise skip this part**
 1. Transfer the binary to your node:
 ```bash
 scp commercionetworkd <username>@<node-ip-address>:/home/commercionetwork/go/bin
@@ -76,6 +76,8 @@ cat <<EOF >> ~/.bashrc
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$GOPATH/bin
 EOF
 ```
+
+---
 
 Setup the validator node name. We will use the same name for node as well as the wallet key:
 ```bash
