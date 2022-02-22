@@ -116,18 +116,18 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    Check the version of `go` it at least `1.16+`
 
 
-2. Verify that the exact stop block is set: `2235000` (A check will still be made on the morning of 23/02/2022 to verify the progress of the blocks)
+2. Verify that the exact stop block is set: `2233550` (A check will still be made on the morning of 23/02/2022 to verify the progress of the blocks)
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2235000/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2233550/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    And apply the configuration using the command
    ```bash
    systemctl restart cnd
    ```
-   The node should stop at the height `2235000`. Check with
+   The node should stop at the height `2233550`. Check with
 
    ```bash
    journalctl -u cnd -f
@@ -323,18 +323,18 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    should be returned. The number at the and of the line is the percentage of validator that returned on-line. 0.21 = 21%
 # Full Node Guide
 
-1. Verify that the exact stop block is set: `2235000`
+1. Verify that the exact stop block is set: `2233550`
 
    
    ```bash
-   sed 's/^halt-height =.*/halt-height = 2235000/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
+   sed 's/^halt-height =.*/halt-height = 2233550/g' ~/.cnd/config/app.toml > ~/.cnd/config/app.toml.tmp
    mv ~/.cnd/config/app.toml.tmp  ~/.cnd/config/app.toml
    ```
    And apply the configuration using the command 
    ```bash
    systemctl restart cnd
    ```
-   The knot should stop at the height `2235000`. Check with
+   The knot should stop at the height `2233550`. Check with
 
    ```bash
    journalctl -u cnd -f
