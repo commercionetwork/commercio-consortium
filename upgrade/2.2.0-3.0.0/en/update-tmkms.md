@@ -43,11 +43,11 @@ We assume that you run `tmkms` version **0.10**
 
     Note the following configuration specific parameters to consider for the upgrade
 
-    `[[chain]]` `state_file`: is the status file and will need to be changed. Preserve the previous file.
-    `[[chain]]` `id`: It will change from `commercio-2_2` to `commercio-3`
-    `[[validator]]` `chain_id`: chain id. It will change from `commercio-2_2` to `commercio-3`
-    `[[providers.yubihsm]]` `keys chain_ids`: It will change from `commercio-2_2` to `commercio-3`
-    `[[validator]]` `protocol_version`: must be configured with the value `v0.34`
+    * `[[chain]]` `state_file`: is the status file and will need to be changed. Preserve the previous file.
+    * `[[chain]]` `id`: It will change from `commercio-2_2` to `commercio-3`
+    * `[[validator]]` `chain_id`: chain id. It will change from `commercio-2_2` to `commercio-3`
+    * `[[providers.yubihsm]]` `keys chain_ids`: It will change from `commercio-2_2` to `commercio-3`
+    * `[[validator]]` `protocol_version`: must be configured with the value `v0.34`
 
     **ATTENTION**
 

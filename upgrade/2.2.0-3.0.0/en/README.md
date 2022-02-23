@@ -1,7 +1,6 @@
-# Upgrade instructions from 2.2.0 to 3.0.0 Commercio Network Chain (WIP)
-# THE STOP BLOCK WILL BE COMMUNICATED SHORTLY.
+# Upgrade instructions from 2.2.0 to 3.0.0 Commercio Network Chain 
 
-# `THE FINAL VERSION 3.0.0 WILL BE PUBLISHED SHORTLY BEFORE THE UPDATE DATE`
+# `THE FINAL VERSION 3.0.0 IS PUBLISHED`
 
 The update date has been set for `23 Febbraio 2022 alle 14.30 UTC= 15.30 CET`. The posted height should stop the chain shortly after 14.30 UTC = 15.30 CET. The deviation could be a few minutes.
 
@@ -223,14 +222,16 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
     Values ​​should be 
    ```
-    name: commercionetworkd
-    server_name: commercionetworkd
-    version: v3.0.0
-    commit: ??????
-    build_tags: netgo,ledger
-    ...
+   name: blog
+   server_name: <appd>
+   version: 3.0.0
+   commit: 3be71db0569fd394d23cf799ef96d5b4c6d8f24b
+   build_tags: ""
+   go: go version go1.17.5 darwin/amd64
+    ...er
    ```
-   The hash version of the new software should be v3.0.0: `????`
+   The hash version of the new software should be v3.0.0: `3be71db0569fd394d23cf799ef96d5b4c6d8f24b`
+   P.S: Sorry for `name` and other missed filed. In v3.0.1 will fix it.
 
 8. At this point, the genesis file must be migrated to make the new state compliant for the new core.
    The last validated height for the chain must be acquired
