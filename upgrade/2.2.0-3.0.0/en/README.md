@@ -199,16 +199,18 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```
 
    **Follow these steps only if compiled the binary locally (not on your node)**
-   1. Transfer the binary to your node:
+   - Transfer the binary to your node:
    ```bash
    scp commercionetworkd <username>@<node-ip-address>:/home/commercionetwork/go/bin
    ```
-   2. Transfer the `libwasm.so` library to your node:
+   
+   - Transfer the `libwasm.so` library to your node:
    ```bash
    cd $HOME/go/pkg/mod/github.com && cd '!cosm!wasm'
    scp wasmvm@v1.0.0-beta/api/libwasmvm.so <username>@<node-ip-address>:/home/commercionetwork/go/bin
    ```
-   3. Set `LD_LIBRARY_PATH` enviroment variable in your validator node with the user that will run the `commercionetworkd` application:
+
+   - Set `LD_LIBRARY_PATH` enviroment variable in your validator node with the user that will run the `commercionetworkd` application:
    ```bash
    cat <<EOF >> ~/.bashrc
    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$GOPATH/bin
