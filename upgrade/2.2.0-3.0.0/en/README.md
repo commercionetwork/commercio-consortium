@@ -269,22 +269,22 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    ```bash
     commercionetworkd unsafe-reset-all
    ```
-   A folder should appear on your home `.commmercionetwork`
+   A folder should appear on your home `.commercionetwork`
 
 11. Install the new genesis of the new chain
    ```bash
-    cp ~/genesis.json ~/.commmercionetwork/config/
+    cp ~/genesis.json ~/.commercionetwork/config/
    ```
    <img src="../img/attetion.png" width="30"> **ATTENTION** at this stage the sentries must be updated first. Check the [full node upgrade procedure](#full-node-guide)
 
 12. Check the file configurations `config.toml`, `app.toml` and copy your crypto material
-    Install the `config.toml` and `app.toml` files in `.commmercionetwork/config` folder as you prepare before. If you use `priv_validator_key.json` copy it from previus folder
+    Install the `config.toml` and `app.toml` files in `.commercionetwork/config` folder as you prepare before. If you use `priv_validator_key.json` copy it from previus folder
     ```bash
-      cp ~/.cnd/config/priv_validator_key.json ~/.commmercionetwork/config/.
+      cp ~/.cnd/config/priv_validator_key.json ~/.commercionetwork/config/.
     ```
     Copy your `node_key.json` file. It not strictly necessary, but if you use sentries or if you are a persistent peers for someone you need to copy it
     ```bash
-      cp ~/.cnd/config/node_key.json ~/.commmercionetwork/config/.
+      cp ~/.cnd/config/node_key.json ~/.commercionetwork/config/.
     ```    
     
 13. Creation of the new service
