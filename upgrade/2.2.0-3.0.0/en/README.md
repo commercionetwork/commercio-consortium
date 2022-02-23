@@ -230,7 +230,7 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
    commit: 3be71db0569fd394d23cf799ef96d5b4c6d8f24b
    build_tags: ""
    go: go version go1.17.5 darwin/amd64
-    ...er
+    ...
    ```
    The hash version of the new software should be v3.0.0: `3be71db0569fd394d23cf799ef96d5b4c6d8f24b`
    P.S: Sorry for `name` and other missed filed. In v3.0.1 will fix it.
@@ -367,18 +367,20 @@ The version/hash commit of commercio network is v2.2.0: `3e02d5e761eab3729ccf6f8
 4. Verify that the applications are the right version:
 
    ```bash
-    cnd version
-    ```
+    commercionetworkd version
+   ```
     Values ​​should be 
-    ```
-    name: commercionetworkd
-    server_name: commercionetworkd
-    version: v3.0.0
-    commit: ??????
-    build_tags: netgo,ledger
+   ```
+   name: blog
+   server_name: <appd>
+   version: 3.0.0
+   commit: 3be71db0569fd394d23cf799ef96d5b4c6d8f24b
+   build_tags: ""
+   go: go version go1.17.5 darwin/amd64
     ...
    ```
-    The hash version of the new software should be v3.0.0: `????`
+   The hash version of the new software should be v3.0.0: `3be71db0569fd394d23cf799ef96d5b4c6d8f24b`
+   P.S: Sorry for `name` and other missed filed. In v3.0.1 will fix it.
 
 5. Chain status reset:
 
