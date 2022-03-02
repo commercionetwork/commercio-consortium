@@ -39,8 +39,8 @@ Before installing the node, please select which chain you would like to connect 
 rm -rf commercio-chains
 mkdir commercio-chains && cd commercio-chains
 git clone https://github.com/commercionetwork/chains.git .
-git checkout commercio-testnet11k # <- checkout the correct branch! This is for testnet11k
-cd commercio-testnet11k # <- same for the folder!
+git checkout master
+cd commercio-testnet11k
 ```
 
 Compile binaries:
