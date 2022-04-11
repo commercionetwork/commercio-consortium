@@ -25,20 +25,26 @@ git checkout v3.0.1
 
 Build the Application
 
-```
+```bash
 make build
 ```
 
 Check that the application is the right version
 
-```
+```bash
 ./build/commercionetworkd version --long
 ```
 
 The result should be
 
 ```
-
+name: commercionetwork
+server_name: commercionetword
+version: 3.0.1
+commit: a350e03980c3ad144ba108063212609e10d71551
+build_tags: netgo,ledger
+go: go version go1.18 linux/amd64
+build_deps:
 ```
 
 Stop the service, replace the program and restart the service. **Warning**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
