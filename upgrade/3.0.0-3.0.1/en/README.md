@@ -7,6 +7,8 @@
 
 **Please note**: this upgrade is optional. The cli of version 3.0.1 is still compatible with the chain.
 
+**Please note**: if you install a new node from genesis use version 3.0.0 and upgrade after the chain produced at least the first block. If you want use this version download the chain dump from https://quicksync.commercio.network
+
 ## Upgrade procedure
 
 Download the repo from GitHub if you not already done
