@@ -1,4 +1,4 @@
-# Upgrade instructions from 3.0.0 to 3.0.1 Commercio Network Chain 
+# Upgrade instructions from 3.0.0 to 3.1.0 Commercio Network Chain 
 
 ## Prerequisites
 
