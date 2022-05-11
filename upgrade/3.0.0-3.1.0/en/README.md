@@ -45,10 +45,9 @@ The result should be
 name: commercionetwork
 server_name: commercionetword
 version: 3.1.0
-commit: a350e03980c3ad144ba108063212609e10d71551
+commit: 69c4c62be777b731e7967956f2cf7ba196ca322a
 build_tags: netgo,ledger
-go: go version go1.18 linux/amd64
-build_deps:
+go: go version go1.18.1 linux/amd64
 ```
 
 ### Generic installation
