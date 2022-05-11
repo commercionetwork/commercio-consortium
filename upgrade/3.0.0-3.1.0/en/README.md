@@ -4,6 +4,8 @@
 
 1. Have a working node with software version v3.0.0 or v3.0.1
 2. Have all the tools on the server to compile the application as mentioned in the first paragraph at https://docs.commercio.network/nodes/full-node-installation.html
+3. Not required but preferable to create a backup of the chain home, which in most cases is `$HOME/.commercionetwork`.   
+If you want to make a backup and you have a kms, when you stop the service to make the backup, save the status file in the kms itself
 
 **Please note**: this upgrade is **mandatory**. The nodes that will not upgrade will become incompatible with the chain in the next few days. The old cli should continue to work for the most operations.
 
