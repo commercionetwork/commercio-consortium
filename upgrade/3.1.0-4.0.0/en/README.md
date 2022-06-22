@@ -5,7 +5,7 @@
 1. Have a working node with software version v3.1.0
 2. Have all the tools on the server to compile the application as mentioned in the first paragraph at https://docs.commercio.network/nodes/full-node-installation.html
 
-If you want to make a backup and you have a kms, when you stop the service to make the backup, save the status file in the kms itself
+If you want to make a backup and you have a kms, as you stop the service to make it, save the status file in the kms itself 
 
 ## Raccomandations
 
@@ -14,7 +14,7 @@ If you want to make a backup and you have a kms, when you stop the service to ma
 
 **Please note**: this upgrade is **mandatory**. The nodes that will not upgrade will become incompatible with the chain.
 
-**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain  will be stopped automatecally and the new version 4.0.0 will be required. If you want use this version directly downloading the chain dump from https://quicksync.commercio.network after 2022/06/(28)
+**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain will be stopped automatically and the new version 4.0.0 will be required. If you want use this version directly you have to download the chain dump from https://quicksync.commercio.network after 2022/06/(28)
 
 ## Upgrade info
 
@@ -33,7 +33,7 @@ where `HALT-HEIGHT` is the height of upgrade.
 
 ## Upgrade procedure
 
-Download the repo from GitHub **if you not already done**. If you have already the local copy of repository don't try clone it.
+Download the repo from GitHub **if you have not already done**. If you have already the local copy of repository don't try clone it.
 
 ```bash
 git clone https://github.com/commercionetwork/commercionetwork.git
@@ -73,7 +73,7 @@ go: go version go1.18.1 linux/amd64
 
 ### Cosmovisor installation
 
-**Warning**: you need to setup cosmovisor env, in particular way `$DAEMON_HOME` variable.
+**Warning**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.
 From `commercionetwork` repository folder run commands below
 
 ```bash
