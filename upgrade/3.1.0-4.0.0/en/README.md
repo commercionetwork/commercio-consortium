@@ -16,6 +16,21 @@ If you want to make a backup and you have a kms, when you stop the service to ma
 
 **Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain  will be stopped automatecally and the new version 4.0.0 will be required. If you want use this version directly downloading the chain dump from https://quicksync.commercio.network after 2022/06/(28)
 
+## Upgrade info
+
+This upgrade will be performed with a proposal. The proposals are shown here
+
+https://mainnet.commercio.network/proposals/
+
+When a upgrade proposal passed the chain will halted at the height indicated in the proposal.
+
+You can verify the approximate date when the upgrade will be performed putting the height in the follow link
+
+https://mainnet.commercio.network/blocks/detail/HALT-HEIGHT
+
+where `HALT-HEIGHT` is the height of upgrade.
+
+
 ## Upgrade procedure
 
 Download the repo from GitHub **if you not already done**. If you have already the local copy of repository don't try clone it.
