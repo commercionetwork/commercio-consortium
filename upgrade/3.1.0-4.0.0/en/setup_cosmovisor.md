@@ -12,8 +12,9 @@ cd $HOME
 git clone https://github.com/cosmos/cosmos-sdk.git
 cd cosmos-sdk
 git checkout cosmovisor/v0.1.0
+# you can use version v1.0.0 or v1.1.0
 cd cosmovisor
-make
+make cosmovisor
 cp cosmovisor $HOME/go/bin
 ```
 
@@ -38,7 +39,7 @@ Description=Commercio Network Node
 After=network.target
 
 [Service]
-User=commercionetwork
+User=root
 LimitNOFILE=4096
 
 Restart=always
@@ -46,12 +47,13 @@ RestartSec=3
 
 Environment="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/commercionetwork/bin/go" # <-- set this only if you compiled "commercionetworkd" locally
 Environment="DAEMON_NAME=commercionetworkd"
-Environment="DAEMON_HOME=/home/commercionetwork/.commercionetwork"
+Environment="DAEMON_HOME=/root/.commercionetwork"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_LOG_BUFFER_SIZE=512"
+Environment="UNSAFE_SKIP_BACKUP=true" # Set to false if you want make backup with version 1.0.0 or 1.1.0
 
-ExecStart=/home/commercionetwork/go/bin/cosmovisor start --home="/home/commercionetwork/.commercionetwork" 
+ExecStart=/root/go/bin/cosmovisor start --home="/root/.commercionetwork" 
 
 [Install]
 WantedBy=multi-user.target
