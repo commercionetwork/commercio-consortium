@@ -83,7 +83,7 @@ cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v4.0.0/bin/.
 
 Wait sitting in your armchair watching your favorite TV series for the chain upgrade: cosmovisor should do all the dirty work for you.
 
-**WARNING**: If you use cosmovisor version 1.0.0 or earlier you need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If the `data` folder occupied 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
+**WARNING**: If you use cosmovisor version 1.0.0 or earlier you need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
 
 
 ### Generic installation
@@ -110,13 +110,13 @@ systemctl daemon-reload
 systemctl restart commercionetworkd.service
 ```
 
-Now wait sitting in your office chair, rotating your thumbs, verifying from your the logs when your node crashes.
+Now wait sitting in your office chair, rotating your thumbs, monitoring from your logs when your node crashes.
 
 ```bash
 journalctl -u commercionetworkd.service -f
 ```
 
-When the node will halted you need to chenge the `commercionetworkd` program and start the service.     
+When the node will be halted you need to chenge the `commercionetworkd` program and start the service.     
 From `commercionetwork` repository folder run commands below
 
 ```bash
@@ -125,7 +125,7 @@ cp ./build/commercionetworkd $GOPATH/bin/.
 
 If you want make a backup coping the `data` folder in a secure place.  
 
-Remembar change back your service configuration
+Remember to revert your service configuration
 
 ```
 #Restart=always

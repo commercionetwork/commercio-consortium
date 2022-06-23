@@ -15,7 +15,7 @@ git checkout cosmovisor/v0.1.0
 # you can use version v1.0.0 or v1.1.0
 cd cosmovisor
 make cosmovisor
-cp cosmovisor $HOME/go/bin
+cp cosmovisor $HOME/go/bin/
 ```
 
 Make cosmovisor folder structure:
