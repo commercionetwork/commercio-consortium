@@ -9,12 +9,12 @@ If you want to make a backup and you have a kms, as you stop the service to make
 
 ## Raccomandations
 
-1. To speed up the upgrade and make it easy use cosmovisor tools
+1. To speed up the upgrade and make it easy use `cosmovisor` tools
 
 
 **Please note**: this upgrade is **mandatory**. The nodes that will not upgrade will become incompatible with the chain.
 
-**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain will be stopped automatically and the new version 4.0.0 will be required. If you want use this version directly you have to download the chain dump from https://quicksync.commercio.network after 2022/06/(28)
+**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain will be stopped automatically and the new version 4.0.0 will be required. If you want use this version directly you have to download the chain dump from https://quicksync.commercio.network after 2022/07/04
 
 ## Upgrade info
 
@@ -30,6 +30,22 @@ https://mainnet.commercio.network/blocks/detail/HALT-HEIGHT
 
 where `HALT-HEIGHT` is the height of upgrade.
 
+Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
+
+You can use the command line interface to vote Yes, No, Abstain or NoWithVeto.
+
+```bash
+commercionetworkd tx gov vote \
+   PROPOSAL_ID \
+   yes \
+   --from DELEGATOR_WALLET \
+   --chain-id commercio-3 \
+   --fees 10000ucommercio \
+   -y
+```
+
+**PROPOSAL_ID** is the id of proposal (in this case 1)
+  
 
 ## Upgrade procedure
 
