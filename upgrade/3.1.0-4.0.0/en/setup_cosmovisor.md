@@ -29,6 +29,30 @@ Copy `commercionetwork` to cosmovisor folder
 cp $HOME/go/bin/commercionetworkd $HOME/.commercionetwork/cosmovisor/genesis/bin
 ``` 
 
+After installation your `.commercionetwork` folder should be structured like below
+
+```
+.commercionetwork
+├── config
+│   └── app.toml
+│   └── config.toml
+│   └── genesis.json
+│   └── node_id.json
+│   └── priv_validator_key.json
+├── data
+│   └── priv_validator_state.json
+└── cosmovisor
+    └── current
+    └── genesis
+    └── bin
+    │   └── commercionetword
+    └── upgrades
+    └── <name>
+        └── bin
+            └── commercionetword
+```
+
+
 Configure the service:
 ```bash
 exit # <- Login back to root at this point!
