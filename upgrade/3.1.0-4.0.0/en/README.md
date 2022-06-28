@@ -44,7 +44,8 @@ commercionetworkd tx gov vote \
    -y
 ```
 
-**PROPOSAL_ID** is the id of proposal (in this case 1)
+**PROPOSAL_ID** is the id of proposal (in this case 1).    
+If you use ledger add `--ledger` flag to the command.
   
 
 ## Upgrade procedure
