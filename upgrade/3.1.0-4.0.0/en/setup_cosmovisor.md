@@ -51,7 +51,7 @@ Environment="DAEMON_HOME=/root/.commercionetwork"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_LOG_BUFFER_SIZE=512"
-Environment="UNSAFE_SKIP_BACKUP=true" # Set to false if you want make backup with version 1.0.0 or 1.1.0
+Environment="UNSAFE_SKIP_BACKUP=true" # Set to false if you want make backup
 
 ExecStart=/root/go/bin/cosmovisor start --home="/root/.commercionetwork" 
 

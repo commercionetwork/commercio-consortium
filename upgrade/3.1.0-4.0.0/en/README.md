@@ -100,7 +100,7 @@ cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v4.0.0/bin/.
 
 Wait sitting in your armchair watching your favorite TV series for the chain upgrade: cosmovisor should do all the dirty work for you.
 
-**WARNING**: If you use cosmovisor version 1.0.0 or earlier you need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
+**WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
 
 
 ### Generic installation
