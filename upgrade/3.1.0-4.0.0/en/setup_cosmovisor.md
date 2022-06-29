@@ -84,7 +84,16 @@ WantedBy=multi-user.target
 EOF
 ```
 
-Now you can start your full node. Enable the newly created server and try to start it using:
+
+
+Now you can start your full node. 
+You need launch the follow command to reaload the service configuration
+```
+systemctl daemon-reload
+```
+
+
+Enable the newly created server and try to start it using:
 ```bash
 systemctl enable commercionetworkd  
 systemctl start commercionetworkd

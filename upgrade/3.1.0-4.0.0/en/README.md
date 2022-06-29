@@ -46,7 +46,9 @@ commercionetworkd tx gov vote \
 
 **PROPOSAL_ID** is the id of proposal (in this case 1).    
 If you use ledger add `--ledger` flag to the command.
-  
+
+**Warning**: You may not find the keys because they were created with the previous version of the software: `cncli`. You must retrieve your private key from the mnemonic or ledger.
+
 
 ## Upgrade procedure
 
