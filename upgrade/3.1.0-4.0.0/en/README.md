@@ -105,7 +105,7 @@ Wait sitting in your armchair watching your favorite TV series for the chain upg
 **WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
 
 
-### Generic installation
+### Generic installation (**WITHOUT COSMOVISOR**)
 
 
 **Warning**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
