@@ -84,9 +84,10 @@ The result should be
 name: commercionetwork
 server_name: commercionetword
 version: 4.0.0
-commit: -------
+commit: 614a6ded2d471852add2af0e41de0bddc1e03da2
 build_tags: netgo,ledger
-go: go version go1.18.1 linux/amd64
+go: go version go1.18.3 linux/amd64
+build_deps:
 ```
 
 
