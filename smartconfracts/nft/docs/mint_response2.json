@@ -1,0 +1,192 @@
+{
+  "height": "6067749",
+  "txhash": "0D708719B37AF70D1EAAA2C1CCBF67DFC37FAB799174F09C4F35672EA312C760",
+  "codespace": "",
+  "code": 0,
+  "data": "0A260A242F636F736D7761736D2E7761736D2E76312E4D736745786563757465436F6E7472616374",
+  "raw_log": "[{\"events\":[{\"type\":\"execute\",\"attributes\":[{\"key\":\"_contract_address\",\"value\":\"did:com:1wu7cqurnmeeqre5ewsjlewkjl5u3vc0nszck7jkpr5ja9npp7srqzuq2zn\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/cosmwasm.wasm.v1.MsgExecuteContract\"},{\"key\":\"module\",\"value\":\"wasm\"},{\"key\":\"sender\",\"value\":\"did:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc\"}]},{\"type\":\"wasm\",\"attributes\":[{\"key\":\"_contract_address\",\"value\":\"did:com:1wu7cqurnmeeqre5ewsjlewkjl5u3vc0nszck7jkpr5ja9npp7srqzuq2zn\"},{\"key\":\"action\",\"value\":\"mint\"},{\"key\":\"minter\",\"value\":\"did:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc\"},{\"key\":\"owner\",\"value\":\"did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u\"},{\"key\":\"token_id\",\"value\":\"00020\"}]}]}]",
+  "logs": [
+    {
+      "msg_index": 0,
+      "log": "",
+      "events": [
+        {
+          "type": "execute",
+          "attributes": [
+            {
+              "key": "_contract_address",
+              "value": "did:com:1wu7cqurnmeeqre5ewsjlewkjl5u3vc0nszck7jkpr5ja9npp7srqzuq2zn"
+            }
+          ]
+        },
+        {
+          "type": "message",
+          "attributes": [
+            {
+              "key": "action",
+              "value": "/cosmwasm.wasm.v1.MsgExecuteContract"
+            },
+            { "key": "module", "value": "wasm" },
+            {
+              "key": "sender",
+              "value": "did:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc"
+            }
+          ]
+        },
+        {
+          "type": "wasm",
+          "attributes": [
+            {
+              "key": "_contract_address",
+              "value": "did:com:1wu7cqurnmeeqre5ewsjlewkjl5u3vc0nszck7jkpr5ja9npp7srqzuq2zn"
+            },
+            { "key": "action", "value": "mint" },
+            {
+              "key": "minter",
+              "value": "did:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc"
+            },
+            {
+              "key": "owner",
+              "value": "did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u"
+            },
+            { "key": "token_id", "value": "00020" }
+          ]
+        }
+      ]
+    }
+  ],
+  "info": "",
+  "gas_wanted": "300000",
+  "gas_used": "160538",
+  "tx": null,
+  "timestamp": "",
+  "events": [
+    {
+      "type": "tx",
+      "attributes": [
+        {
+          "key": "YWNjX3NlcQ==",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGMvMjQx",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "tx",
+      "attributes": [
+        {
+          "key": "c2lnbmF0dXJl",
+          "value": "NXRBR01jZUhUQVhPWFVYMnA1a2tFRzZ4djUvbEpJYTFtckxnTkdXa2NadzF4YU5ENUpJSUVza08vZjExZlhlY2xTT0hacDQyOXdlZDV5U1lNa1gvVHc9PQ==",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "coin_spent",
+      "attributes": [
+        {
+          "key": "c3BlbmRlcg==",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGM=",
+          "index": true
+        },
+        { "key": "YW1vdW50", "value": "MTAwMDB1Y29tbWVyY2lv", "index": true }
+      ]
+    },
+    {
+      "type": "coin_received",
+      "attributes": [
+        {
+          "key": "cmVjZWl2ZXI=",
+          "value": "ZGlkOmNvbToxN3hwZnZha20yYW1nOTYyeWxzNmY4NHoza2VsbDhjNWw4amN0dHc=",
+          "index": true
+        },
+        { "key": "YW1vdW50", "value": "MTAwMDB1Y29tbWVyY2lv", "index": true }
+      ]
+    },
+    {
+      "type": "transfer",
+      "attributes": [
+        {
+          "key": "cmVjaXBpZW50",
+          "value": "ZGlkOmNvbToxN3hwZnZha20yYW1nOTYyeWxzNmY4NHoza2VsbDhjNWw4amN0dHc=",
+          "index": true
+        },
+        {
+          "key": "c2VuZGVy",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGM=",
+          "index": true
+        },
+        { "key": "YW1vdW50", "value": "MTAwMDB1Y29tbWVyY2lv", "index": true }
+      ]
+    },
+    {
+      "type": "message",
+      "attributes": [
+        {
+          "key": "c2VuZGVy",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGM=",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "tx",
+      "attributes": [
+        { "key": "ZmVl", "value": "MTAwMDB1Y29tbWVyY2lv", "index": true }
+      ]
+    },
+    {
+      "type": "message",
+      "attributes": [
+        {
+          "key": "YWN0aW9u",
+          "value": "L2Nvc213YXNtLndhc20udjEuTXNnRXhlY3V0ZUNvbnRyYWN0",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "message",
+      "attributes": [
+        { "key": "bW9kdWxl", "value": "d2FzbQ==", "index": true },
+        {
+          "key": "c2VuZGVy",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGM=",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "execute",
+      "attributes": [
+        {
+          "key": "X2NvbnRyYWN0X2FkZHJlc3M=",
+          "value": "ZGlkOmNvbToxd3U3Y3F1cm5tZWVxcmU1ZXdzamxld2tqbDV1M3ZjMG5zemNrN2prcHI1amE5bnBwN3NycXp1cTJ6bg==",
+          "index": true
+        }
+      ]
+    },
+    {
+      "type": "wasm",
+      "attributes": [
+        {
+          "key": "X2NvbnRyYWN0X2FkZHJlc3M=",
+          "value": "ZGlkOmNvbToxd3U3Y3F1cm5tZWVxcmU1ZXdzamxld2tqbDV1M3ZjMG5zemNrN2prcHI1amE5bnBwN3NycXp1cTJ6bg==",
+          "index": true
+        },
+        { "key": "YWN0aW9u", "value": "bWludA==", "index": true },
+        {
+          "key": "bWludGVy",
+          "value": "ZGlkOmNvbToxY2pucGFjazJqcW5nZGhqOWNhcDIzaDRuM2RteGN2cXN3Z3lybGM=",
+          "index": true
+        },
+        {
+          "key": "b3duZXI=",
+          "value": "ZGlkOmNvbToxOWZlNGU0NWpha2t3Y2Y3eXNhamYzenFla2Q5ODJhNjZ6bDRhNnU=",
+          "index": true
+        },
+        { "key": "dG9rZW5faWQ=", "value": "MDAwMjA=", "index": true }
+      ]
+    }
+  ]
+}

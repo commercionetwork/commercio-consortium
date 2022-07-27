@@ -1,0 +1,36 @@
+{
+  "data": {
+    "access": {
+      "owner": "did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u",
+      "approvals": []
+    },
+    "info": {
+      "token_uri": "",
+      "extension": {
+        "image": "https://i.ibb.co/G9z2M6L/monaliza-bbb.png",
+        "image_data": null,
+        "external_url": null,
+        "description": null,
+        "name": "Monaliza bbb",
+        "attributes": [
+          {
+            "display_type": null,
+            "trait_type": "shasum256",
+            "value": "bb0c57fb8414cfe5fb03fcdf7167501291b52fec8729ae4132f660c2eb2c306b"
+          },
+          { "display_type": null, "trait_type": "base", "value": "Monalisa" },
+          {
+            "display_type": null,
+            "trait_type": "background",
+            "value": "black"
+          },
+          { "display_type": null, "trait_type": "dress", "value": "blue" },
+          { "display_type": null, "trait_type": "eyes", "value": "brown" }
+        ],
+        "background_color": null,
+        "animation_url": null,
+        "youtube_url": null
+      }
+    }
+  }
+}
