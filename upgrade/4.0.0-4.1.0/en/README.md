@@ -16,11 +16,19 @@ Also on the node you should have all the build tools and paths set up as indicat
 
 ## Cosmovisor
 
+**WARNING**
+
+Setup `DAEMON_HOME` variabile with your cosmovisor daemon path if you not already done. In the most case it should be `$HOME/.commercionetwork`
+```bash
+export DAEMON_HOME=$HOME/.commercionetwork
+```
+
+
 ```bash
 cd commercionetwork
 git fetch --tags && git checkout v4.1.0
 make build && make install
-# this will return commit b75e783651c860273b40c4c9a0ba438f8c9989d0
+# this will return commit 57301949e97160164f732c3d00b4c5a051d379b6 and version 4.1.0
 commercionetworkd version --long
 
 # stop service
@@ -48,7 +56,7 @@ Check validator signing in https://mainnet.commercio.network/home
 cd commercionetwork
 git fetch --tags && git checkout v4.1.0
 make build
-# this will return commit b75e783651c860273b40c4c9a0ba438f8c9989d0
+# this will return commit 57301949e97160164f732c3d00b4c5a051d379b6 and version 4.1.0
 ./build/commercionetworkd version --long
 ```
 
