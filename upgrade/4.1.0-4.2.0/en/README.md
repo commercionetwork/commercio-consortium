@@ -2,19 +2,19 @@
 
 ## Prerequisites
 
-1. Have a working node with software version v4.1.0. **WARNING**: If you didn't performe the upgrade from v4.0.0 to v4.1.0 your node could still working. If so you can apply this upgrade.
-2. Have all the tools on the server to compile the application as mentioned in the first paragraph at https://docs.commercio.network/nodes/full-node-installation.html
 
-If you want to make a backup and you have a kms, as you stop the service to make it, save the status file in the kms itself 
+1. Have a working node with software version v4.1.0. **<img src="../img/attetion.png" width="30">WARNING**:  If you have not upgraded from version v4.0.0 to version v4.1.0, the node may still be working. In that case, you can apply the upgrade.
+2. Have all the tools on the server to compile the application as mentioned in the first paragraph at [Installing the software requirements](https://docs.commercio.network/nodes/full-node-installation.html#_1-installing-the-software-requirements)
+
 
 ## Raccomandations
 
-1. To speed up the upgrade and make it easy use `cosmovisor` tools
+1. To perform the update quickly and make it easy use `cosmovisor` tools
 
 
-**Please note**: this upgrade is **mandatory**. The nodes that will not upgrade will become incompatible with the chain.
+**Please note**: this upgrade is **MANDATORY**. The nodes that will not upgrade will become incompatible with the chain and they will stop.
 
-**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of this upgrade the chain will be stopped automatically and the new version 4.0.0 will be required. If you want use this version directly you have to download the chain dump from https://quicksync.commercio.network after 2022/07/04
+**Please note**: if you install a new node from genesis use version 3.0.0 and try to upgrade after height 3318000 to version 3.1.0. After the halt height of all upgrades the chain will be stopped automatically and the new version will be required. If you want use this version directly you have to download the chain dump from https://quicksync.commercio.network after 2022/11/25
 
 ## Upgrade info
 
@@ -26,13 +26,13 @@ When a upgrade proposal passed the chain will halted at the height indicated in 
 
 You can verify the approximate date when the upgrade will be performed putting the height in the follow link
 
-https://mainnet.commercio.network/blocks/detail/HALT-HEIGHT
+https://mainnet.commercio.network/blocks/detail/{HALT-HEIGHT}
 
 where `HALT-HEIGHT` is the height of upgrade.
 
 Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
 
-You can use the command line interface to vote Yes, No, Abstain or NoWithVeto.
+You can use the command line interface to vote **Yes**, **No**, **Abstain** or **NoWithVeto**.
 
 ```bash
 commercionetworkd tx gov vote \
@@ -48,7 +48,7 @@ commercionetworkd tx gov vote \
 **PROPOSAL_ID** is the id of proposal (in this case 1).    
 If you use ledger add `--ledger` flag to the command.
 
-**Warning**: You may not find the keys because they were created with the previous version of the software: `cncli`. You must retrieve your private key from the mnemonic or ledger.
+**<img src="../img/attetion.png" width="30">WARNING**: You may not find the keys because they were created with the previous version of the software: `cncli`. You must retrieve your private key from the mnemonic or ledger.
 
 
 You also can use follow web interfaces with keplr support
@@ -65,17 +65,11 @@ Download the repo from GitHub **if you have not already done**. If you have alre
 git clone https://github.com/commercionetwork/commercionetwork.git
 ```
 
-Go to the repo folder and checkout to the v4.2.0 tag
+Go to the repo folder, checkout to the v4.2.0 tag and build the application
 
 ```bash
 cd commercionetwork
-git pull
-git checkout v4.2.0
-```
-
-Build the Application
-
-```bash
+git fetch --tags && git checkout v4.2.0
 make build
 ```
 
@@ -100,7 +94,7 @@ build_deps:
 
 ### Cosmovisor installation
 
-**Warning**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.
+**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.
 From `commercionetwork` repository folder run commands below
 
 ```bash
@@ -108,13 +102,16 @@ mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v4.2.0/bin
 cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v4.2.0/bin/.
 ```
 
-**WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.
+**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
+
+- Set `UNSAFE_SKIP_BACKUP` to `false` **if you want a backup**
+- Set `UNSAFE_SKIP_BACKUP` to `true` **if you DON'T want a backup**
 
 
 ### Generic installation (**WITHOUT COSMOVISOR**)
 
 
-**Warning**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
+**<img src="../img/attetion.png" width="30">WARNING**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
 
 Few hours before upgrade setup your `commercionetworkd` service changing the line
 
@@ -135,7 +132,7 @@ systemctl daemon-reload
 systemctl restart commercionetworkd.service
 ```
 
-Now wait sitting in your office chair, rotating your thumbs, monitoring from your logs when your node crashes.
+Wait monitoring from your logs when your node crashes.
 
 ```bash
 journalctl -u commercionetworkd.service -f
@@ -174,4 +171,9 @@ Check if the service is working
 ```bash
 journalctl -u commercionetworkd.service -f
 ```
+
+### ON UPGRADE ERROR 
+
+If you run into an error you can ask help on the [Discord Channel](https://discord.com/channels/973149882032468029/973163682030833685)
+
 
