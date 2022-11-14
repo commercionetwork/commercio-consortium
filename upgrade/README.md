@@ -1,6 +1,9 @@
 # Upgrades
 
-## [Upgrade instructions from 3.1.0 to 4.0.0 Commercio Network Chain (WIP)](./3.1.0-4.0.0/en/README.md)
+## [Upgrade instructions from 4.1.0 to 4.2.0 Commercio Network Chain (WIP)](./4.1.0-4.2.0/en/README.md)
+
+## [Upgrade instructions from 4.0.0 to 4.1.0 Commercio Network Chain](./4.0.0-4.1.0/en/README.md)
+## [Upgrade instructions from 3.1.0 to 4.0.0 Commercio Network Chain](./3.1.0-4.0.0/en/README.md)
 
 ## [Upgrade instructions from 3.0.0/3.0.1 to 3.1.0 Commercio Network Chain](./3.0.0-3.1.0/en/README.md)
 
