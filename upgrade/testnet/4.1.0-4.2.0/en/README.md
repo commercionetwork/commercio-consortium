@@ -65,11 +65,11 @@ Download the repo from GitHub **if you have not already done**. If you have alre
 git clone https://github.com/commercionetwork/commercionetwork.git
 ```
 
-Go to the repo folder, checkout to the main-4.2.0 branch and build the application
+Go to the repo folder, checkout to the v4.2.0-pre.1 tag and build the application
 
 ```bash
 cd commercionetwork
-git fetch --tags && git checkout main-4.2.0
+git fetch --tags && git checkout v4.2.0-pre.1
 make build
 ```
 
@@ -84,8 +84,8 @@ The result should be
 ```
 name: commercionetwork
 server_name: commercionetword
-version: 4.1.0-7-g3bb2fc4e
-commit: 3bb2fc4e2988e27042ddd6a61c6e2c2f1ae3e744
+version: 4.2.0-pre.1
+commit: 14258e6acb39f12e6ab44392d5694bd6e2c647ed
 build_tags: netgo,ledger
 go: go version go1.18.8 linux/amd64
 ....
