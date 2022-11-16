@@ -207,7 +207,7 @@ addr = "tcp://10.1.1.254:26658"
 chain_id = "xxxx"
 reconnect = true
 secret_key = "/data_tmkms/tmkms/kms/base/secrets/secret_connection.key"
-protocol_version = "v0.33" 
+protocol_version = "v0.34" 
 
 [[providers.yubihsm]]
 adapter = { type = "usb" }
@@ -333,7 +333,7 @@ addr = "tcp://10.1.1.1:26658"
 chain_id = "commercio-3"
 reconnect = true
 secret_key = "/data_tmkms/tmkms/kms/commercio/secrets/node1.key"
-protocol_version = "v0.33" 
+protocol_version = "v0.34" 
 
 [[providers.yubihsm]]
 adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
@@ -535,7 +535,7 @@ addr = "tcp://10.1.1.1:26658"
 chain_id = "commercio-3"
 reconnect = true
 secret_key = "/data_tmkms/tmkms/kms/commercio/secrets/node1.key"
-protocol_version = "v0.33" 
+protocol_version = "v0.34" 
 
 [[providers.yubihsm]]
 adapter = { type = "http", addr = "tcp://127.0.0.1:12345" }
