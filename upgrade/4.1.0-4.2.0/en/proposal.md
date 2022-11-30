@@ -7,7 +7,7 @@ This upgrade introduces the update to the latest stable sdk v0.45.11 of cosmos.
 - Upgrade cosmos sdk to version 0.45.11
 - Add setup upgrade handler
 - Change did verification method validation
-- Change docs publishing method
+- Fix App Name
 ---
 - [Upgrade time prediction](https://mainnet.commercio.network/blocks/detail/6224800)
 
