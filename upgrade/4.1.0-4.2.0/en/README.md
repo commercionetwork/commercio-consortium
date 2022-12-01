@@ -1,4 +1,4 @@
-# Upgrade instructions from version 4.1.0 (4.0.0) to version 4.2.0 Commercio Network Chain (WIP)
+# Upgrade instructions from version 4.1.0 (4.0.0) to version 4.2.0 Commercio Network Chain
 
 ## Prerequisites
 
@@ -20,19 +20,18 @@
 
 This upgrade will be performed with a proposal. The proposals are shown here
 
-https://mainnet.commercio.network/proposals/
+https://mainnet.commercio.network/proposals/detail/3
 
 When a upgrade proposal passed the chain will halted at the height indicated in the proposal.
 
 You can verify the approximate date when the upgrade will be performed putting the height in the follow link
 
-https://mainnet.commercio.network/blocks/detail/{HALT-HEIGHT}
+https://mainnet.commercio.network/blocks/detail/6225000
 
-where `HALT-HEIGHT` is the height of upgrade.
 
-Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
+Any validator and any user who has staked their tokens can vote the proposal. After one day of voting, the proposal will close and if it passes the update will be performed at the proposed height.
 
-You can use the command line interface to vote **Yes**, **No**, **Abstain** or **NoWithVeto**.
+You can use the command line interface to vote **yes**, **no**, **abstain** or **no_with_veto**.
 
 ```bash
 commercionetworkd tx gov vote \
@@ -83,11 +82,11 @@ The result should be
 
 ```
 name: commercionetwork
-server_name: commercionetword
+server_name: commercionetworkd
 version: 4.2.0
-commit: ----
+commit: 5c1e433c3bd60d86d8c852c76ebf2e0fe995bbb2
 build_tags: netgo,ledger
-go: go version go1.18.3 linux/amd64
+go: go version go1.19.1 linux/amd64
 build_deps:
 ```
 
