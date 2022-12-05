@@ -9,7 +9,7 @@
 
 ## Raccomandations
 
-1. To perform the update quickly and make it easy use `cosmovisor` tools
+1. To perform the update quickly and make it easy use `cosmovisor` tools version `v1.0.0+`
 
 
 **Please note**: this upgrade is **MANDATORY**. The nodes that will not upgrade will become incompatible with the chain and they will stop.
@@ -92,9 +92,9 @@ build_deps:
 
 
 ### Cosmovisor installation
-
-**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.     
-**<img src="../img/attetion.png" width="30">WARNING**: **You must install the new binary in the upgrades folder before reaching the height of the update**.       
+**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.    
+**<img src="../img/attetion.png" width="30">WARNING**: you need to have cosmovisor version `v1.0.0+` installed. Check your version with `cosmovisor version` command.     
+**<img src="../img/attetion.png" width="30">WARNING**: **you must install the new binary in the upgrades folder before reaching the height of the update**.       
 From `commercionetwork` repository folder run commands below
 
 ```bash
