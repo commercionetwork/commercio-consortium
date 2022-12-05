@@ -93,7 +93,8 @@ build_deps:
 
 ### Cosmovisor installation
 
-**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.
+**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.     
+**<img src="../img/attetion.png" width="30">WARNING**: **You must install the new binary in the upgrades folder before reaching the height of the update**.       
 From `commercionetwork` repository folder run commands below
 
 ```bash
@@ -101,7 +102,7 @@ mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v4.2.0/bin
 cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v4.2.0/bin/.
 ```
 
-**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
+**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 150Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
 
 - Remove `UNSAFE_SKIP_BACKUP` variable from your service **if you want a backup**
 - Set `UNSAFE_SKIP_BACKUP` to `true` **if you DON'T want a backup**
