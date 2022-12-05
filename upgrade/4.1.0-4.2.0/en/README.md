@@ -177,3 +177,47 @@ journalctl -u commercionetworkd.service -f
 If you run into an error you can ask help on the [Discord Channel](https://discord.com/channels/973149882032468029/973163682030833685)
 
 
+
+## Upgrade cosmovisor
+
+
+Check your cosmovisor version
+
+```bash
+cosmovisor version
+```
+
+If you have the version v0.1.0 upgrade it following istructions below. **You must do it before chain upgrade** 
+
+```bash
+cd $HOME
+```
+If you don't already have `cosmos-sdk` git repository folder clone it
+
+```bash
+git clone https://github.com/cosmos/cosmos-sdk.git
+```
+
+
+```bash
+cd cosmos-sdk
+git fetch
+git checkout cosmovisor/v1.1.0 # Or every cosmovisor version > v1.0.0
+cd cosmovisor
+make cosmovisor
+```
+
+**<img src="../img/attetion.png" width="30">WARNING**: if you choosen a version v1.3.0+ modify your commercionetworkd service adding `run` to cosmovisor (**consider always your env when you modify the service**)
+
+```
+ExecStart=/$HOME/go/bin/cosmovisor run start --home="/$HOME/.commercionetwork" 
+```
+
+
+Stop your `commercionetworkd` service, upgrade cosmovisor and restart the service
+
+```bash
+systemctl stop commercionetworkd.service
+cp cosmovisor $HOME/go/bin
+systemctl start commercionetworkd.service
+```
