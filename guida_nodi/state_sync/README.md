@@ -2,7 +2,7 @@
 
 ## Installere la base software
 Installare un nodo come indicato in 
-[Install a full node](https://docs.commercio.network/nodes/full-node-installation.html) **fermandosi a [4 .Configure the service](https://docs.commercio.network/nodes/full-node-installation.html#_4-configure-the-service)**
+[Install a full node](https://docs.commercio.network/nodes/full-node-installation.html) **fermandosi dopo aver completato [4 .Configure the service](https://docs.commercio.network/nodes/full-node-installation.html#_4-configure-the-service)**
 
 
 
