@@ -11,6 +11,10 @@ Installare un nodo come indicato in
 Sul nodo lanciare i seguenti comandi
 
 ```bash
+apt install -y jq
+```
+
+```bash
 TRUST_RPC1="rpc-mainnet.commercio.network:80"
 TRUST_RPC2="rpc2-mainnet.commercio.network:80"
 CURR_HEIGHT=$(curl -s "http://$TRUST_RPC1/block" | jq -r '.result.block.header.height')
