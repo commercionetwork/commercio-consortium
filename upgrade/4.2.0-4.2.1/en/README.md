@@ -57,10 +57,8 @@ The result should be
 name: commercionetwork
 server_name: commercionetworkd
 version: 4.2.1
-commit: -----
-build_tags: netgo,ledger
-go: go version go1.19.1 linux/amd64
-build_deps:
+commit: 0030f38240b094aeb1c8e11ae23747ae1e5c4eb0
+build_tags: netgo ledger,
 ...
 ```
 
@@ -114,10 +112,8 @@ The result should be
 name: commercionetwork
 server_name: commercionetworkd
 version: 4.2.1
-commit: -----
-build_tags: netgo,ledger
-go: go version go1.19.1 linux/amd64
-build_deps:
+commit: 0030f38240b094aeb1c8e11ae23747ae1e5c4eb0
+build_tags: netgo ledger,
 ...
 ```
 
