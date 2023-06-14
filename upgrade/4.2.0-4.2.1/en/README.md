@@ -19,7 +19,17 @@ This upgrade will be performed with a simple software update. No data migration 
 The upgrade increases the stability of the nodes.   
 Introduces the new documentation about api and node handling.
 
-## Upgrade procedure
+## Upgrade procedure with cosmovisor
+
+**This procedure is valid for cosmivicor installations.**
+
+**<img src="../img/attetion.png" width="30">WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.  
+```bash
+export DAEMON_HOME="$HOME/.commercionetwork"
+echo "export DAEMON_HOME=$DAEMON_HOME" >> ~/.profile
+```
+
+
 
 Download the repo from GitHub if you have not already done. **If you have already the local copy of repository don't try clone it**.
 
@@ -58,9 +68,9 @@ build_deps:
 Stop your `commercionetworkd` service, upgrade the application and restart the service
 
 ```bash
-systemctl stop commercionetworkd.service
+sudo systemctl stop commercionetworkd.service
 cp $HOME/commercionetwork/build/commercionetworkd $DAEMON_HOME/cosmovisor/current/bin/.
-systemctl start commercionetworkd.service
+sudo systemctl start commercionetworkd.service
 ```
 
 
@@ -74,6 +84,58 @@ Install the new version in the `$GOPATH/bin` folder
 
 ```bash
 cp $HOME/commercionetwork/build/commercionetworkd $GOPATH/bin/.
+```
+## Upgrade procedure without cosmovisor
+
+
+Download the repo from GitHub if you have not already done. **If you have already the local copy of repository don't try clone it**.
+
+```bash
+git clone https://github.com/commercionetwork/commercionetwork.git
+```
+
+Go to the repo folder, checkout to the v4.2.1 tag and build the application
+
+```bash
+cd commercionetwork
+git fetch --tags && git checkout v4.2.1
+make build
+```
+
+Check that the application is the right version
+
+```bash
+./build/commercionetworkd version --long
+```
+
+The result should be
+
+```
+name: commercionetwork
+server_name: commercionetworkd
+version: 4.2.1
+commit: -----
+build_tags: netgo,ledger
+go: go version go1.19.1 linux/amd64
+build_deps:
+...
+```
+
+
+Stop your `commercionetworkd` service, upgrade the application and restart the service
+**WARNING**: if you have installed commercionetworkd in a different folder from `$GOPATH/bin` you need to change the path in the following commands.
+
+```bash
+sudo systemctl stop commercionetworkd.service
+cp $HOME/commercionetwork/build/commercionetworkd $GOPATH/bin/.
+sudo systemctl start commercionetworkd.service
+```
+
+
+Wait monitoring from your logs when your node crashes.
+
+```bash
+journalctl -u commercionetworkd.service -f
 ```
 
 
