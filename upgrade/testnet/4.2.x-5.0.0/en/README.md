@@ -22,9 +22,9 @@ This upgrade will be performed with a proposal. The proposals are shown here
 
 https://testnet.commercio.network/proposals/
 
-When a upgrade proposal passed the chain will halted at the height indicated in the proposal.
+When a upgrade proposal passed the chain will halt at the height indicated in the proposal.
 
-You can verify the approximate date when the upgrade will be performed putting the height in the follow link
+You can verify the approximate date when the upgrade will be performed replacing the height in the following link
 
 https://testnet.commercio.network/blocks/detail/{HALT-HEIGHT}
 
@@ -48,7 +48,7 @@ commercionetworkd tx gov vote \
 If you use ledger add `--ledger` flag to the command.
 
 
-You also can use follow web interfaces with keplr support
+You also can use the web interfaces with keplr support
 
 - [Commercio.Network Tesnet explorer](https://testnet.commercio.network/proposals/)
 - [Ping.pub Tesnet Commercio.Network](https://testnet.ping.pub/commercio.network/gov)
@@ -95,7 +95,7 @@ go: go version go1.20.5 linux/amd64
 
 <img src="../img/attetion.png" width="50">**WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.<img src="../img/attetion.png" width="50">
 
-In the most cases the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable setted you can set it with command below
+In the most cases the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set you can set it with command below
 
 ```bash
 export DAEMON_HOME="$HOME/.commercionetwork"
@@ -147,14 +147,14 @@ Wait monitoring from your logs when your node crashes.
 journalctl -u commercionetworkd.service -f
 ```
 
-When the node will be halted you need to chenge the `commercionetworkd` program and start the service.     
-From `commercionetwork` repository folder run commands below
+When the node halts you need to change the `commercionetworkd` program and start the service.     
+From `commercionetwork` repository folder run the command below
 
 ```bash
 cp ./build/commercionetworkd $GOPATH/bin/.
 ```
 
-If you want make a backup coping the `data` folder in a secure place.  
+If you want make a backup copy of the `data` folder in a secure place.  
 
 Remember to revert your service configuration
 
