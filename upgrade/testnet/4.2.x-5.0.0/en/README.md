@@ -154,7 +154,7 @@ From `commercionetwork` repository folder run the command below
 cp ./build/commercionetworkd $GOPATH/bin/.
 ```
 
-If you want make a backup copy of the `data` folder in a secure place.  
+If you want make a backup copy of the `data` folder, put it in a secure place.  
 
 Remember to revert your service configuration
 
