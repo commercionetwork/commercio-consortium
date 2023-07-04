@@ -39,12 +39,12 @@ commercionetworkd tx gov vote \
    PROPOSAL_ID \
    yes \
    --from DELEGATOR_WALLET \
-   --chain-id commercio-3 \
+   --chain-id commercio-testnet11k \
    --fees 10000ucommercio \
    -y
 ```
 
-**PROPOSAL_ID** is the id of proposal (in this case 1).    
+**PROPOSAL_ID** is the id of proposal (in this case 4).    
 If you use ledger add `--ledger` flag to the command.
 
 
