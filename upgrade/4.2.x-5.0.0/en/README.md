@@ -183,9 +183,3 @@ journalctl -u commercionetworkd.service -f
 
 If you run into an error you can ask help on the [Discord Channel](https://discord.com/channels/973149882032468029/973163682030833685)
 
-## After the official release
-
-In the days following the testnet update an official version will be released for use in the mainnet.   
-The official version may be replaced on the testnet independently by each node.     
-
-
