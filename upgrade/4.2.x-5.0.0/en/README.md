@@ -74,7 +74,7 @@ Check that the application is the right version
 ./build/commercionetworkd version --long
 ```
 
-The result should be
+The result should be (commit will be released soon)
 
 ```
 name: commercionetwork
