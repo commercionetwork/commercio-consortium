@@ -26,7 +26,7 @@ When a upgrade proposal passed the chain will halt at the height indicated in th
 
 You can verify the approximate date when the upgrade will be performed with the following link
 
-https://mainnet.commercio.network/blocks/detail/9330000
+https://mainnet.commercio.network/blocks/detail/9331200
 
 Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
 
