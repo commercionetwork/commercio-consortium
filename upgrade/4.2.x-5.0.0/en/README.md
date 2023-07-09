@@ -78,10 +78,10 @@ The result should be (commit will be released soon)
 
 ```
 name: commercionetwork
-server_name: commercionetword
+server_name: commercionetworkd
 version: 5.0.0
-commit: --------
-build_tags: netgo,ledger
+commit: 2e4ebe77cd096fd1cd669b59ff68a40e886d5f15
+build_tags: netgo ledger,
 go: go version go1.20.5 linux/amd64
 ....
 ```
