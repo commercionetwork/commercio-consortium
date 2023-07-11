@@ -65,6 +65,8 @@ Go to the repo folder, checkout to the `v5.0.0` tag and build the application
 ```bash
 cd commercionetwork
 git fetch --tags && git checkout v5.0.0
+git pull
+git checkout v5.0.0
 make build
 ```
 
@@ -74,7 +76,7 @@ Check that the application is the right version
 ./build/commercionetworkd version --long
 ```
 
-The result should be (commit will be released soon)
+The result should be
 
 ```
 name: commercionetwork
@@ -108,6 +110,25 @@ source ~/.profile
 mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v5.0.0/bin
 cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v5.0.0/bin/.
 ```
+
+Check that the application is the right version
+
+```bash
+$DAEMON_HOME/cosmovisor/upgrades/v5.0.0/bin/commercionetworkd version --long
+```
+
+The result should be
+
+```
+name: commercionetwork
+server_name: commercionetworkd
+version: 5.0.0
+commit: 2e4ebe77cd096fd1cd669b59ff68a40e886d5f15
+build_tags: netgo ledger,
+go: go version go1.20.5 linux/amd64
+....
+```
+
 
 **<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
 
