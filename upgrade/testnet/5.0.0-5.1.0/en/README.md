@@ -14,7 +14,7 @@
 
 **Please note**: this upgrade is **MANDATORY**. The nodes that will not upgrade will become incompatible with the chain and they will stop.
 
-**Please note**: if you install a new node from the [state sync](https://docs.commercio.network/nodes/statesync-node-installation.html).
+**Please note**: if you install a new node do it with the [statesync procedure](https://docs.commercio.network/nodes/statesync-node-installation.html).
 
 ## Upgrade info
 
@@ -22,7 +22,7 @@ This upgrade will be performed with a proposal. The proposals are shown here
 
 https://testnet.commercio.network/proposals/
 
-When a upgrade proposal passed the chain will halt at the height indicated in the proposal.
+When the upgrade proposal passed the chain will halt at the height indicated in the proposal.
 
 You can verify the approximate date when the upgrade will be performed replacing the height in the following link
 
@@ -56,7 +56,7 @@ You also can use the web interfaces with keplr support
 
 ## Upgrade procedure
 
-Download the repo from GitHub **if you have not already done**. If you have already the local copy of repository don't try clone it.
+Download the repo from GitHub **if you have not already done so**. If you already have the local copy of repository don't try clone it.
 
 ```bash
 git clone https://github.com/commercionetwork/commercionetwork.git
@@ -99,7 +99,7 @@ build_deps:
 
 <img src="../img/attetion.png" width="50">**WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.<img src="../img/attetion.png" width="50">
 
-In the most cases the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set you can set it with command below
+In most cases, the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set you can set it with command below
 
 ```bash
 export DAEMON_HOME="$HOME/.commercionetwork"
@@ -115,7 +115,7 @@ mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin
 cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin/.
 ```
 
-**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't setup `UNSAFE_SKIP_BACKUP` variable a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies for example 60Gb you need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
+**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't set the `UNSAFE_SKIP_BACKUP` variable, a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies, for example, 60Gb, you will need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
 
 - Set `UNSAFE_SKIP_BACKUP` to `false` **if you want a backup**
 - Set `UNSAFE_SKIP_BACKUP` to `true` **if you DON'T want a backup**
@@ -126,7 +126,7 @@ cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin/.
 
 **<img src="../img/attetion.png" width="30">WARNING**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
 
-Few hours before upgrade setup your `commercionetworkd` service changing the line
+Few hours before the upgrade, set up your `commercionetworkd` service by changing the line
 
 ```ini
 Restart=always
@@ -158,7 +158,7 @@ From `commercionetwork` repository folder run the command below
 cp ./build/commercionetworkd $GOPATH/bin/.
 ```
 
-If you want make a backup copy of the `data` folder, put it in a secure place.  
+If you want to make a backup copy of the `data` folder and save it in a secure place.  
 
 Remember to revert your service configuration
 
