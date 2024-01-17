@@ -26,9 +26,7 @@ When the upgrade proposal passed the chain will halt at the height indicated in 
 
 You can verify the approximate date when the upgrade will be performed replacing the height in the following link
 
-https://testnet.commercio.network/blocks/detail/{HALT-HEIGHT}
-
-where `HALT-HEIGHT` is the height of upgrade.
+https://testnet.commercio.network/blocks/detail/16517800
 
 Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
 
@@ -56,7 +54,7 @@ You also can use the web interfaces with keplr support
 
 ## Upgrade procedure
 
-Download the repo from GitHub **if you have not already done so**. If you already have the local copy of repository don't try clone it.
+Download the repo from GitHub **if you have not already done so**. If you already have the local copy of repository don't try to clone it.
 
 ```bash
 git clone https://github.com/commercionetwork/commercionetwork.git
@@ -97,7 +95,7 @@ build_deps:
 
 
 
-<img src="../img/attetion.png" width="50">**WARNING**: you need to setup cosmovisor env, mainly `$DAEMON_HOME` variable.<img src="../img/attetion.png" width="50">
+<img src="../img/attetion.png" width="50">**WARNING**: you need to set up cosmovisor env, mainly `$DAEMON_HOME` variable.<img src="../img/attetion.png" width="50">
 
 In most cases, the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set you can set it with command below
 
@@ -115,7 +113,7 @@ mkdir -p $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin
 cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin/.
 ```
 
-**<img src="../img/attetion.png" width="30">WARNING**: You need to setup backup strategies. If you don't set the `UNSAFE_SKIP_BACKUP` variable, a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies, for example, 60Gb, you will need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to setup your cosmovisor.   
+**<img src="../img/attetion.png" width="30">WARNING**: You need to set up backup strategies. If you don't set the `UNSAFE_SKIP_BACKUP` variable, a backup of your `data` folder will be performed before the upgrade. If `data` folder occupies, for example, 60Gb, you will need an equal or greater amount of free space on your disk to perform the backup. Read [here](./setup_cosmovisor.md) how to set up your cosmovisor.   
 
 - Set `UNSAFE_SKIP_BACKUP` to `false` **if you want a backup**
 - Set `UNSAFE_SKIP_BACKUP` to `true` **if you DON'T want a backup**
