@@ -7,7 +7,7 @@
 2. Have all the tools on the server to compile the application as mentioned in the first paragraph at [Installing the software requirements](https://docs.commercio.network/nodes/full-node-installation.html#_1-installing-the-software-requirements)
 
 
-## Raccomandations
+## Recommendations
 
 1. To perform the update quickly and make it easy use `cosmovisor` tools
 
