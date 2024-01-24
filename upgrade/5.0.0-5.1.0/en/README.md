@@ -48,8 +48,8 @@ If you use ledger add `--ledger` flag to the command.
 
 You also can use the web interfaces with keplr support
 
-- [Commercio.Network Tesnet explorer](https://mainnet.commercio.network/proposals/)
-- [Ping.pub Tesnet Commercio.Network](https://ping.pub/commercio.network/gov)
+- [Commercio.Network Mainet explorer](https://mainnet.commercio.network/proposals/)
+- [Ping.pub Mainet Commercio.Network](https://ping.pub/commercio.network/gov)
 
 
 ## Upgrade procedure
