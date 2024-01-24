@@ -9,7 +9,7 @@
 
 ## Recommendations
 
-1. To perform the update quickly and make it easy use `cosmovisor` tools
+1. To perform the update quickly and make it easy, use `cosmovisor` tools
 
 
 **Please note**: this upgrade is **MANDATORY**. The nodes that will not upgrade will become incompatible with the chain and they will stop.
@@ -22,13 +22,13 @@ This upgrade will be performed with a proposal. The proposals are shown here
 
 https://mainnet.commercio.network/proposals/
 
-When the upgrade proposal passed the chain will halt at the height indicated in the proposal.
+When the upgrade proposal passed, the chain will halt at the height indicated in the proposal.
 
 You can verify the approximate date when the upgrade will be performed replacing the height in the following link
 
 https://mainnet.commercio.network/blocks/detail/{HALT_HEIGHT}
 
-Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes the update will be performed at the proposed height.
+Any validator and any user who has staked their tokens can vote the proposal. After two days of voting, the proposal will close and if it passes, the update will be performed at the proposed height.
 
 You can use the command line interface to vote **Yes**, **No**, **Abstain** or **NoWithVeto**.
 
@@ -97,7 +97,7 @@ build_deps:
 
 <img src="../img/attetion.png" width="50">**WARNING**: you need to set up cosmovisor env, mainly `$DAEMON_HOME` variable.<img src="../img/attetion.png" width="50">
 
-In most cases, the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set you can set it with command below
+In most cases, the value of `$DAEMON_HOME` variable is `$HOME/.commercionetwork`. If you don't have this variable set, you can set it with command below
 
 ```bash
 export DAEMON_HOME="$HOME/.commercionetwork"
@@ -122,7 +122,7 @@ cp ./build/commercionetworkd $DAEMON_HOME/cosmovisor/upgrades/v5.1.0/bin/.
 ### Generic installation (**WITHOUT COSMOVISOR**)
 
 
-**<img src="../img/attetion.png" width="30">WARNING**: the path where the executable is installed depends on your environment. In the following it is indicated with $GOPATH.
+**<img src="../img/attetion.png" width="30">WARNING**: the path where the executable is installed depends on your environment. In the following, it is indicated with $GOPATH.
 
 Few hours before the upgrade, set up your `commercionetworkd` service by changing the line
 
@@ -150,7 +150,7 @@ journalctl -u commercionetworkd.service -f
 ```
 
 When the node halts you need to change the `commercionetworkd` program and start the service.     
-From `commercionetwork` repository folder run the command below
+From `commercionetwork` repository folder, run the command below
 
 ```bash
 cp ./build/commercionetworkd $GOPATH/bin/.
@@ -164,7 +164,7 @@ Remember to revert your service configuration
 #Restart=always
 Restart=no
 ```
-in
+to
 ```
 Restart=always
 ```
@@ -189,7 +189,7 @@ If you run into an error you can ask help on the [Discord Channel](https://disco
 
 ## After the official release
 
-In the days following the mainnet update an official version will be released for use in the mainnet.   
+In the days following the mainnet update, an official version will be released for use in the mainnet.   
 The official version may be replaced on the mainnet independently by each node.     
 
 
