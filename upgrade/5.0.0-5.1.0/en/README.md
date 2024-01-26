@@ -81,12 +81,10 @@ The result should be
 name: commercionetwork
 server_name: commercionetworkd
 version: 5.1.0
-commit: da3b489683ff6eae7333d324b91b326ccce21429
+commit: 163fa7a57a71f69295129c216135ff370b717dcc
 build_tags: netgo,ledger
 go: go version go1.21.6 linux/amd64
 build_deps:
-- cosmossdk.io/api@v0.2.6
-- cosmossdk.io/core@v0.5.1
 ....
 ```
 
